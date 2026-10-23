@@ -303,16 +303,49 @@ body.isd-hidden .isd-sidebar {
 	transform: rotate(180deg);
 }
 
+/* switching modules reads as one movement: a group's list opens and closes by
+   animating its row height (grid 0fr -> 1fr) while the chevron turns, and its
+   modules fade in one after another */
+.isd-group {
+	display: grid;
+	grid-template-rows: auto 0fr;
+	transition: grid-template-rows 240ms var(--isd-ease);
+}
+
+.isd-group.is-open {
+	grid-template-rows: auto 1fr;
+}
+
+.isd-items-wrap {
+	min-height: 0;
+	overflow: hidden;
+	/* closed lists leave the tab order once they finish closing */
+	visibility: hidden;
+	transition: visibility 0s linear 240ms;
+}
+
+.isd-group.is-open .isd-items-wrap {
+	visibility: visible;
+	transition-delay: 0s;
+}
+
 .isd-items {
-	display: none;
 	margin: 2px 0 6px 19px;
 	padding-left: 10px;
 	border-left: 1px solid var(--isd-side-rule);
 	list-style: none;
 }
 
-.isd-group.is-open .isd-items {
-	display: block;
+.isd-items > li {
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity 160ms ease-out, transform 240ms var(--isd-ease);
+}
+
+.isd-group.is-open .isd-items > li {
+	opacity: 1;
+	transform: none;
+	transition-delay: calc(var(--i, 0) * 22ms);
 }
 
 .isd-item {
@@ -325,6 +358,11 @@ body.isd-hidden .isd-sidebar {
    rule beside it lights up in the accent, so the highlight sits on structure */
 .isd-item {
 	position: relative;
+	transition: color 180ms ease-out, background-color 160ms ease-out;
+}
+
+.isd-group-btn {
+	transition: color 180ms ease-out, background-color 160ms ease-out;
 }
 
 .isd-item.is-active {
@@ -337,7 +375,9 @@ body.isd-hidden .isd-sidebar {
 	background: var(--isd-side-2);
 }
 
-.isd-items .isd-item.is-active::before {
+/* the mark hands over: it shrinks away from the old module while it grows in
+   beside the new one */
+.isd-items .isd-item::before {
 	content: "";
 	position: absolute;
 	left: -11.5px;
@@ -345,6 +385,12 @@ body.isd-hidden .isd-sidebar {
 	bottom: 5px;
 	width: 2px;
 	background: var(--isd-accent-strong);
+	transform: scaleY(0);
+	transition: transform 260ms var(--isd-ease);
+}
+
+.isd-items .isd-item.is-active::before {
+	transform: scaleY(1);
 }
 
 /* the group holding the current page: its icon carries the accent */
@@ -502,6 +548,7 @@ body.isd-rail .isd-search,
 body.isd-rail .isd-group-btn .isd-text,
 body.isd-rail .isd-chevron,
 body.isd-rail .isd-items,
+body.isd-rail .isd-items-wrap,
 body.isd-rail .isd-company .isd-text {
 	display: none !important;
 }
@@ -571,7 +618,18 @@ body.isd-rail .isd-direct-link {
 
 @media (prefers-reduced-motion: reduce) {
 	.isd-chevron,
-	body.isd-on .isd-sidebar {
-		transition: none;
+	body.isd-on .isd-sidebar,
+	.isd-group,
+	.isd-items-wrap,
+	.isd-items > li,
+	.isd-item,
+	.isd-item::before,
+	.isd-group-btn {
+		transition: none !important;
+	}
+
+	.isd-items > li {
+		opacity: 1;
+		transform: none;
 	}
 }

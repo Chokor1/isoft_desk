@@ -99,7 +99,8 @@
 					this.open_flyout(key, e.currentTarget);
 				} else {
 					this.open_key = this.open_key === key ? null : key;
-					this.render();
+					// toggle classes on the existing rows so the open/close animates
+					this.mark_active();
 				}
 			});
 
@@ -276,7 +277,9 @@
 						<span class="isd-text">${esc(group.label)}</span>
 						<span class="isd-chevron">${icon("small-down", "sm")}</span>
 					</button>
-					<ul class="isd-items">${group.items.map((item) => this.item_html(item)).join("")}</ul>
+					<div class="isd-items-wrap">
+						<ul class="isd-items">${group.items.map((item, i) => this.item_html(item, i)).join("")}</ul>
+					</div>
 				</div>`;
 			}).join("");
 		},
@@ -292,9 +295,10 @@
 			</div>`;
 		},
 
-		item_html(item) {
+		item_html(item, index) {
 			const is_active = this.active && this.active.item_name === item.name;
-			return `<li>
+			// --i staggers the fade-in when the group opens (capped so long lists stay quick)
+			return `<li style="--i:${Math.min(index || 0, 8)}">
 				<a class="isd-item${is_active ? " is-active" : ""}" href="/app/${esc(item.route)}"
 					title="${esc(item.label)}" ${is_active ? 'aria-current="page"' : ""}>
 					<span class="isd-text">${esc(item.label)}</span>
