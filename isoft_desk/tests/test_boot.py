@@ -20,7 +20,7 @@ class TestBoot(unittest.TestCase):
 		self.assertIn("posapp", payload["hidden_routes"])
 		routes = [i["route"] for g in payload["groups"] for i in g["items"]]
 		self.assertIn("selling", routes)
-		self.assertIn("isoft-invenza", routes)
+		self.assertNotIn("isoft-invenza", routes)
 
 	def test_inactive_gets_only_flag(self):
 		original = boot.get_settings

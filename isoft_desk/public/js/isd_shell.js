@@ -45,7 +45,11 @@
 			this.$side = $(`
 				<aside class="isd-sidebar" aria-label="${esc(t("Main navigation"))}">
 					<div class="isd-head">
-						<a class="isd-logo" href="/app/home" aria-label="ISOFT ERP"></a>
+						<a class="isd-brand-link" href="/app/home" title="ISOFT ERP v${esc(frappe.boot.version || "")}">
+							<img class="isd-logo-full" src="/assets/isoft_desk/images/isoft_erp_logo.png" alt="ISOFT ERP">
+							<img class="isd-logo-mark" src="/assets/isoft_desk/images/isoft_mark.png" alt="ISOFT ERP">
+							${frappe.boot.version ? `<span class="isd-version">v${esc(frappe.boot.version)}</span>` : ""}
+						</a>
 					</div>
 					<div class="isd-search">
 						${icon("search", "sm")}
@@ -129,6 +133,15 @@
 			const route = frappe.get_route() || [];
 			const mode = core.route_mode(route, conf.rail_routes || [], conf.hidden_routes || []);
 			document.body.classList.toggle("isd-hidden", mode === "hidden");
+			const is_form = route[0] === "Form";
+			document.body.classList.toggle("isd-form", is_form);
+			if (is_form) {
+				// core draws the toggle icon for a visible column; refresh it for the hidden one
+				setTimeout(() => {
+					const page = window.cur_frm && cur_frm.page;
+					if (page && page.update_sidebar_icon) page.update_sidebar_icon();
+				}, 300);
+			}
 			this.forced_rail = mode === "rail";
 			this.apply_rail(this.rail_pref);
 

@@ -22,14 +22,9 @@ def _boot_session(bootinfo):
 		bootinfo.isoft_desk = {"active": False}
 		return
 
-	page_info = bootinfo.get("page_info") or {}
 	bootinfo.isoft_desk = {
 		"active": True,
-		"groups": build_groups(
-			get_desk_sidebar_items(),
-			list(page_info),
-			{name: info.get("title") for name, info in page_info.items()},
-		),
+		"groups": build_groups(get_desk_sidebar_items()),
 		"rail_routes": RAIL_ROUTES,
 		"hidden_routes": HIDDEN_ROUTES,
 		"count_workspaces": workspaces_with_counts(),

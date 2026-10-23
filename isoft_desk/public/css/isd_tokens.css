@@ -1,14 +1,16 @@
 /* ISOFT Desk tokens. Everything is scoped to body.isd-on so a user outside the
    pilot (or a site with the app switched off) keeps the standard desk. */
 body.isd-on {
-	--isd-navy: #0f2236;
-	--isd-navy-2: #18324d;
-	--isd-navy-3: #213f5f;
-	--isd-navy-rule: #223e5b;
-	--isd-navy-ink: #c9d6e2;
-	--isd-navy-ink-2: #93abc2;
-	--isd-navy-strong: #ffffff;
-	--isd-brand: #3fb5ff;
+	/* the sidebar follows the desk theme: a white panel in light, deep slate in dark */
+	--isd-side: #ffffff;
+	--isd-side-2: #eef2f5;
+	--isd-side-3: #e4f1f9;
+	--isd-side-rule: #e1e6eb;
+	--isd-side-ink: #33424f;
+	--isd-side-ink-2: #5f6f7e;
+	--isd-side-strong: #0b1b2a;
+	--isd-side-active: #006fad;
+	--isd-brand: #006fad;
 
 	--isd-accent: #006fad;
 	--isd-accent-hover: #005a8c;
@@ -49,12 +51,15 @@ html.isd-on[data-theme="dark"] {
 }
 
 [data-theme="dark"] body.isd-on {
-	--isd-navy: #0a1622;
-	--isd-navy-2: #132a40;
-	--isd-navy-3: #1b3652;
-	--isd-navy-rule: #1c3149;
-	--isd-navy-ink: #c3d1de;
-	--isd-navy-ink-2: #8aa1b7;
+	--isd-side: #121c26;
+	--isd-side-2: #1b2733;
+	--isd-side-3: #10314a;
+	--isd-side-rule: #243240;
+	--isd-side-ink: #c3d1de;
+	--isd-side-ink-2: #8a9bab;
+	--isd-side-strong: #ffffff;
+	--isd-side-active: #7accf5;
+	--isd-brand: #4cb8f0;
 
 	--isd-accent: #4cb8f0;
 	--isd-accent-hover: #7accf5;
