@@ -44,3 +44,24 @@ class TestBootCounts(unittest.TestCase):
 		finally:
 			boot.get_settings = original
 		self.assertIn("Accounting", bootinfo.isoft_desk["count_workspaces"])
+
+
+class TestBootSafetyNet(unittest.TestCase):
+	def test_unexpected_error_keeps_the_desk_loading(self):
+		original = boot.get_settings
+
+		def broken():
+			raise RuntimeError("settings table missing")
+
+		boot.get_settings = broken
+		logged = []
+		original_log = frappe.log_error
+		frappe.log_error = lambda *a, **k: logged.append(a)
+		try:
+			bootinfo = frappe._dict()
+			boot.boot_session(bootinfo)
+		finally:
+			boot.get_settings = original
+			frappe.log_error = original_log
+		self.assertEqual(bootinfo.isoft_desk, {"active": False})
+		self.assertTrue(logged)

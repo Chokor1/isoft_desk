@@ -44,3 +44,12 @@ test('favorite_items keeps pin order and drops unknown pins', () => {
 	const out = core.favorite_items(groups, ['Selling', 'Gone', 'Home']);
 	assert.deepStrictEqual(out.map(i => i.name), ['Selling', 'Home']);
 });
+
+test('landing_workspace falls back to the user\'s own first workspace, not a hard-coded Home', () => {
+	const stock_only = [{ key: 'stock', items: [{ type: 'page', name: 'isoft-invenza' }, { type: 'workspace', name: 'Stock' }] }];
+	assert.strictEqual(core.landing_workspace(undefined, null, null, stock_only), 'Stock');
+	assert.strictEqual(core.landing_workspace(undefined, null, 'POS Awesome', stock_only), 'POS Awesome');
+	assert.strictEqual(core.landing_workspace(undefined, 'Selling', 'Home', stock_only), 'Selling');
+	assert.strictEqual(core.landing_workspace('Accounting', 'Selling', 'Home', stock_only), 'Accounting');
+	assert.strictEqual(core.landing_workspace(undefined, null, null, []), 'Home');
+});

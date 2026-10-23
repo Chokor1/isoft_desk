@@ -54,5 +54,18 @@
 		return pinned.map(name => by_name[name]).filter(Boolean);
 	}
 
-	return { route_mode, find_active, filter_groups, favorite_items };
+	// /app with no workspace in the route: the remembered one, else the one core
+	// maps "home" to for this user, else their first workspace, else Home
+	function landing_workspace(route_name, remembered, home_name, groups) {
+		if (route_name) return route_name;
+		if (remembered) return remembered;
+		if (home_name) return home_name;
+		for (const group of groups) {
+			const item = group.items.find(i => i.type === "workspace");
+			if (item) return item.name;
+		}
+		return "Home";
+	}
+
+	return { route_mode, find_active, filter_groups, favorite_items, landing_workspace };
 });

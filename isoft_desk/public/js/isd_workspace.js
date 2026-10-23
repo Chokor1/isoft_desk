@@ -72,7 +72,8 @@
 			} catch (e) {
 				// storage blocked: fall through to Home
 			}
-			return frappe.get_route()[1] || remembered || "Home";
+			const home = frappe.workspaces && frappe.workspaces.home;
+			return window.isd_core.landing_workspace(frappe.get_route()[1], remembered, home && home.name, conf.groups || []);
 		}
 
 		show() {
@@ -149,6 +150,10 @@
 
 		// ---- header ----
 		set_header_actions() {
+			// the page head is shared by every module page: only the one on screen may
+			// write to it, and it starts from a clean head so reloads never duplicate
+			if (this.parent.current !== this) return;
+			this.parent.setup_menu(this.name);
 			const page = this.parent.page;
 			const name = company();
 			// page.set_title_sub targets an element this desk's page template lacks

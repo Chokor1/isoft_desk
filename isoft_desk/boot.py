@@ -7,6 +7,16 @@ from isoft_desk.navigation import HIDDEN_ROUTES, RAIL_ROUTES, build_groups
 
 
 def boot_session(bootinfo):
+	# runs on every desk boot for every user: a failure here must never stop the
+	# desk from loading, it only falls back to the standard desk
+	try:
+		_boot_session(bootinfo)
+	except Exception:
+		frappe.log_error(frappe.get_traceback(), "ISOFT Desk boot failed")
+		bootinfo.isoft_desk = {"active": False}
+
+
+def _boot_session(bootinfo):
 	user = frappe.session.user
 	if not is_active_for(user, frappe.get_roles(user), get_settings()):
 		bootinfo.isoft_desk = {"active": False}

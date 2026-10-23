@@ -73,22 +73,34 @@ def main():
 				context.add_cookies([{"name": "sid", "value": sid, "domain": args.site, "path": "/"}])
 				page = context.new_page()
 				page.on("pageerror", lambda e: errors.append(str(e)))
-				for name, path in ROUTES:
+
+				def visit(path, wait=2500):
 					page.goto(f"https://{args.site}{path}", wait_until="networkidle", timeout=90000)
 					if args.theme:
+						# the user's saved desk theme would win otherwise
 						page.evaluate(f"document.documentElement.setAttribute('data-theme', '{args.theme}')")
-					page.wait_for_timeout(2500)
+					page.wait_for_timeout(wait)
+
+				for name, path in ROUTES:
+					visit(path)
 					page.screenshot(path=f"{args.out}/{name}-{label}.png")
 				if label == "390":
-					page.goto(f"https://{args.site}/app/selling", wait_until="networkidle")
-					page.wait_for_timeout(2000)
+					visit("/app/selling", 2000)
 					page.click(".isd-drawer-btn")
 					page.wait_for_timeout(600)
 					page.screenshot(path=f"{args.out}/mobile.png")
 				if label == "1440":
-					page.goto(f"https://{args.site}/app/selling", wait_until="networkidle")
-					page.wait_for_timeout(2500)
-					page.screenshot(path=f"{args.out}/desktop.png", full_page=True)
+					visit("/app/selling")
+					# this desk scrolls inside .layout-main-section-wrapper (a core edit), so
+					# full_page stops at the viewport; grow the viewport by the hidden height
+					full = page.evaluate("""(() => {
+						const box = [...document.querySelectorAll('.layout-main-section-wrapper')].find(e => e.offsetParent);
+						const hidden = box ? box.scrollHeight - box.clientHeight : 0;
+						return window.innerHeight + Math.max(0, hidden);
+					})()""")
+					page.set_viewport_size({"width": width, "height": full})
+					page.wait_for_timeout(1500)
+					page.screenshot(path=f"{args.out}/desktop.png")
 				context.close()
 			browser.close()
 	finally:
