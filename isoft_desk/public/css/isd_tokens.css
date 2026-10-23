@@ -33,6 +33,19 @@ body.isd-on {
 	--isd-radius: 6px;
 	--isd-ease: cubic-bezier(0.16, 1, 0.3, 1);
 	--isd-shadow-menu: 0 8px 24px rgba(15, 34, 54, 0.18), 0 2px 6px rgba(15, 34, 54, 0.12);
+
+	/* hand the ground and the accent to core components too */
+	--bg-color: var(--isd-ground);
+	--primary: var(--isd-accent);
+	--primary-color: var(--isd-accent);
+}
+
+html.isd-on {
+	background-color: #f4f6f8;
+}
+
+html.isd-on[data-theme="dark"] {
+	background-color: #0e151c;
 }
 
 [data-theme="dark"] body.isd-on {

@@ -33,7 +33,13 @@ def get_counts(workspace, company=None, exclude=None):
 		except Exception:
 			count = None
 
-		rows.append({"doctype": doctype, "label": _(definition["label"], context="ISOFT Desk"), "count": count, "filters": filters})
+		rows.append({
+			"doctype": doctype,
+			"label": _(definition["label"], context="ISOFT Desk"),
+			"count": count,
+			"filters": filters,
+			"tone": definition.get("tone"),
+		})
 		if len(rows) == counts.MAX_TILES:
 			break
 	return rows

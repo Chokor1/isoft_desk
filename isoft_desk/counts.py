@@ -7,17 +7,20 @@ from frappe.model import default_fields
 
 MAX_TILES = 5
 
+# a definition may set "tone": "bad" for states that need action (overdue,
+# rejected); the tile shows its count in the state colour when it is above 0
+
 DEFAULT_COUNTS = [
 	{"workspace": "Home", "doctype": "Sales Order", "filters": [["status", "in", ["To Deliver and Bill", "To Deliver"]]], "label": "To deliver"},
-	{"workspace": "Home", "doctype": "Sales Invoice", "filters": [["status", "=", "Overdue"]], "label": "Overdue invoices"},
+	{"workspace": "Home", "doctype": "Sales Invoice", "filters": [["status", "=", "Overdue"]], "label": "Overdue invoices", "tone": "bad"},
 	{"workspace": "Home", "doctype": "Purchase Order", "filters": [["status", "in", ["To Receive and Bill", "To Receive"]]], "label": "To receive"},
 	{"workspace": "Home", "doctype": "Material Request", "filters": [["docstatus", "=", 1], ["status", "=", "Pending"]], "label": "Material requests pending"},
 
-	{"workspace": "Accounting", "doctype": "Sales Invoice", "filters": [["status", "=", "Overdue"]], "label": "Overdue invoices"},
+	{"workspace": "Accounting", "doctype": "Sales Invoice", "filters": [["status", "=", "Overdue"]], "label": "Overdue invoices", "tone": "bad"},
 	{"workspace": "Accounting", "doctype": "Sales Invoice", "filters": [["docstatus", "=", 1], ["outstanding_amount", ">", 0]], "label": "Unpaid sales invoices"},
 	{"workspace": "Accounting", "doctype": "Purchase Invoice", "filters": [["docstatus", "=", 1], ["outstanding_amount", ">", 0]], "label": "Unpaid purchase invoices"},
 	{"workspace": "Accounting", "doctype": "Journal Entry", "filters": [["docstatus", "=", 0]], "label": "Draft journal entries"},
-	{"workspace": "Accounting", "doctype": "Sales Invoice", "filters": [["docstatus", "=", 1], ["fe_angola_document_status", "=", "I"]], "label": "Rejected by AGT"},
+	{"workspace": "Accounting", "doctype": "Sales Invoice", "filters": [["docstatus", "=", 1], ["fe_angola_document_status", "=", "I"]], "label": "Rejected by AGT", "tone": "bad"},
 
 	{"workspace": "Selling", "doctype": "Quotation", "filters": [["status", "=", "Open"]], "label": "Open quotations"},
 	{"workspace": "Selling", "doctype": "Delivery Note", "filters": [["status", "=", "To Bill"]], "label": "Delivered, not billed"},

@@ -18,6 +18,9 @@
 	const t = (text, replace) => __(text, replace, "ISOFT Desk");
 	const esc = (text) => frappe.utils.escape_html(String(text == null ? "" : text));
 
+	// core shortcut colours that mean "needs action"
+	const SHORTCUT_TONES = { red: "bad", orange: "warn", yellow: "warn" };
+
 	function company() {
 		return frappe.defaults.get_user_default("Company") || "";
 	}
@@ -85,9 +88,19 @@
 				// not remembered; harmless
 			}
 			this.page.set_title(__(name));
+			this.set_breadcrumb(name);
 			this.setup_menu(name);
 			this.current = this.pages[name] || (this.pages[name] = new IsdModulePage(this, name));
 			this.current.show();
+		}
+
+		set_breadcrumb(name) {
+			const active = window.isd_core.find_active(conf.groups || [], ["Workspaces", name]);
+			const group = active && (conf.groups || []).find((g) => g.key === active.group_key);
+			// after core's own breadcrumb pass for this route, which clears the bar
+			setTimeout(() => {
+				$("#navbar-breadcrumbs").html(group ? `<li><span>${esc(group.label)}</span></li>` : "");
+			}, 0);
 		}
 
 		setup_menu(name) {
@@ -178,10 +191,12 @@
 				.sort((a, b) => rank(a) - rank(b));
 			// frappe places the primary button last, so the most important one goes first here
 			creatable.slice(0, MAX_NEW_BUTTONS).forEach((doctype, index) => {
-				const label = t("New {0}", [__(doctype)]);
+				// "+ Sales Invoice": a plus icon instead of "New {0}", which no gendered
+				// language can translate correctly for every DocType
+				const label = __(doctype);
 				const go = () => frappe.new_doc(doctype);
-				if (index === 0) page.set_primary_action(label, go);
-				else page.add_button(label, go);
+				if (index === 0) page.set_primary_action(label, go, "add");
+				else page.add_button(label, go, { icon: "add" });
 			});
 		}
 
@@ -189,12 +204,14 @@
 		render() {
 			this.tiles = this.data.shortcuts.items
 				.map((s) => ({ shortcut: s, filters: stats_filter(s) }))
-				.filter((entry) => entry.filters)
+				// catalogue sizes ("2 181 Available") are not something waiting
+				.filter((entry) => entry.filters && TRANSACTIONS.includes(entry.shortcut.link_to))
 				.slice(0, MAX_TILES)
 				.map((entry) => ({
 					doctype: entry.shortcut.link_to,
 					label: tile_label(entry.shortcut),
 					filters: entry.filters,
+					tone: SHORTCUT_TONES[(entry.shortcut.color || "").toLowerCase()] || null,
 					count: undefined,
 				}));
 			const counted = this.tiles.map((entry) => entry.doctype);
@@ -276,6 +293,7 @@
 					doctype: row.doctype,
 					label: row.label,
 					filters: row.filters,
+					tone: row.tone,
 					count: row.count,
 				}));
 				this.all_tiles = this.tiles.concat(extra);
@@ -312,7 +330,8 @@
 				if (!loading || tile.count !== undefined) {
 					count = tile.count == null ? "—" : esc(format_number(tile.count, null, 0));
 				}
-				return `<a class="isd-tile${tile.count ? "" : " is-zero"}" href="/app/${esc(frappe.router.slug(tile.doctype))}"
+				const tone = tile.tone && tile.count ? ` is-${tile.tone}` : "";
+				return `<a class="isd-tile${tile.count ? "" : " is-zero"}${tone}" href="/app/${esc(frappe.router.slug(tile.doctype))}"
 						data-index="${index}">
 					<span class="isd-tile-count">${count}</span>
 					<span class="isd-tile-label">${esc(tile.label)}</span>

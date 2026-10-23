@@ -17,7 +17,6 @@ Edit Workspace,Editar área de trabalho,ISOFT Desk
 Reset Customizations,Repor personalizações,ISOFT Desk
 Removed page customizations,Personalizações da página removidas,ISOFT Desk
 Loading...,A carregar...,ISOFT Desk
-New {0},Novo {0},ISOFT Desk
 What is waiting,O que está pendente,ISOFT Desk
 Shortcuts,Atalhos,ISOFT Desk
 You need to create these first: ,Precisa de criar primeiro: ,ISOFT Desk
@@ -57,3 +56,4 @@ Pilot Users,Utilizadores piloto
 Pilot Roles,Funções piloto
 "Site-wide switch. Off returns every user to the standard desk.","Interruptor geral do site. Desligado, todos os utilizadores voltam ao ambiente de trabalho padrão."
 "Pilot: only the users and roles below get the new desk. Everyone: all desk users.","Piloto: só os utilizadores e funções abaixo veem o novo ambiente. Todos: todos os utilizadores."
+Search or type a command (Ctrl + G),Pesquisar ou escrever um comando (Ctrl + G)

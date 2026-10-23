@@ -32,6 +32,8 @@
 	}
 
 	document.body.classList.add("isd-on");
+	// html paints the canvas below short pages; it needs the ground colour too
+	document.documentElement.classList.add("isd-on");
 
 	const shell = {
 		groups: conf.groups || [],

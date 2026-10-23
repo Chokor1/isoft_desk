@@ -49,3 +49,9 @@ class TestCounts(unittest.TestCase):
 		for row in rows:
 			self.assertIsInstance(row["count"], int)
 			self.assertGreaterEqual(row["count"], 0)
+
+	def test_overdue_and_rejected_carry_the_bad_tone(self):
+		rows = {r["label"]: r for r in get_counts("Accounting", "ITEC LDA")}
+		self.assertEqual(rows["Overdue invoices"]["tone"], "bad")
+		self.assertEqual(rows["Rejected by AGT"]["tone"], "bad")
+		self.assertIsNone(rows["Draft journal entries"]["tone"])

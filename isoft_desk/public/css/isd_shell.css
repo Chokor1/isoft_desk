@@ -16,6 +16,19 @@ body.isd-on .page-container[data-page-route="Workspaces"] .sidebar-toggle-btn {
 	display: none !important;
 }
 
+/* ---- core components on the ISOFT accent ---- */
+body.isd-on .btn.btn-primary {
+	background-color: var(--isd-accent);
+	color: var(--isd-accent-ink);
+	--icon-stroke: currentColor;
+}
+
+body.isd-on .btn.btn-primary:hover,
+body.isd-on .btn.btn-primary:active {
+	background-color: var(--isd-accent-hover);
+	color: var(--isd-accent-ink);
+}
+
 /* ---- top bar ---- */
 body.isd-on .navbar {
 	background: var(--isd-surface);
@@ -282,7 +295,7 @@ body.isd-hidden .isd-sidebar {
 .isd-item.is-active {
 	background: var(--isd-navy-3);
 	color: var(--isd-navy-strong);
-	box-shadow: inset 2px 0 0 var(--isd-brand);
+	font-weight: 500;
 }
 
 .isd-row {

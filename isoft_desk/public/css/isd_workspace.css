@@ -10,7 +10,8 @@ body.isd-on .isd-ws {
 	display: flex;
 	flex-direction: column;
 	gap: 28px;
-	padding: 4px 0 48px;
+	/* room at the end so the floating assistant button never covers the last links */
+	padding: 4px 0 96px;
 	color: var(--isd-ink);
 	font-variant-numeric: tabular-nums;
 }
@@ -32,7 +33,7 @@ body.isd-on .isd-ws-chart > * {
 /* ---- what is waiting ---- */
 body.isd-on .isd-waiting {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
 	gap: 12px;
 }
 
@@ -71,6 +72,23 @@ body.isd-on .isd-tile.is-zero .isd-tile-count {
 	color: var(--isd-ink-3);
 }
 
+body.isd-on .isd-tile.is-bad .isd-tile-count {
+	color: var(--isd-bad);
+}
+
+body.isd-on .isd-tile.is-warn .isd-tile-count {
+	color: var(--isd-warn);
+}
+
+/* some core translations start lowercase ("cotação"); labels read as names */
+body.isd-on .isd-tile-label::first-letter,
+body.isd-on .isd-tile-doctype::first-letter,
+body.isd-on .isd-quick-link::first-letter,
+body.isd-on .isd-link::first-letter,
+body.isd-on .isd-card h2::first-letter {
+	text-transform: uppercase;
+}
+
 body.isd-on .isd-tile-label {
 	font-size: 13px;
 	font-weight: 500;
@@ -106,8 +124,8 @@ body.isd-on .isd-quick {
 }
 
 body.isd-on .isd-quick-link {
-	display: inline-flex;
-	align-items: center;
+	/* inline-block, not flex: ::first-letter does not apply to flex containers */
+	display: inline-block;
 	min-height: 30px;
 	padding: 5px 12px;
 	border: 1px solid var(--isd-rule-strong);
@@ -139,6 +157,42 @@ body.isd-on .isd-ws-onboarding .widget::after,
 body.isd-on .isd-ws-chart .widget::before,
 body.isd-on .isd-ws-chart .widget::after {
 	display: none !important;
+}
+
+/* one series in the accent, further series in neutral tints, no gradient area:
+   colour is for state, not decoration */
+body.isd-on .isd-ws-chart .dataset-0 .line-graph-path,
+body.isd-on .isd-ws-chart .dataset-0 path {
+	stroke: var(--isd-accent) !important;
+}
+
+body.isd-on .isd-ws-chart .dataset-1 .line-graph-path,
+body.isd-on .isd-ws-chart .dataset-1 path {
+	stroke: var(--isd-ink-3) !important;
+}
+
+body.isd-on .isd-ws-chart .dataset-2 .line-graph-path,
+body.isd-on .isd-ws-chart .dataset-2 path {
+	stroke: var(--isd-rule-strong) !important;
+}
+
+body.isd-on .isd-ws-chart .region-fill {
+	display: none;
+}
+
+body.isd-on .isd-ws-chart .dataset-0 rect.bar,
+body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(1) .legend-dot {
+	fill: var(--isd-accent) !important;
+}
+
+body.isd-on .isd-ws-chart .dataset-1 rect.bar,
+body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(2) .legend-dot {
+	fill: var(--isd-ink-3) !important;
+}
+
+body.isd-on .isd-ws-chart .dataset-2 rect.bar,
+body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(3) .legend-dot {
+	fill: var(--isd-rule-strong) !important;
 }
 
 /* ---- link index ---- */
