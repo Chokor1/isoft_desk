@@ -17,6 +17,15 @@
         "value": "menlo",
         "createdAt": "2026-10-23T12:36:12.988Z",
         "reason": "user asked (2026-10-23) for the loading page to be the login vault interior; its subtitle uses the vault's own monospace (.vi-sub in core login.scss)"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "isoft_desk/public/css/isd_loader.css"
+        ],
+        "createdAt": "2026-10-23T12:37:26.149Z",
+        "reason": "user asked (2026-10-23) for the loading page to be the login vault interior, whose grid is the incumbent .vi-gridlines"
       }
     ]
   }
