@@ -67,5 +67,11 @@
 		return "Home";
 	}
 
-	return { route_mode, find_active, filter_groups, favorite_items, landing_workspace };
+	// the desk theme the login page should open in next time
+	function theme_to_remember(value) {
+		const theme = String(value || "").toLowerCase();
+		return theme === "light" || theme === "dark" ? theme : null;
+	}
+
+	return { route_mode, find_active, filter_groups, favorite_items, landing_workspace, theme_to_remember };
 });

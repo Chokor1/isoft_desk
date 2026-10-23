@@ -1,0 +1,53 @@
+/* ISOFT Desk loading screen: core's splash (every desk load) and the ISOFT boot
+   cover (after the login vault). Both paint before any script runs, so this
+   file cannot know the pilot or the settings switch: it applies wherever the
+   app is installed. The artwork follows the user's desk theme (data-theme is
+   rendered on <html> by the server). Selectors carry an extra html/attribute
+   step because app.html's own <style> comes after this file. */
+
+html .splash img {
+	display: none !important;
+}
+
+html .splash::before {
+	content: "";
+	display: block;
+	width: min(420px, 80vw);
+	aspect-ratio: 520 / 240;
+	background: url("/assets/isoft_desk/images/isd_loader_light.svg") center / contain no-repeat;
+}
+
+html[data-theme="dark"] .splash::before {
+	background-image: url("/assets/isoft_desk/images/isd_loader_dark.svg");
+}
+
+html.isoft-boot:not([data-theme="dark"]) {
+	background: #f4f6f8;
+}
+
+html:not([data-theme="dark"]) .isoft-boot-cover {
+	background: radial-gradient(900px 560px at 50% 45%, rgba(0, 111, 173, 0.08), transparent 60%), #f4f6f8;
+}
+
+html .isoft-boot-cover .ibc-bar {
+	width: min(420px, 80vw);
+	height: auto;
+	aspect-ratio: 520 / 240;
+	border-radius: 0;
+	overflow: visible;
+	background: url("/assets/isoft_desk/images/isd_loader_light.svg") center / contain no-repeat;
+}
+
+html[data-theme="dark"] .isoft-boot-cover .ibc-bar {
+	background-image: url("/assets/isoft_desk/images/isd_loader_dark.svg");
+}
+
+html .isoft-boot-cover .ibc-bar::after {
+	display: none;
+}
+
+/* core's star watermark (body::before) would sit behind the loader; hide it
+   only while the splash is on screen, so the standard desk keeps it after */
+body:has(> .splash)::before {
+	display: none;
+}

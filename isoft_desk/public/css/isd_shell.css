@@ -144,10 +144,22 @@ body.isd-hidden .isd-sidebar {
 	cursor: pointer;
 }
 
-.isd-sidebar :focus-visible {
-	outline: 2px solid var(--isd-brand);
-	outline-offset: -2px;
-	border-radius: var(--isd-radius);
+/* no ring on click (Bootstrap's reboot draws a dark one on button:focus);
+   keyboard focus shows as the hover background instead of a border */
+.isd-sidebar a:focus,
+.isd-sidebar button:focus,
+.isd-menu a:focus,
+.isd-menu button:focus {
+	outline: none !important;
+	box-shadow: none;
+}
+
+.isd-sidebar a:focus-visible,
+.isd-sidebar button:focus-visible,
+.isd-menu a:focus-visible,
+.isd-menu button:focus-visible {
+	background: var(--isd-side-2);
+	color: var(--isd-side-strong);
 }
 
 .isd-head {

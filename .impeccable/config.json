@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "isoft_desk/public/css/isd_login.css"
+        ],
+        "createdAt": "2026-10-23T12:26:29.366Z",
+        "reason": "light recolour of the incumbent vault gridlines (.vi-gridlines in core login.scss, the user's own login design); refinement keeps the incumbent world"
+      }
+    ]
+  }
+}

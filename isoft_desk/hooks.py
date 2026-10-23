@@ -195,6 +195,7 @@ boot_session = "isoft_desk.boot.boot_session"
 # Plain files, no bundling. isd_core.js must load before isd_shell.js.
 app_include_js = [
 	"/assets/isoft_desk/js/isd_core.js",
+	"/assets/isoft_desk/js/isd_theme_memory.js",
 	"/assets/isoft_desk/js/isd_shell.js",
 	"/assets/isoft_desk/js/isd_workspace.js",
 ]
@@ -202,4 +203,10 @@ app_include_css = [
 	"/assets/isoft_desk/css/isd_tokens.css",
 	"/assets/isoft_desk/css/isd_shell.css",
 	"/assets/isoft_desk/css/isd_workspace.css",
+	# the loading screen is styled for every user: it paints before boot
+	"/assets/isoft_desk/css/isd_loader.css",
 ]
+
+# Login page: light or dark from the last desk session in this browser.
+update_website_context = ["isoft_desk.login_theme.update_website_context"]
+web_include_css = ["/assets/isoft_desk/css/isd_login.css"]

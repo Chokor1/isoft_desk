@@ -53,3 +53,10 @@ test('landing_workspace falls back to the user\'s own first workspace, not a har
 	assert.strictEqual(core.landing_workspace('Accounting', 'Selling', 'Home', stock_only), 'Accounting');
 	assert.strictEqual(core.landing_workspace(undefined, null, null, []), 'Home');
 });
+
+test('theme_to_remember keeps only light or dark', () => {
+	assert.strictEqual(core.theme_to_remember('dark'), 'dark');
+	assert.strictEqual(core.theme_to_remember('Light'), 'light');
+	assert.strictEqual(core.theme_to_remember('automatic'), null);
+	assert.strictEqual(core.theme_to_remember(null), null);
+});
