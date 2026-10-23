@@ -1,0 +1,754 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T12:15:50Z",
+  "title": "Design System: ISOFT Desk",
+  "extensions": {
+    "colorMeta": {
+      "isoft-blue": {
+        "role": "primary",
+        "displayName": "ISOFT Blue",
+        "canonical": "#006fad",
+        "tonalRamp": [
+          "#00314c",
+          "#005585",
+          "#0079bd",
+          "#009df5",
+          "#2eb4ff",
+          "#66c8ff",
+          "#a3deff",
+          "#e5f6ff"
+        ]
+      },
+      "isoft-blue-deep": {
+        "role": "primary",
+        "displayName": "ISOFT Blue Deep",
+        "canonical": "#005a8c",
+        "tonalRamp": [
+          "#00314c",
+          "#005585",
+          "#0079bd",
+          "#009df5",
+          "#2eb4ff",
+          "#66c8ff",
+          "#a3deff",
+          "#e5f6ff"
+        ]
+      },
+      "isoft-blue-tint": {
+        "role": "primary",
+        "displayName": "Blue Tint",
+        "canonical": "#e4f1f9",
+        "tonalRamp": [
+          "#0e2c3f",
+          "#184c6c",
+          "#226d9a",
+          "#2d8dc8",
+          "#54a6d9",
+          "#82bee3",
+          "#b4d8ee",
+          "#eaf4fa"
+        ]
+      },
+      "on-accent": {
+        "role": "neutral",
+        "displayName": "On Accent",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5e5e5e",
+          "#7a7a7a",
+          "#969696",
+          "#b2b2b2",
+          "#d1d1d1",
+          "#f2f2f2"
+        ]
+      },
+      "cool-ground": {
+        "role": "neutral",
+        "displayName": "Cool Ground",
+        "canonical": "#f4f6f8",
+        "tonalRamp": [
+          "#1e262f",
+          "#344251",
+          "#495e73",
+          "#5f7a96",
+          "#7f96ae",
+          "#a2b2c3",
+          "#c7d1db",
+          "#eff2f5"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5e5e5e",
+          "#7a7a7a",
+          "#969696",
+          "#b2b2b2",
+          "#d1d1d1",
+          "#f2f2f2"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#14202b",
+        "tonalRamp": [
+          "#182734",
+          "#2a435b",
+          "#3c6081",
+          "#4e7ca7",
+          "#7098bd",
+          "#97b4ce",
+          "#c0d2e2",
+          "#eef2f7"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "#4f5f6f",
+        "tonalRamp": [
+          "#20262d",
+          "#37424d",
+          "#4e5e6e",
+          "#667a8f",
+          "#8596a8",
+          "#a6b2bf",
+          "#c9d1d9",
+          "#f0f2f4"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Ink Faint",
+        "canonical": "#6b7b8a",
+        "tonalRamp": [
+          "#21262b",
+          "#3a434b",
+          "#525f6a",
+          "#6b7b8a",
+          "#8997a4",
+          "#a9b3bc",
+          "#cbd1d7",
+          "#f1f2f4"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#e1e6eb",
+        "tonalRamp": [
+          "#1f262e",
+          "#354250",
+          "#4b5e71",
+          "#627a93",
+          "#8296ab",
+          "#a3b3c2",
+          "#c8d1da",
+          "#f0f2f5"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Rule Strong",
+        "canonical": "#c9d2db",
+        "tonalRamp": [
+          "#1f262e",
+          "#354250",
+          "#4b5e71",
+          "#627a93",
+          "#8296ab",
+          "#a3b2c2",
+          "#c8d1da",
+          "#f0f2f5"
+        ]
+      },
+      "hover-wash": {
+        "role": "neutral",
+        "displayName": "Hover Wash",
+        "canonical": "#eef2f5",
+        "tonalRamp": [
+          "#1c2830",
+          "#314553",
+          "#466277",
+          "#5b7f9a",
+          "#7b9ab2",
+          "#9fb5c6",
+          "#c5d3dd",
+          "#eff3f6"
+        ]
+      },
+      "side-ink": {
+        "role": "neutral",
+        "displayName": "Side Ink",
+        "canonical": "#33424f",
+        "tonalRamp": [
+          "#1e272e",
+          "#344351",
+          "#4a6073",
+          "#607c95",
+          "#8098ad",
+          "#a2b4c3",
+          "#c7d2db",
+          "#f0f2f5"
+        ]
+      },
+      "side-ink-muted": {
+        "role": "neutral",
+        "displayName": "Side Ink Muted",
+        "canonical": "#5f6f7e",
+        "tonalRamp": [
+          "#21262c",
+          "#39434c",
+          "#515f6c",
+          "#697b8c",
+          "#8897a5",
+          "#a8b3bd",
+          "#cbd1d8",
+          "#f0f2f4"
+        ]
+      },
+      "side-strong": {
+        "role": "neutral",
+        "displayName": "Side Strong",
+        "canonical": "#0b1b2a",
+        "tonalRamp": [
+          "#10273d",
+          "#1c4469",
+          "#276096",
+          "#337dc2",
+          "#5998d4",
+          "#86b4df",
+          "#b6d2ec",
+          "#ebf2fa"
+        ]
+      },
+      "state-ok": {
+        "role": "state",
+        "displayName": "State OK",
+        "canonical": "#1f7a4d",
+        "tonalRamp": [
+          "#0f3d27",
+          "#1b6a43",
+          "#26965f",
+          "#32c37b",
+          "#58d597",
+          "#85e0b3",
+          "#b6ecd1",
+          "#ebfaf2"
+        ]
+      },
+      "state-warn": {
+        "role": "state",
+        "displayName": "State Warn",
+        "canonical": "#a15c07",
+        "tonalRamp": [
+          "#492a03",
+          "#7f4906",
+          "#b56708",
+          "#eb860a",
+          "#f6a037",
+          "#f9ba6c",
+          "#fbd5a7",
+          "#fef3e7"
+        ]
+      },
+      "state-bad": {
+        "role": "state",
+        "displayName": "State Bad",
+        "canonical": "#b42318",
+        "tonalRamp": [
+          "#440d09",
+          "#751710",
+          "#a62016",
+          "#d82a1d",
+          "#e65246",
+          "#ed8078",
+          "#f4b3ae",
+          "#fceae8"
+        ]
+      },
+      "dark-blue": {
+        "role": "primary",
+        "displayName": "Sky ISOFT Blue",
+        "canonical": "#4cb8f0",
+        "tonalRamp": [
+          "#063147",
+          "#0a547a",
+          "#0f78ae",
+          "#139be2",
+          "#3eb2ef",
+          "#72c7f3",
+          "#aaddf8",
+          "#e7f6fd"
+        ]
+      },
+      "dark-blue-hover": {
+        "role": "primary",
+        "displayName": "Dark Blue Hover",
+        "canonical": "#7accf5",
+        "tonalRamp": [
+          "#053147",
+          "#09557b",
+          "#0d79b0",
+          "#119de4",
+          "#3db4f0",
+          "#71c8f4",
+          "#aadef9",
+          "#e7f6fd"
+        ]
+      },
+      "dark-blue-tint": {
+        "role": "primary",
+        "displayName": "Dark Blue Tint",
+        "canonical": "#10314a",
+        "tonalRamp": [
+          "#0e2a3f",
+          "#18486d",
+          "#22679b",
+          "#2c85c9",
+          "#53a0da",
+          "#81b9e4",
+          "#b4d5ef",
+          "#eaf3fa"
+        ]
+      },
+      "dark-on-accent": {
+        "role": "neutral",
+        "displayName": "Dark On Accent",
+        "canonical": "#06141f",
+        "tonalRamp": [
+          "#0c2940",
+          "#16486f",
+          "#1f669e",
+          "#2884cd",
+          "#509fdd",
+          "#7fb9e6",
+          "#b2d5f0",
+          "#eaf3fb"
+        ]
+      },
+      "dark-ground": {
+        "role": "neutral",
+        "displayName": "Dark Ground",
+        "canonical": "#0e151c",
+        "tonalRamp": [
+          "#1a2633",
+          "#2c4258",
+          "#3f5e7e",
+          "#527aa3",
+          "#7496b9",
+          "#99b2cc",
+          "#c2d1e0",
+          "#eef2f6"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "Dark Surface",
+        "canonical": "#151f29",
+        "tonalRamp": [
+          "#1a2633",
+          "#2d4258",
+          "#405e7d",
+          "#537aa2",
+          "#7596b8",
+          "#9ab2cb",
+          "#c2d1e0",
+          "#eef2f6"
+        ]
+      },
+      "dark-slate-side": {
+        "role": "neutral",
+        "displayName": "Deep Slate Side",
+        "canonical": "#121c26",
+        "tonalRamp": [
+          "#192634",
+          "#2b425a",
+          "#3d5e80",
+          "#4f7aa6",
+          "#7196bc",
+          "#97b2ce",
+          "#c1d1e1",
+          "#eef2f7"
+        ]
+      },
+      "dark-hover-wash": {
+        "role": "neutral",
+        "displayName": "Dark Hover Wash",
+        "canonical": "#1b2733",
+        "tonalRamp": [
+          "#1a2632",
+          "#2e4257",
+          "#415e7b",
+          "#557aa0",
+          "#7696b7",
+          "#9bb2ca",
+          "#c3d1df",
+          "#eef2f6"
+        ]
+      },
+      "dark-rule": {
+        "role": "neutral",
+        "displayName": "Dark Rule",
+        "canonical": "#243240",
+        "tonalRamp": [
+          "#1c2631",
+          "#304255",
+          "#445e79",
+          "#587a9d",
+          "#7996b4",
+          "#9db2c8",
+          "#c4d1de",
+          "#eff2f6"
+        ]
+      },
+      "dark-rule-strong": {
+        "role": "neutral",
+        "displayName": "Dark Rule Strong",
+        "canonical": "#34475a",
+        "tonalRamp": [
+          "#1c2630",
+          "#314254",
+          "#455e78",
+          "#5a7a9b",
+          "#7a96b2",
+          "#9eb2c7",
+          "#c5d1dd",
+          "#eff2f6"
+        ]
+      },
+      "dark-ink": {
+        "role": "neutral",
+        "displayName": "Dark Ink",
+        "canonical": "#e6edf3",
+        "tonalRamp": [
+          "#192734",
+          "#2b445a",
+          "#3d617f",
+          "#4f7ea5",
+          "#7299bb",
+          "#98b5cd",
+          "#c1d2e1",
+          "#eef3f7"
+        ]
+      },
+      "dark-ink-muted": {
+        "role": "neutral",
+        "displayName": "Dark Ink Muted",
+        "canonical": "#a3b3c2",
+        "tonalRamp": [
+          "#1e262e",
+          "#354350",
+          "#4b5f71",
+          "#627b93",
+          "#8197ac",
+          "#a3b3c2",
+          "#c8d1da",
+          "#f0f2f5"
+        ]
+      },
+      "dark-ink-faint": {
+        "role": "neutral",
+        "displayName": "Dark Ink Faint",
+        "canonical": "#8696a6",
+        "tonalRamp": [
+          "#20262c",
+          "#38424c",
+          "#505e6d",
+          "#687a8d",
+          "#8796a6",
+          "#a7b2be",
+          "#cad1d8",
+          "#f0f2f4"
+        ]
+      },
+      "dark-side-ink": {
+        "role": "neutral",
+        "displayName": "Dark Side Ink",
+        "canonical": "#c3d1de",
+        "tonalRamp": [
+          "#1b2731",
+          "#2f4356",
+          "#435f7a",
+          "#577c9e",
+          "#7898b5",
+          "#9cb3c9",
+          "#c4d2de",
+          "#eff2f6"
+        ]
+      },
+      "dark-side-ink-muted": {
+        "role": "neutral",
+        "displayName": "Dark Side Ink Muted",
+        "canonical": "#8a9bab",
+        "tonalRamp": [
+          "#20262d",
+          "#37434d",
+          "#4f5f6e",
+          "#667b8e",
+          "#8597a8",
+          "#a6b3bf",
+          "#cad1d9",
+          "#f0f2f4"
+        ]
+      },
+      "dark-state-ok": {
+        "role": "state",
+        "displayName": "Dark State OK",
+        "canonical": "#4cc38a",
+        "tonalRamp": [
+          "#133927",
+          "#216344",
+          "#2f8d60",
+          "#3db77d",
+          "#62cb99",
+          "#8cd9b4",
+          "#bae8d2",
+          "#ecf9f3"
+        ]
+      },
+      "dark-state-warn": {
+        "role": "state",
+        "displayName": "Dark State Warn",
+        "canonical": "#e7a54a",
+        "tonalRamp": [
+          "#442b09",
+          "#754a10",
+          "#a76a16",
+          "#d8891d",
+          "#e7a346",
+          "#edbc78",
+          "#f4d7ae",
+          "#fcf4e8"
+        ]
+      },
+      "dark-state-bad": {
+        "role": "state",
+        "displayName": "Dark State Bad",
+        "canonical": "#f2766b",
+        "tonalRamp": [
+          "#460b06",
+          "#7a140b",
+          "#ad1c0f",
+          "#e12414",
+          "#ee4d3f",
+          "#f37d72",
+          "#f8b1ab",
+          "#fde9e8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "count": {
+        "displayName": "Count",
+        "purpose": "Waiting-tile numbers; the largest type the shell adds."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Tile labels, quick links, sidebar group buttons."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Sidebar items, index links, module context line."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Tile DocType line, sidebar version, tooltips."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase link-index card headings."
+      },
+      "label-small": {
+        "displayName": "Label Small",
+        "purpose": "Uppercase sidebar section labels and menu titles."
+      }
+    },
+    "shadows": [
+      {
+        "name": "menu",
+        "value": "0 8px 24px rgba(15, 34, 54, 0.18), 0 2px 6px rgba(15, 34, 54, 0.12)",
+        "purpose": "Company menu, rail flyouts, disabled-link tooltip (light)."
+      },
+      {
+        "name": "menu-dark",
+        "value": "0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4)",
+        "purpose": "Same floating surfaces in dark theme."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 3px var(--isd-accent-soft)",
+        "purpose": "Top-bar search on focus."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one shared ease for every shell transition."
+      },
+      {
+        "name": "tile-hover",
+        "value": "140ms",
+        "purpose": "Tile border and background on hover."
+      },
+      {
+        "name": "chevron",
+        "value": "160ms",
+        "purpose": "Group chevron rotation."
+      },
+      {
+        "name": "drawer",
+        "value": "220ms",
+        "purpose": "Off-canvas sidebar slide below 992px."
+      },
+      {
+        "name": "shimmer",
+        "value": "1.2s linear infinite",
+        "purpose": "Count skeleton; disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "576px",
+        "purpose": "Index to 1 column, tiles to 2 columns."
+      },
+      {
+        "name": "lg",
+        "value": "992px",
+        "purpose": "Sidebar becomes a 272px drawer; rail disabled; index to 2 columns below."
+      },
+      {
+        "name": "xl",
+        "value": "1280px",
+        "purpose": "Index 3 columns below, 4 at and above."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Sidebar",
+      "kind": "nav",
+      "refersTo": "sidebar",
+      "description": "Theme-following desk sidebar: logo lockup with version, search, section label, group with open item list, active item in accent on tint, company foot.",
+      "html": "<aside class=\"ds-side\"><div class=\"ds-head\"><strong class=\"ds-logo\">ISOFT ERP</strong><span class=\"ds-ver\">v1.3.0</span></div><input class=\"ds-search\" placeholder=\"Search modules\"><div class=\"ds-label\">Modules</div><button class=\"ds-group\">Finance<span><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M6 9l6 6 6-6\"/></svg></span></button><button class=\"ds-group is-open\">Sales<span><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M6 9l6 6 6-6\"/></svg></span></button><ul class=\"ds-items\"><li><a class=\"ds-item is-active\" href=\"#\">Selling</a></li><li><a class=\"ds-item\" href=\"#\">CRM</a></li></ul><div class=\"ds-foot\"><span>ITEC LDA<small>Company</small></span></div></aside>",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-side{width:232px;background:var(--isd-side);border-right:1px solid var(--isd-side-rule);color:var(--isd-side-ink);line-height:1.35;display:flex;flex-direction:column}.ds-head{height:52px;display:flex;align-items:flex-end;gap:8px;padding:0 18px 14px}.ds-logo{color:var(--isd-accent);font-size:18px}.ds-ver{font-size:12px;line-height:1;color:var(--isd-side-ink-2)}.ds-search{margin:4px 12px 8px;height:32px;padding:0 10px;border:1px solid var(--isd-side-rule);border-radius:var(--isd-radius);background:var(--isd-side-2);font:inherit}.ds-search:focus{outline:none;border-color:var(--isd-accent)}.ds-label{padding:14px 18px 6px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-group{display:flex;justify-content:space-between;align-items:center;margin:0 8px;min-height:34px;padding:7px 10px;border:0;background:none;border-radius:var(--isd-radius);font:inherit;font-weight:500;color:var(--isd-side-ink);cursor:pointer;text-align:left}.ds-group:hover,.ds-item:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-group.is-open{color:var(--isd-side-strong)}.ds-group.is-open svg{transform:rotate(180deg)}.ds-group svg{transition:transform 160ms var(--isd-ease)}.ds-group:focus-visible,.ds-item:focus-visible{outline:2px solid var(--isd-accent);outline-offset:-2px}.ds-items{list-style:none;margin:2px 8px 6px 27px;padding-left:10px;border-left:1px solid var(--isd-side-rule)}.ds-item{display:block;min-height:30px;padding:6px 8px 6px 10px;border-radius:var(--isd-radius);color:var(--isd-side-ink);text-decoration:none}.ds-item.is-active{background:var(--isd-side-3);color:var(--isd-side-active);font-weight:600}.ds-foot{margin-top:12px;padding:8px 16px;border-top:1px solid var(--isd-side-rule)}.ds-foot small{display:block;font-size:11px;color:var(--isd-side-ink-2)}"
+    },
+    {
+      "name": "Waiting Tiles",
+      "kind": "card",
+      "refersTo": "waiting-tile",
+      "description": "Module-page lead: whole tile links to the filtered list; count large, label, DocType; zero goes faint, a toned count above zero takes the state colour.",
+      "html": "<div class=\"ds-wait\"><a class=\"ds-tile\" href=\"#\"><span class=\"ds-count\">34</span><span class=\"ds-tl\">To deliver</span><span class=\"ds-dt\">Sales Order</span></a><a class=\"ds-tile is-bad\" href=\"#\"><span class=\"ds-count\">7</span><span class=\"ds-tl\">Overdue invoices</span><span class=\"ds-dt\">Sales Invoice</span></a><a class=\"ds-tile is-zero\" href=\"#\"><span class=\"ds-count\">0</span><span class=\"ds-tl\">Draft journal entries</span><span class=\"ds-dt\">Journal Entry</span></a></div>",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-wait{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px;font-variant-numeric:tabular-nums}.ds-tile{display:flex;flex-direction:column;gap:2px;padding:14px 16px 13px;background:var(--isd-surface);border:1px solid var(--isd-rule);border-radius:var(--isd-radius);color:var(--isd-ink);text-decoration:none;transition:border-color 140ms var(--isd-ease)}.ds-tile:hover{border-color:var(--isd-accent)}.ds-tile:focus-visible{outline:2px solid var(--isd-accent);outline-offset:2px}.ds-count{font-size:26px;font-weight:600;line-height:1.15;letter-spacing:-.01em}.ds-tile.is-zero .ds-count{color:var(--isd-ink-3)}.ds-tile.is-bad .ds-count{color:var(--isd-bad)}.ds-tile.is-warn .ds-count{color:var(--isd-warn)}.ds-tl{font-weight:500}.ds-dt{font-size:12px;color:var(--isd-ink-2)}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Core primary button on the ISOFT accent; the New buttons read + DocType.",
+      "html": "<button class=\"ds-btn\">+ Sales Invoice</button>",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-btn{background:var(--isd-accent);color:var(--isd-accent-ink);border:0;border-radius:var(--isd-radius);padding:5px 12px;font:inherit;font-weight:500;cursor:pointer}.ds-btn:hover,.ds-btn:active{background:var(--isd-accent-hover)}.ds-btn:focus-visible{outline:2px solid var(--isd-accent);outline-offset:2px}"
+    },
+    {
+      "name": "Quick Links",
+      "kind": "chip",
+      "refersTo": "quick-link",
+      "description": "Wrapping row of shortcut chips not already counted as tiles.",
+      "html": "<nav class=\"ds-quick\"><a class=\"ds-ql\" href=\"#\">Item</a><a class=\"ds-ql\" href=\"#\">Sales Analytics</a><a class=\"ds-ql\" href=\"#\">Dashboard</a></nav>",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-quick{display:flex;flex-wrap:wrap;gap:8px}.ds-ql{display:inline-block;min-height:30px;padding:5px 12px;border:1px solid var(--isd-rule-strong);border-radius:var(--isd-radius);background:var(--isd-surface);color:var(--isd-ink);font-weight:500;text-decoration:none}.ds-ql:hover{border-color:var(--isd-accent);color:var(--isd-accent)}.ds-ql:focus-visible{outline:2px solid var(--isd-accent);outline-offset:2px}"
+    },
+    {
+      "name": "Link Index Card",
+      "kind": "card",
+      "refersTo": "index-link",
+      "description": "One column of the 4-column link index: uppercase ruled heading, ruled link rows, disabled link with tooltip.",
+      "html": "<div class=\"ds-card\"><h2>Selling</h2><ul><li><a class=\"ds-link\" href=\"#\">Customer</a></li><li><a class=\"ds-link\" href=\"#\">Quotation</a></li><li><span class=\"ds-link is-disabled\" tabindex=\"0\">Blanket Order<span class=\"ds-pop\">Create a Customer first</span></span></li></ul></div>",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-card{max-width:260px}.ds-card h2{margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--isd-rule-strong);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-ink-2)}.ds-card ul{margin:0;padding:0;list-style:none}.ds-card li{border-bottom:1px solid var(--isd-rule)}.ds-link{position:relative;display:block;padding:7px 0;color:var(--isd-ink);line-height:1.35;text-decoration:none}a.ds-link:hover{color:var(--isd-accent)}a.ds-link:focus-visible{outline:2px solid var(--isd-accent)}.ds-link.is-disabled{color:var(--isd-ink-3);cursor:help}.ds-pop{display:none;position:absolute;left:0;bottom:calc(100% + 4px);padding:8px 10px;background:var(--isd-ink);color:var(--isd-surface);border-radius:var(--isd-radius);font-size:12px;box-shadow:var(--isd-shadow-menu);width:max-content}.ds-link.is-disabled:hover .ds-pop,.ds-link.is-disabled:focus .ds-pop{display:block}"
+    },
+    {
+      "name": "Company Menu",
+      "kind": "custom",
+      "refersTo": "menu",
+      "description": "Floating menu for the company switcher and rail flyouts; the only shadowed surface.",
+      "html": "<div class=\"ds-menu\"><div class=\"ds-mt\">Company</div><button class=\"ds-opt is-current\">ITEC LDA</button><button class=\"ds-opt\">Nova Distribuição Angola</button></div>",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-menu{min-width:220px;max-width:300px;padding:6px;background:var(--isd-side);border:1px solid var(--isd-side-rule);border-radius:8px;box-shadow:var(--isd-shadow-menu);color:var(--isd-side-ink)}.ds-mt{padding:6px 8px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-opt{display:flex;width:100%;padding:7px 8px;border:0;border-radius:var(--isd-radius);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-opt:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-opt.is-current{background:var(--isd-side-3);color:var(--isd-side-active)}.ds-opt:focus-visible{outline:2px solid var(--isd-accent);outline-offset:-2px}"
+    },
+    {
+      "name": "Top Bar Search",
+      "kind": "input",
+      "refersTo": "topbar-search",
+      "description": "Core awesomebar on the cool ground; white with accent border and soft halo on focus.",
+      "html": "<input class=\"ds-tsearch\" placeholder=\"Search or type a command (Ctrl + G)\">",
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-tsearch{width:360px;height:32px;padding:0 12px;background:var(--isd-ground);border:1px solid var(--isd-rule);border-radius:var(--isd-radius);color:var(--isd-ink);font:inherit}.ds-tsearch::placeholder{color:var(--isd-ink-3)}.ds-tsearch:focus{outline:none;background:var(--isd-surface);border-color:var(--isd-accent);box-shadow:0 0 0 3px var(--isd-accent-soft)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Category Standard, Played Straight",
+    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.",
+    "keyCharacteristics": [
+      "Theme-following sidebar: a white panel with a 1px rule in light mode, deep slate in dark mode.",
+      "One accent, ISOFT blue. Semantic colours carry state only.",
+      "Inter with tabular figures. Counts are large, and labels sit below them.",
+      "6px radii everywhere. Menus and popovers are the only things with a shadow.",
+      "Fully scoped (`body.isd-on`). Core lists, forms and reports are not restyled."
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong in this world.",
+        "section": "colors"
+      },
+      {
+        "name": "The Colour Is State Rule",
+        "body": "A tile count turns red or amber only when its definition carries a tone and the count is above zero. A zero count goes faint, never green. Charts draw series 1 in the accent and further series in Ink Faint and Rule Strong, with no area fill.",
+        "section": "colors"
+      },
+      {
+        "name": "The Names Read As Names Rule",
+        "body": "Some core translations start in lowercase (\"cotação\"). Tile labels, DocType lines, quick links, index links and index headings capitalise their first letter, through CSS `::first-letter` or, for New buttons, in JS.",
+        "section": "typography"
+      },
+      {
+        "name": "The Own Context Rule",
+        "body": "Every interface string the app adds is translated with context \"ISOFT Desk\" (`__(text, replace, \"ISOFT Desk\")`), so it never overrides another app's translation of the same English word. Labels that belong to core (DocType names, workspace labels) use plain `__()`.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Lines Rule",
+        "body": "Sidebar labels wrap to at most two lines and never truncate to one. Long Portuguese names stay readable.",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Menus Float Rule",
+        "body": "A surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do scope every selector under `body.isd-on` (or the `.isd-` shell elements it creates), so switching the app off restores the standard desk.",
+      "Do use the `--isd-*` custom properties, never literal hex, so light and dark both follow the desk theme.",
+      "Do keep ISOFT blue for where-you-are, the primary action, focus and links. Nothing else is blue.",
+      "Do colour a count only through a definition's tone, and only when it is above zero.",
+      "Do translate added strings with context \"ISOFT Desk\".",
+      "Do hide the desk sidebar on any page that draws its own fixed sidebar, and add the route to the hidden list instead of restyling the page.",
+      "Do honour `prefers-reduced-motion` for the chevron, drawer and skeleton. The shared ease is `cubic-bezier(0.16, 1, 0.3, 1)`."
+    ],
+    "donts": [
+      "Don't restyle core lists, forms or reports inside the shell. Only the primary-button accent and the form full-width rule reach them.",
+      "Don't list Isoft app pages in the sidebar. They live in the applications launcher.",
+      "Don't bring back the v13 cyan-topped card grid, the star watermark or a flat module list.",
+      "Don't add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.",
+      "Don't give other apps' navbar buttons their own colours inside the shell.",
+      "Don't fill chart areas or use more than one accent-coloured series."
+    ]
+  }
+}

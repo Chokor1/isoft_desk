@@ -1,4 +1,4 @@
-// ISOFT Desk shell: the navy sidebar shown on every desk route.
+// ISOFT Desk shell: the sidebar shown on every desk route (follows the desk theme).
 // Inert unless the boot payload says this user is in the pilot.
 (function () {
 	const conf = (frappe.boot && frappe.boot.isoft_desk) || {};
