@@ -1,0 +1,72 @@
+/* ISOFT Desk tokens. Everything is scoped to body.isd-on so a user outside the
+   pilot (or a site with the app switched off) keeps the standard desk. */
+body.isd-on {
+	--isd-navy: #0f2236;
+	--isd-navy-2: #18324d;
+	--isd-navy-3: #213f5f;
+	--isd-navy-rule: #223e5b;
+	--isd-navy-ink: #c9d6e2;
+	--isd-navy-ink-2: #93abc2;
+	--isd-navy-strong: #ffffff;
+	--isd-brand: #3fb5ff;
+
+	--isd-accent: #006fad;
+	--isd-accent-hover: #005a8c;
+	--isd-accent-soft: #e4f1f9;
+	--isd-accent-ink: #ffffff;
+
+	--isd-ground: #f4f6f8;
+	--isd-surface: #ffffff;
+	--isd-ink: #14202b;
+	--isd-ink-2: #4f5f6f;
+	--isd-ink-3: #6b7b8a;
+	--isd-rule: #e1e6eb;
+	--isd-rule-strong: #c9d2db;
+	--isd-hover: #eef2f5;
+
+	--isd-ok: #1f7a4d;
+	--isd-warn: #a15c07;
+	--isd-bad: #b42318;
+
+	--isd-side-w: 232px;
+	--isd-rail-w: 60px;
+	--isd-radius: 6px;
+	--isd-ease: cubic-bezier(0.16, 1, 0.3, 1);
+	--isd-shadow-menu: 0 8px 24px rgba(15, 34, 54, 0.18), 0 2px 6px rgba(15, 34, 54, 0.12);
+}
+
+[data-theme="dark"] body.isd-on {
+	--isd-navy: #0a1622;
+	--isd-navy-2: #132a40;
+	--isd-navy-3: #1b3652;
+	--isd-navy-rule: #1c3149;
+	--isd-navy-ink: #c3d1de;
+	--isd-navy-ink-2: #8aa1b7;
+
+	--isd-accent: #4cb8f0;
+	--isd-accent-hover: #7accf5;
+	--isd-accent-soft: #10314a;
+	--isd-accent-ink: #06141f;
+
+	--isd-ground: #0e151c;
+	--isd-surface: #151f29;
+	--isd-ink: #e6edf3;
+	--isd-ink-2: #a3b3c2;
+	--isd-ink-3: #8696a6;
+	--isd-rule: #243240;
+	--isd-rule-strong: #34475a;
+	--isd-hover: #1b2733;
+
+	--isd-ok: #4cc38a;
+	--isd-warn: #e7a54a;
+	--isd-bad: #f2766b;
+	--isd-shadow-menu: 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+body.isd-on.isd-rail {
+	--isd-side-w: var(--isd-rail-w);
+}
+
+body.isd-on.isd-hidden {
+	--isd-side-w: 0px;
+}

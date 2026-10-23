@@ -1,0 +1,516 @@
+/* ISOFT Desk shell: navy sidebar on every desk route, calmer top bar. */
+
+/* ---- layout ---- */
+body.isd-on::before {
+	/* core desktop.scss paints a star watermark here */
+	display: none;
+}
+
+body.isd-on .main-section {
+	margin-left: var(--isd-side-w);
+}
+
+/* the workspace page's own sidebar is replaced by the global one */
+body.isd-on .page-container[data-page-route="Workspaces"] .layout-side-section,
+body.isd-on .page-container[data-page-route="Workspaces"] .sidebar-toggle-btn {
+	display: none !important;
+}
+
+/* ---- top bar ---- */
+body.isd-on .navbar {
+	background: var(--isd-surface);
+	border-bottom: 1px solid var(--isd-rule);
+	box-shadow: none;
+}
+
+body.isd-on .navbar .navbar-brand {
+	display: none;
+}
+
+body.isd-on .navbar #navbar-breadcrumbs a {
+	color: var(--isd-ink-2);
+}
+
+body.isd-on .navbar #navbar-search {
+	background: var(--isd-ground);
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	color: var(--isd-ink);
+}
+
+body.isd-on .navbar #navbar-search:focus {
+	background: var(--isd-surface);
+	border-color: var(--isd-accent);
+	box-shadow: 0 0 0 3px var(--isd-accent-soft);
+}
+
+body.isd-on .navbar #navbar-search::placeholder {
+	color: var(--isd-ink-3);
+}
+
+/* Isoft apps add their own coloured buttons to the navbar; give them one quiet,
+   consistent treatment so the top bar reads as a single row of tools. */
+body.isd-on .navbar .navbar-nav > li > :is(.posawesome-button, .cca-pin-btn, .cca-launch,
+	.insights-button, .inventory-button, .fe-invoice-button, .angola-hr-button,
+	.ipm-nav-button, .cc-launcher-btn) {
+	width: 34px !important;
+	height: 34px !important;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: var(--isd-radius) !important;
+	box-shadow: none !important;
+	color: var(--isd-ink-2) !important;
+	--icon-stroke: var(--isd-ink-2);
+}
+
+body.isd-on .navbar .navbar-nav > li > :is(.posawesome-button, .cca-pin-btn, .cca-launch,
+	.insights-button, .inventory-button, .fe-invoice-button, .angola-hr-button,
+	.ipm-nav-button, .cc-launcher-btn) :is(i, svg) {
+	color: inherit !important;
+	opacity: 1 !important;
+}
+
+body.isd-on .navbar .navbar-nav > li > :is(.posawesome-button, .cca-pin-btn, .cca-launch,
+	.insights-button, .inventory-button, .fe-invoice-button, .angola-hr-button,
+	.ipm-nav-button, .cc-launcher-btn):hover {
+	background: var(--isd-hover) !important;
+	color: var(--isd-ink) !important;
+}
+
+.isd-drawer-btn {
+	display: none;
+}
+
+/* ---- sidebar ---- */
+.isd-sidebar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1030;
+	width: var(--isd-side-w);
+	display: flex;
+	flex-direction: column;
+	background: var(--isd-navy);
+	color: var(--isd-navy-ink);
+	--icon-stroke: var(--isd-navy-ink);
+	font-size: 13px;
+	line-height: 1.35;
+}
+
+body.isd-hidden .isd-sidebar {
+	display: none;
+}
+
+.isd-sidebar ::selection {
+	background: var(--isd-navy-3);
+	color: var(--isd-navy-strong);
+}
+
+.isd-sidebar a,
+.isd-sidebar button {
+	color: inherit;
+	text-decoration: none;
+	font: inherit;
+}
+
+.isd-sidebar button {
+	background: none;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.isd-sidebar :focus-visible {
+	outline: 2px solid var(--isd-brand);
+	outline-offset: -2px;
+	border-radius: var(--isd-radius);
+}
+
+.isd-head {
+	display: flex;
+	align-items: center;
+	height: 52px;
+	padding: 0 18px;
+	flex: none;
+}
+
+.isd-logo {
+	display: block;
+	width: 132px;
+	height: 26px;
+	background: url("/assets/frappe/images/isoft_erp_v3.svg") left center / auto 26px no-repeat;
+}
+
+.isd-search {
+	position: relative;
+	margin: 4px 12px 8px;
+	flex: none;
+}
+
+.isd-search input {
+	width: 100%;
+	height: 32px;
+	padding: 0 10px 0 32px;
+	border: 1px solid var(--isd-navy-rule);
+	border-radius: var(--isd-radius);
+	background: var(--isd-navy-2);
+	color: var(--isd-navy-strong);
+	font-size: 13px;
+}
+
+.isd-search input::placeholder {
+	color: var(--isd-navy-ink-2);
+}
+
+.isd-search input:focus {
+	outline: none;
+	border-color: var(--isd-brand);
+}
+
+.isd-search .icon {
+	position: absolute;
+	left: 10px;
+	top: 9px;
+	--icon-stroke: var(--isd-navy-ink-2);
+}
+
+.isd-scroll {
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 4px 8px 12px;
+	scrollbar-width: thin;
+	scrollbar-color: var(--isd-navy-3) transparent;
+}
+
+.isd-scroll::-webkit-scrollbar {
+	width: 6px;
+}
+
+.isd-scroll::-webkit-scrollbar-thumb {
+	background: var(--isd-navy-3);
+	border-radius: 3px;
+}
+
+.isd-label {
+	padding: 14px 10px 6px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--isd-navy-ink-2);
+}
+
+.isd-group-btn,
+.isd-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	min-height: 34px;
+	padding: 7px 10px;
+	border-radius: var(--isd-radius);
+	text-align: left;
+}
+
+.isd-group-btn:hover,
+.isd-item:hover {
+	background: var(--isd-navy-2);
+	color: var(--isd-navy-strong);
+}
+
+.isd-group-btn .isd-text,
+.isd-item .isd-text {
+	flex: 1;
+	min-width: 0;
+	/* long Portuguese labels wrap to two lines, never more */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	overflow-wrap: anywhere;
+}
+
+.isd-group-btn {
+	font-weight: 500;
+	color: var(--isd-navy-ink);
+}
+
+.isd-group.is-open > .isd-group-btn,
+.isd-group.has-active > .isd-group-btn {
+	color: var(--isd-navy-strong);
+}
+
+.isd-chevron {
+	flex: none;
+	transition: transform 160ms var(--isd-ease);
+}
+
+.isd-group.is-open .isd-chevron {
+	transform: rotate(180deg);
+}
+
+.isd-items {
+	display: none;
+	margin: 2px 0 6px 19px;
+	padding-left: 10px;
+	border-left: 1px solid var(--isd-navy-rule);
+	list-style: none;
+}
+
+.isd-group.is-open .isd-items,
+.isd-favorites .isd-items {
+	display: block;
+}
+
+.isd-favorites .isd-items {
+	margin-left: 0;
+	padding-left: 0;
+	border-left: 0;
+}
+
+.isd-item {
+	min-height: 30px;
+	padding: 6px 8px 6px 10px;
+	color: var(--isd-navy-ink);
+}
+
+.isd-item.is-active {
+	background: var(--isd-navy-3);
+	color: var(--isd-navy-strong);
+	box-shadow: inset 2px 0 0 var(--isd-brand);
+}
+
+.isd-row {
+	position: relative;
+}
+
+.isd-row .isd-item {
+	padding-right: 30px;
+}
+
+.isd-pin {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 22px;
+	height: 22px;
+	display: grid;
+	place-items: center;
+	border-radius: 4px;
+	opacity: 0;
+	--icon-stroke: var(--isd-navy-ink-2);
+}
+
+.isd-row:hover .isd-pin,
+.isd-row:focus-within .isd-pin,
+.isd-pin.is-pinned {
+	opacity: 1;
+}
+
+.isd-pin.is-pinned {
+	--icon-stroke: var(--isd-brand);
+	--icon-fill: var(--isd-brand);
+}
+
+.isd-pin:hover {
+	background: var(--isd-navy-3);
+}
+
+.isd-empty {
+	padding: 10px;
+	color: var(--isd-navy-ink-2);
+}
+
+.isd-foot {
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 8px;
+	border-top: 1px solid var(--isd-navy-rule);
+}
+
+.isd-company {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 8px;
+	border-radius: var(--isd-radius);
+	color: var(--isd-navy-ink);
+}
+
+.isd-company:hover {
+	background: var(--isd-navy-2);
+	color: var(--isd-navy-strong);
+}
+
+.isd-company .isd-text {
+	flex: 1;
+	text-align: left;
+	min-width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.isd-company small {
+	display: block;
+	font-size: 11px;
+	color: var(--isd-navy-ink-2);
+}
+
+.isd-collapse {
+	flex: none;
+	width: 32px;
+	height: 32px;
+	display: grid;
+	place-items: center;
+	border-radius: var(--isd-radius);
+}
+
+.isd-collapse:hover {
+	background: var(--isd-navy-2);
+}
+
+/* ---- menus (company list, rail flyouts) ---- */
+.isd-menu {
+	position: fixed;
+	z-index: 1040;
+	min-width: 220px;
+	max-width: 300px;
+	max-height: 70vh;
+	overflow-y: auto;
+	padding: 6px;
+	background: var(--isd-navy-2);
+	border: 1px solid var(--isd-navy-rule);
+	border-radius: 8px;
+	box-shadow: var(--isd-shadow-menu);
+	color: var(--isd-navy-ink);
+	--icon-stroke: var(--isd-navy-ink);
+	font-size: 13px;
+}
+
+.isd-menu-title {
+	padding: 6px 8px 4px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--isd-navy-ink-2);
+}
+
+.isd-menu .isd-item,
+.isd-menu-option {
+	display: flex;
+	width: 100%;
+	padding: 7px 8px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: none;
+	color: inherit;
+	text-align: left;
+	font: inherit;
+	cursor: pointer;
+}
+
+.isd-menu .isd-item:hover,
+.isd-menu-option:hover,
+.isd-menu-option.is-current {
+	background: var(--isd-navy-3);
+	color: var(--isd-navy-strong);
+	text-decoration: none;
+}
+
+/* ---- rail ---- */
+body.isd-rail .isd-head {
+	justify-content: center;
+	padding: 0;
+}
+
+body.isd-rail .isd-logo {
+	width: 26px;
+	/* show only the "i" of the wordmark */
+	background-position: -6px center;
+}
+
+body.isd-rail .isd-search,
+body.isd-rail .isd-label,
+body.isd-rail .isd-favorites,
+body.isd-rail .isd-group-btn .isd-text,
+body.isd-rail .isd-chevron,
+body.isd-rail .isd-items,
+body.isd-rail .isd-company .isd-text {
+	display: none !important;
+}
+
+body.isd-rail .isd-group-btn,
+body.isd-rail .isd-company {
+	justify-content: center;
+	padding: 8px 0;
+}
+
+body.isd-rail .isd-foot {
+	flex-direction: column;
+}
+
+/* ---- below 992px: off-canvas drawer ---- */
+@media (max-width: 991.98px) {
+	body.isd-on .main-section {
+		margin-left: 0;
+	}
+
+	body.isd-on .isd-sidebar {
+		width: 272px;
+		transform: translateX(-100%);
+		transition: transform 220ms var(--isd-ease);
+	}
+
+	body.isd-on.isd-drawer-open .isd-sidebar {
+		transform: none;
+	}
+
+	body.isd-on .isd-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 1029;
+		background: rgba(10, 22, 34, 0.45);
+	}
+
+	body.isd-on .isd-drawer-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		margin-right: 4px;
+		border: 0;
+		border-radius: var(--isd-radius);
+		background: none;
+		--icon-stroke: var(--isd-ink);
+	}
+
+	/* the rail is a desktop idea; isd_shell.js never sets isd-rail below 992px */
+	body.isd-on .isd-collapse {
+		display: none;
+	}
+}
+
+@media (min-width: 992px) {
+	.isd-backdrop {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.isd-chevron,
+	body.isd-on .isd-sidebar {
+		transition: none;
+	}
+}

@@ -66,8 +66,9 @@ PAGE_GROUP = {
 	"business-assistant": "isoft",
 }
 
-# Pages that draw their own sidebar: the desk sidebar collapses to its rail there.
-RAIL_ROUTES = [
+# Pages that draw their own fixed sidebar: the desk sidebar would cover it, so
+# it is hidden there and the page looks exactly as it does without this app.
+OWN_SIDEBAR_ROUTES = [
 	"isoft-invenza",
 	"saft-center",
 	"isoft-insights",
@@ -78,8 +79,14 @@ RAIL_ROUTES = [
 	"fe-angola-dashboard",
 ]
 
-# Full-screen apps where the desk sidebar is hidden.
-HIDDEN_ROUTES = ["posapp"]
+# Routes where the desk sidebar is hidden: full-screen POS plus the pages above.
+HIDDEN_ROUTES = ["posapp"] + OWN_SIDEBAR_ROUTES
+
+# Routes where the sidebar collapses to its rail. None yet; kept for pages that
+# need room but have no navigation of their own.
+RAIL_ROUTES = []
+
+WORKSPACE_ORDER = {name: index for index, name in enumerate(WORKSPACE_GROUP)}
 
 
 def slug(name):
@@ -98,7 +105,8 @@ def _workspace_group(workspace):
 def build_groups(workspaces, pages, page_titles):
 	items = {key: [] for key, _label, _icon in GROUPS}
 
-	for workspace in workspaces:
+	ordered = sorted(workspaces, key=lambda w: (WORKSPACE_ORDER.get(w["name"], len(WORKSPACE_ORDER)), w["name"]))
+	for workspace in ordered:
 		items[_workspace_group(workspace)].append({
 			"type": "workspace",
 			"name": workspace["name"],

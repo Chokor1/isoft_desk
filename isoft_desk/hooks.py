@@ -191,3 +191,15 @@ user_data_fields = [
 
 # Ships `frappe.boot.isoft_desk`; inactive users get only {"active": false}.
 boot_session = "isoft_desk.boot.boot_session"
+
+# Plain files, no bundling. isd_core.js must load before isd_shell.js.
+app_include_js = [
+	"/assets/isoft_desk/js/isd_core.js",
+	"/assets/isoft_desk/js/isd_shell.js",
+	"/assets/isoft_desk/js/isd_workspace.js",
+]
+app_include_css = [
+	"/assets/isoft_desk/css/isd_tokens.css",
+	"/assets/isoft_desk/css/isd_shell.css",
+	"/assets/isoft_desk/css/isd_workspace.css",
+]

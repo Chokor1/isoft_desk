@@ -42,3 +42,13 @@ class TestNavigation(unittest.TestCase):
 		self.assertEqual(groups[0]["key"], "finance")
 		self.assertEqual(item["route"], "isoft-angola-tax-compliance")
 		self.assertEqual(item["type"], "workspace")
+
+	def test_items_follow_mapping_order(self):
+		groups = build_groups([ws("CRM"), ws("Selling")], ["intelize-dashboard"], {})
+		self.assertEqual([i["name"] for i in groups[0]["items"]], ["Selling", "CRM", "intelize-dashboard"])
+
+	def test_own_sidebar_pages_hide_the_desk_sidebar(self):
+		from isoft_desk.navigation import HIDDEN_ROUTES
+
+		self.assertIn("isoft-invenza", HIDDEN_ROUTES)
+		self.assertIn("posapp", HIDDEN_ROUTES)
