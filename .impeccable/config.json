@@ -35,6 +35,15 @@
         ],
         "createdAt": "2026-10-23T12:49:22.253Z",
         "reason": "opaque stop of the grid's radial mask (transparency only, never painted), copied from the vault interior's .vi-gridlines"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "16px",
+        "files": [
+          "isoft_desk/public/css/isd_menus.css"
+        ],
+        "createdAt": "2026-10-23T13:38:41.087Z",
+        "reason": "phone search: iOS Safari zooms the page when a focused input is under 16px; results match the field"
       }
     ]
   }

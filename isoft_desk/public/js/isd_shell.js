@@ -183,10 +183,41 @@
 			this.forced_rail = mode === "rail";
 			this.apply_rail(this.rail_pref);
 
-			this.active = core.find_active(this.groups, route);
-			if (this.active && !this.term) this.open_key = this.active.group_key;
-			this.render();
+			const active = core.find_active(this.groups, route);
+			const same = JSON.stringify(active) === JSON.stringify(this.active);
+			this.active = active;
+			if (active && !this.term) this.open_key = active.group_key;
+			// a page change only moves the highlight; rebuilding the list made the
+			// sidebar flash as if the page had reloaded
+			if (!same) this.mark_active();
 			this.close_menu();
+		},
+
+		mark_active() {
+			if (!this.$nav.children().length || this.term) {
+				this.render();
+				return;
+			}
+			const active = this.active || {};
+			this.$nav.find(".isd-group").each((i, el) => {
+				const key = el.getAttribute("data-key");
+				const has_active = key === active.group_key;
+				el.classList.toggle("has-active", has_active);
+				if (!el.classList.contains("isd-direct")) {
+					const open = key === this.open_key;
+					el.classList.toggle("is-open", open);
+					const btn = el.querySelector("button.isd-group-btn");
+					if (btn) btn.setAttribute("aria-expanded", open);
+				}
+			});
+			this.$nav.find(".isd-item, .isd-direct-link").each((i, el) => {
+				const href = el.getAttribute("href") || "";
+				const item = this.groups.reduce((found, g) => found || g.items.find((x) => "/app/" + x.route === href), null);
+				const on = !!item && item.name === active.item_name;
+				el.classList.toggle("is-active", on);
+				if (on) el.setAttribute("aria-current", "page");
+				else el.removeAttribute("aria-current");
+			});
 		},
 
 		// ---- rail ----
@@ -198,13 +229,15 @@
 			this.rail_pref = !!pref;
 			write_store(RAIL_KEY, this.rail_pref);
 			const rail = DESKTOP.matches && (this.rail_pref || this.forced_rail);
+			const changed = document.body.classList.contains("isd-rail") !== rail;
 			document.body.classList.toggle("isd-rail", rail);
 			const label = rail ? t("Expand sidebar") : t("Collapse sidebar");
 			this.$side.find(".isd-collapse")
 				.attr({ title: label, "aria-label": label })
 				.html(icon(rail ? "sidebar-expand" : "sidebar-collapse"));
-			// the window's width changed for every page layout listening to resize
-			$(window).trigger("resize");
+			// the content width changed: tell layouts listening to resize (only then,
+			// a resize on every route redraws every chart)
+			if (changed) $(window).trigger("resize");
 		},
 
 		// ---- render ----

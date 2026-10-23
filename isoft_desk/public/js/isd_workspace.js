@@ -121,6 +121,7 @@
 			this.parent = parent;
 			this.name = name;
 			this.$el = $(`<div class="isd-ws" data-workspace="${esc(name)}"></div>`).appendTo(parent.body);
+			this.sections = {};
 			this.$el.on("click", ".isd-tile", (e) => {
 				e.preventDefault();
 				const tile = this.shown_tiles[Number($(e.currentTarget).attr("data-index"))];
@@ -141,7 +142,10 @@
 		}
 
 		reload() {
-			this.$el.html(`<div class="isd-ws-loading">${esc(t("Loading..."))}</div>`);
+			// core's workspace skeleton keeps the page from blanking between modules
+			this.$el.html(frappe.templates.workspace_loading_skeleton
+				? frappe.render_template("workspace_loading_skeleton")
+				: `<div class="isd-ws-loading">${esc(t("Loading..."))}</div>`);
 			frappe.xcall("frappe.desk.desktop.get_desktop_page", { page: this.name }).then((data) => {
 				if (!data || !Object.keys(data).length) {
 					// no access or no such workspace: same fallback as core
@@ -162,7 +166,7 @@
 		set_header_actions() {
 			// the page head is shared by every module page: only the one on screen may
 			// write to it, and it starts from a clean head so reloads never duplicate
-			if (this.parent.current !== this) return;
+			if (this.parent.current !== this || this.in_customize_mode) return;
 			this.parent.setup_menu(this.name);
 			const page = this.parent.page;
 			const name = company();
@@ -188,7 +192,10 @@
 				.sort((a, b) => rank(a) - rank(b));
 			// frappe places the primary button last, so the most important one goes first here
 			creatable.slice(0, MAX_NEW_BUTTONS).forEach((doctype, index) => {
-				// "+ Sales Invoice": a plus icon instead of "New {0}", which no gendered
+				if (this.data.allow_customization && !frappe.is_mobile()) {
+				page.set_secondary_action(__("Customize"), () => this.customize());
+			}
+			// "+ Sales Invoice": a plus icon instead of "New {0}", which no gendered
 				// language can translate correctly for every DocType
 				const name = __(doctype);
 				// some core translations start lowercase ("cotação")
@@ -226,7 +233,7 @@
 			`);
 
 			this.make_onboarding();
-			this.make_chart();
+			this.make_charts();
 			this.set_header_actions();
 			this.load_counts();
 		}
@@ -363,27 +370,134 @@
 			});
 		}
 
-		make_chart() {
-			const chart = this.data.charts.items[0];
-			if (!chart) {
+		// every workspace chart, through core's chart group (core shows up to two)
+		make_charts() {
+			const charts = this.data.charts.items || [];
+			if (!charts.length) {
 				this.$el.find(".isd-ws-chart").remove();
 				return;
 			}
-			frappe.dashboard_utils.get_dashboard_settings().then((settings) => {
-				const config = settings.chart_config ? JSON.parse(settings.chart_config) : {};
-				chart.chart_settings = config[chart.chart_name] || {};
-				frappe.widget.make_widget(Object.assign({}, chart, {
-					widget_type: "chart",
+			this.with_chart_settings().then(() => {
+				this.sections.charts = new frappe.widget.WidgetGroup({
 					container: this.$el.find(".isd-ws-chart"),
+					type: "chart",
+					columns: 1,
+					class_name: "widget-charts",
 					options: {
 						allow_sorting: false,
 						allow_create: false,
 						allow_delete: false,
 						allow_hiding: false,
 						allow_edit: true,
+						max_widget_count: 2,
 					},
-				}));
+					widgets: charts,
+				});
 			});
 		}
+
+		with_chart_settings() {
+			return Promise.resolve(frappe.dashboard_utils.get_dashboard_settings()).then((settings) => {
+				const config = settings && settings.chart_config ? JSON.parse(settings.chart_config) : {};
+				(this.data.charts.items || []).forEach((chart) => {
+					chart.chart_settings = config[chart.chart_name] || {};
+				});
+			});
+		}
+
+		// ---- Customize: core's own editor for charts, shortcuts and cards ----
+		customize() {
+			if (this.in_customize_mode || !this.data) return;
+			this.in_customize_mode = true;
+			const allow = !!this.data.allow_customization;
+			const page = this.parent.page;
+			page.clear_actions();
+			page.clear_custom_actions();
+			page.clear_menu();
+			this.$el.addClass("isd-ws-customizing").html(`
+				<div class="isd-ws-custom-note">${esc(__("Drag to reorder, use the controls on each block to edit or hide it, then save."))}</div>
+				<div class="isd-ws-custom-charts"></div>
+				<div class="isd-ws-custom-shortcuts"></div>
+				<div class="isd-ws-custom-cards"></div>
+			`);
+			this.with_chart_settings().then(() => {
+				this.custom = {
+					charts: new frappe.widget.WidgetGroup({
+						container: this.$el.find(".isd-ws-custom-charts"),
+						type: "chart",
+						columns: 1,
+						class_name: "widget-charts",
+						options: {
+							allow_sorting: allow,
+							allow_create: allow,
+							allow_delete: allow,
+							allow_hiding: false,
+							allow_edit: true,
+							max_widget_count: 2,
+						},
+						widgets: this.data.charts.items,
+					}),
+					shortcuts: new frappe.widget.WidgetGroup({
+						title: this.data.shortcuts.label || __("Your Shortcuts"),
+						container: this.$el.find(".isd-ws-custom-shortcuts"),
+						type: "shortcut",
+						columns: 3,
+						options: {
+							allow_sorting: allow,
+							allow_create: allow,
+							allow_delete: allow,
+							allow_hiding: false,
+							allow_edit: true,
+						},
+						widgets: this.data.shortcuts.items,
+					}),
+					cards: new frappe.widget.WidgetGroup({
+						title: this.data.cards.label || __("Reports & Masters"),
+						container: this.$el.find(".isd-ws-custom-cards"),
+						type: "links",
+						columns: 3,
+						options: {
+							allow_sorting: allow,
+							allow_create: false,
+							allow_delete: false,
+							allow_hiding: allow,
+							allow_edit: false,
+						},
+						widgets: this.data.cards.items,
+					}),
+				};
+				Object.values(this.custom).forEach((section) => section.customize());
+			});
+			page.set_primary_action(__("Save Customizations"), () => this.save_customization(), null, __("Saving"));
+			page.set_secondary_action(__("Discard"), () => {
+				frappe.show_alert({ message: __("Customizations Discarded"), indicator: "info" });
+				this.leave_customize();
+			});
+		}
+
+		save_customization() {
+			const config = {};
+			Object.keys(this.custom || {}).forEach((key) => {
+				config[key] = this.custom[key].get_widget_config();
+			});
+			frappe.dom.freeze();
+			frappe.call("frappe.desk.desktop.save_customization", { page: this.name, config }).then((r) => {
+				frappe.dom.unfreeze();
+				if (r.message) {
+					frappe.show_alert({ message: __("Customizations Saved Successfully"), indicator: "green" });
+				} else {
+					frappe.msgprint({ message: __("Something went wrong while saving customizations"), indicator: "red" });
+				}
+				this.leave_customize();
+			}, () => frappe.dom.unfreeze());
+		}
+
+		leave_customize() {
+			this.in_customize_mode = false;
+			this.custom = null;
+			this.$el.removeClass("isd-ws-customizing");
+			this.reload();
+		}
+
 	}
 })();

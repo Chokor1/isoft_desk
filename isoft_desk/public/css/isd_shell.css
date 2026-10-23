@@ -321,10 +321,35 @@ body.isd-hidden .isd-sidebar {
 	color: var(--isd-side-ink);
 }
 
+/* current module inside a group: no fill; the label goes strong and the tree
+   rule beside it lights up in the accent, so the highlight sits on structure */
+.isd-item {
+	position: relative;
+}
+
 .isd-item.is-active {
-	background: var(--isd-side-3);
-	color: var(--isd-side-active);
+	background: transparent;
+	color: var(--isd-side-strong);
 	font-weight: 600;
+}
+
+.isd-item.is-active:hover {
+	background: var(--isd-side-2);
+}
+
+.isd-items .isd-item.is-active::before {
+	content: "";
+	position: absolute;
+	left: -11.5px;
+	top: 5px;
+	bottom: 5px;
+	width: 2px;
+	background: var(--isd-accent-strong);
+}
+
+/* the group holding the current page: its icon carries the accent */
+.isd-group.has-active > .isd-group-btn {
+	--icon-stroke: var(--isd-accent-strong);
 }
 
 
@@ -382,11 +407,13 @@ body.isd-hidden .isd-sidebar {
 }
 
 /* one-module groups: the group row is the link */
+/* a one-module group that is open: a quiet neutral panel, strong label,
+   accent icon */
 .isd-direct-link.is-active {
-	background: var(--isd-side-3);
-	color: var(--isd-side-active);
+	background: var(--isd-side-2);
+	color: var(--isd-side-strong);
 	font-weight: 600;
-	--icon-stroke: var(--isd-side-active);
+	--icon-stroke: var(--isd-accent-strong);
 }
 
 .isd-empty {
