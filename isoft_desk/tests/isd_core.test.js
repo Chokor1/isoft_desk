@@ -75,3 +75,11 @@ test('fullscreen_toggle describes the action the button will take', () => {
 	assert.deepStrictEqual(core.fullscreen_toggle(false), { icon: 'expand', label: 'Full screen' });
 	assert.deepStrictEqual(core.fullscreen_toggle(true), { icon: 'collapse', label: 'Exit full screen' });
 });
+
+test('effective_route: bare /app means the workspace it shows', () => {
+	assert.deepStrictEqual(core.effective_route([''], 'Home'), ['Workspaces', 'Home']);
+	assert.deepStrictEqual(core.effective_route([], 'Home'), ['Workspaces', 'Home']);
+	assert.deepStrictEqual(core.effective_route(['Workspaces'], 'Stock'), ['Workspaces', 'Stock']);
+	assert.deepStrictEqual(core.effective_route(['Workspaces', 'Selling'], 'Home'), ['Workspaces', 'Selling']);
+	assert.deepStrictEqual(core.effective_route(['List', 'Item'], 'Home'), ['List', 'Item']);
+});

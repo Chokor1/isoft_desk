@@ -83,8 +83,15 @@
 			: { icon: "expand", label: "Full screen" };
 	}
 
+	// /app (route [""]) and /app/workspace show a workspace without naming it
+	function effective_route(route, landing) {
+		const r = route || [];
+		if (!r.length || r[0] === "" || (r[0] === "Workspaces" && !r[1])) return ["Workspaces", landing];
+		return r;
+	}
+
 	return {
 		route_mode, find_active, filter_groups, landing_workspace, theme_to_remember, direct_item,
-		fullscreen_toggle,
+		fullscreen_toggle, effective_route,
 	};
 });

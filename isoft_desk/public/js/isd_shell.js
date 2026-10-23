@@ -183,14 +183,26 @@
 			this.forced_rail = mode === "rail";
 			this.apply_rail(this.rail_pref);
 
-			const active = core.find_active(this.groups, route);
+			const active = core.find_active(this.groups, core.effective_route(route, this.landing()));
 			const same = JSON.stringify(active) === JSON.stringify(this.active);
 			this.active = active;
 			if (active && !this.term) this.open_key = active.group_key;
 			// a page change only moves the highlight; rebuilding the list made the
-			// sidebar flash as if the page had reloaded
-			if (!same) this.mark_active();
+			// sidebar flash as if the page had reloaded. The first call always draws.
+			if (!same || !this.$nav.children().length) this.mark_active();
 			this.close_menu();
+		},
+
+		// the workspace /app opens: the same choice isd_workspace.js makes
+		landing() {
+			let remembered = null;
+			try {
+				remembered = localStorage.current_workspace;
+			} catch (e) {
+				// storage blocked
+			}
+			const home = frappe.workspaces && frappe.workspaces.home;
+			return core.landing_workspace(null, remembered, home && home.name, this.groups);
 		},
 
 		mark_active() {
