@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T12:15:50Z",
+  "generatedAt": "2026-10-23T18:00:00Z",
   "title": "Design System: ISOFT Desk",
   "extensions": {
     "colorMeta": {
@@ -543,6 +543,291 @@
           "#f8b1ab",
           "#fde9e8"
         ]
+      },
+      "login-ground": {
+        "role": "neutral",
+        "displayName": "Login Ground",
+        "canonical": "#eef3f7",
+        "tonalRamp": [
+          "#182834",
+          "#2a455a",
+          "#3c6280",
+          "#4e7fa6",
+          "#719bbc",
+          "#97b6ce",
+          "#c1d3e2",
+          "#eef3f7"
+        ]
+      },
+      "login-door": {
+        "role": "neutral",
+        "displayName": "Door Steel",
+        "canonical": "#f6f9fb",
+        "tonalRamp": [
+          "#182935",
+          "#29475c",
+          "#3a6683",
+          "#4b84a9",
+          "#6e9ebf",
+          "#95b8d0",
+          "#bfd5e3",
+          "#edf3f7"
+        ]
+      },
+      "login-door-mid": {
+        "role": "neutral",
+        "displayName": "Door Steel Mid",
+        "canonical": "#ebf0f5",
+        "tonalRamp": [
+          "#192633",
+          "#2c4258",
+          "#3f5e7e",
+          "#527aa3",
+          "#7496b9",
+          "#99b2cc",
+          "#c2d1e0",
+          "#eef2f6"
+        ]
+      },
+      "login-door-seam": {
+        "role": "neutral",
+        "displayName": "Door Seam",
+        "canonical": "#e4ebf1",
+        "tonalRamp": [
+          "#1a2732",
+          "#2d4457",
+          "#40617c",
+          "#547da1",
+          "#7599b8",
+          "#9ab4cb",
+          "#c3d2e0",
+          "#eef3f6"
+        ]
+      },
+      "login-interior-floor": {
+        "role": "neutral",
+        "displayName": "Interior Floor",
+        "canonical": "#e7eef4",
+        "tonalRamp": [
+          "#182734",
+          "#2a445b",
+          "#3b6181",
+          "#4d7ea8",
+          "#7099bd",
+          "#96b5cf",
+          "#c0d2e2",
+          "#eef3f7"
+        ]
+      },
+      "login-glow": {
+        "role": "primary",
+        "displayName": "Core Glow",
+        "canonical": "#008cd2",
+        "tonalRamp": [
+          "#00334c",
+          "#005885",
+          "#007ebd",
+          "#00a3f5",
+          "#2eb9ff",
+          "#66ccff",
+          "#a3e0ff",
+          "#e5f6ff"
+        ]
+      },
+      "login-shade": {
+        "role": "neutral",
+        "displayName": "Login Shade",
+        "canonical": "#0f2236",
+        "tonalRamp": [
+          "#11263c",
+          "#1d4168",
+          "#295d94",
+          "#3579c0",
+          "#5b95d2",
+          "#87b1de",
+          "#b7d0eb",
+          "#ebf2f9"
+        ]
+      },
+      "login-trace": {
+        "role": "neutral",
+        "displayName": "Login Trace",
+        "canonical": "#3c648c",
+        "tonalRamp": [
+          "#172636",
+          "#28425d",
+          "#395e84",
+          "#497aab",
+          "#6d96c0",
+          "#94b2d1",
+          "#bfd1e3",
+          "#edf2f7"
+        ]
+      },
+      "login-title": {
+        "role": "neutral",
+        "displayName": "Vault Title Ink",
+        "canonical": "#0b3a57",
+        "tonalRamp": [
+          "#092d44",
+          "#0f4e76",
+          "#1570a8",
+          "#1b91d9",
+          "#45aae8",
+          "#77c1ee",
+          "#aedaf5",
+          "#e8f5fc"
+        ]
+      },
+      "login-chip-ink": {
+        "role": "neutral",
+        "displayName": "Login Chip Ink",
+        "canonical": "#1b2a38",
+        "tonalRamp": [
+          "#192734",
+          "#2b4359",
+          "#3d5f7f",
+          "#507ca5",
+          "#7298bb",
+          "#98b3cd",
+          "#c1d2e1",
+          "#eef2f7"
+        ]
+      },
+      "login-core-label": {
+        "role": "neutral",
+        "displayName": "Login Core Label",
+        "canonical": "#3c6482",
+        "tonalRamp": [
+          "#182834",
+          "#2a465b",
+          "#3c6381",
+          "#4d81a7",
+          "#709cbd",
+          "#96b7cf",
+          "#c0d4e2",
+          "#eef3f7"
+        ]
+      },
+      "login-core-mid": {
+        "role": "primary",
+        "displayName": "Core Disc Blue",
+        "canonical": "#4aa8e0",
+        "tonalRamp": [
+          "#0b2d41",
+          "#134e71",
+          "#1c6fa1",
+          "#2490d1",
+          "#4ca9e0",
+          "#7cc0e9",
+          "#b1d9f2",
+          "#e9f5fb"
+        ]
+      },
+      "login-core-deep": {
+        "role": "primary",
+        "displayName": "Core Disc Deep",
+        "canonical": "#0b5d8f",
+        "tonalRamp": [
+          "#052e47",
+          "#09507b",
+          "#0d72af",
+          "#1194e3",
+          "#3dacf0",
+          "#71c2f4",
+          "#aadbf8",
+          "#e7f5fd"
+        ]
+      },
+      "loader-trace": {
+        "role": "neutral",
+        "displayName": "Loader Trace",
+        "canonical": "#c3d0dc",
+        "tonalRamp": [
+          "#1c2730",
+          "#314354",
+          "#465f77",
+          "#5a7c9b",
+          "#7b98b2",
+          "#9eb3c7",
+          "#c5d2dd",
+          "#eff2f6"
+        ]
+      },
+      "loader-chip-rule": {
+        "role": "neutral",
+        "displayName": "Loader Chip Rule",
+        "canonical": "#c9d6e2",
+        "tonalRamp": [
+          "#1b2732",
+          "#2e4356",
+          "#425f7b",
+          "#567c9f",
+          "#7798b6",
+          "#9bb3ca",
+          "#c3d2df",
+          "#eef2f6"
+        ]
+      },
+      "loader-pulse": {
+        "role": "primary",
+        "displayName": "Loader Pulse",
+        "canonical": "#0a8fd6",
+        "tonalRamp": [
+          "#033149",
+          "#06557f",
+          "#0878b4",
+          "#0b9cea",
+          "#37b3f6",
+          "#6dc8f8",
+          "#a7defb",
+          "#e7f6fe"
+        ]
+      },
+      "dark-loader-pulse": {
+        "role": "primary",
+        "displayName": "Dark Loader Pulse",
+        "canonical": "#6cc0f0",
+        "tonalRamp": [
+          "#072f45",
+          "#0c5178",
+          "#1173ab",
+          "#1796de",
+          "#41aeec",
+          "#74c3f1",
+          "#acdbf6",
+          "#e8f5fd"
+        ]
+      },
+      "dark-loader-chip": {
+        "role": "neutral",
+        "displayName": "Dark Loader Chip",
+        "canonical": "#101a26",
+        "tonalRamp": [
+          "#172536",
+          "#27405d",
+          "#385b85",
+          "#4976ac",
+          "#6c93c1",
+          "#93b0d2",
+          "#becfe4",
+          "#edf2f7"
+        ]
+      },
+      "dark-loader-disc": {
+        "role": "neutral",
+        "displayName": "Dark Loader Disc",
+        "canonical": "#0c1520",
+        "tonalRamp": [
+          "#152538",
+          "#243f60",
+          "#335a89",
+          "#4375b2",
+          "#6792c6",
+          "#90afd5",
+          "#bccfe6",
+          "#ecf2f8"
+        ]
       }
     },
     "typographyMeta": {
@@ -586,6 +871,31 @@
         "name": "focus-halo",
         "value": "0 0 0 3px var(--isd-accent-soft)",
         "purpose": "Top-bar search on focus."
+      },
+      {
+        "name": "login-card",
+        "value": "0 12px 40px rgba(15, 34, 54, 0.12), 0 0 60px rgba(0, 140, 210, 0.08)",
+        "purpose": "Light vault login card (core's dark vault has its own)."
+      },
+      {
+        "name": "login-chip",
+        "value": "inset 0 1px 0 #ffffff, 0 6px 16px rgba(15, 34, 54, 0.08)",
+        "purpose": "Light vault module chips."
+      },
+      {
+        "name": "login-button",
+        "value": "0 6px 18px rgba(0, 111, 173, 0.25)",
+        "purpose": "Light vault Login button."
+      },
+      {
+        "name": "login-core-disc",
+        "value": "0 0 22px rgba(0, 140, 210, 0.35), inset 0 0 14px rgba(255, 255, 255, 0.4)",
+        "purpose": "Light vault authentication core disc."
+      },
+      {
+        "name": "login-input-focus",
+        "value": "0 0 0 3px rgba(0, 111, 173, 0.15)",
+        "purpose": "Light vault inputs on focus, with an ISOFT Blue border."
       }
     ],
     "motion": [
@@ -613,6 +923,26 @@
         "name": "shimmer",
         "value": "1.2s linear infinite",
         "purpose": "Count skeleton; disabled under prefers-reduced-motion."
+      },
+      {
+        "name": "loader-pulse",
+        "value": "1.6s cubic-bezier(.45,0,.2,1) infinite",
+        "purpose": "Light travelling each circuit trace into the core; starts staggered 0 to 1.1s."
+      },
+      {
+        "name": "loader-beat",
+        "value": "1.6s ease-in-out infinite",
+        "purpose": "Core halo breathe and mark beat (scale 1.045); chip lights blink on the same cycle (ease-out)."
+      },
+      {
+        "name": "loader-ring",
+        "value": "9s linear infinite",
+        "purpose": "Dashed core ring rotation."
+      },
+      {
+        "name": "loader-reduced",
+        "value": "animation: none",
+        "purpose": "prefers-reduced-motion: still frame of chips, traces, rings and mark; pulses hidden."
       }
     ],
     "breakpoints": [
@@ -640,7 +970,7 @@
       "refersTo": "sidebar",
       "description": "Theme-following desk sidebar: logo lockup with version, search, section label, group with open item list, active item in accent on tint, company foot.",
       "html": "<aside class=\"ds-side\"><div class=\"ds-head\"><strong class=\"ds-logo\">ISOFT ERP</strong><span class=\"ds-ver\">v1.3.0</span></div><input class=\"ds-search\" placeholder=\"Search modules\"><div class=\"ds-label\">Modules</div><button class=\"ds-group\">Finance<span><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M6 9l6 6 6-6\"/></svg></span></button><button class=\"ds-group is-open\">Sales<span><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M6 9l6 6 6-6\"/></svg></span></button><ul class=\"ds-items\"><li><a class=\"ds-item is-active\" href=\"#\">Selling</a></li><li><a class=\"ds-item\" href=\"#\">CRM</a></li></ul><div class=\"ds-foot\"><span>ITEC LDA<small>Company</small></span></div></aside>",
-      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-side{width:232px;background:var(--isd-side);border-right:1px solid var(--isd-side-rule);color:var(--isd-side-ink);line-height:1.35;display:flex;flex-direction:column}.ds-head{height:52px;display:flex;align-items:flex-end;gap:8px;padding:0 18px 14px}.ds-logo{color:var(--isd-accent);font-size:18px}.ds-ver{font-size:12px;line-height:1;color:var(--isd-side-ink-2)}.ds-search{margin:4px 12px 8px;height:32px;padding:0 10px;border:1px solid var(--isd-side-rule);border-radius:var(--isd-radius);background:var(--isd-side-2);font:inherit}.ds-search:focus{outline:none;border-color:var(--isd-accent)}.ds-label{padding:14px 18px 6px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-group{display:flex;justify-content:space-between;align-items:center;margin:0 8px;min-height:34px;padding:7px 10px;border:0;background:none;border-radius:var(--isd-radius);font:inherit;font-weight:500;color:var(--isd-side-ink);cursor:pointer;text-align:left}.ds-group:hover,.ds-item:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-group.is-open{color:var(--isd-side-strong)}.ds-group.is-open svg{transform:rotate(180deg)}.ds-group svg{transition:transform 160ms var(--isd-ease)}.ds-group:focus-visible,.ds-item:focus-visible{outline:2px solid var(--isd-accent);outline-offset:-2px}.ds-items{list-style:none;margin:2px 8px 6px 27px;padding-left:10px;border-left:1px solid var(--isd-side-rule)}.ds-item{display:block;min-height:30px;padding:6px 8px 6px 10px;border-radius:var(--isd-radius);color:var(--isd-side-ink);text-decoration:none}.ds-item.is-active{background:var(--isd-side-3);color:var(--isd-side-active);font-weight:600}.ds-foot{margin-top:12px;padding:8px 16px;border-top:1px solid var(--isd-side-rule)}.ds-foot small{display:block;font-size:11px;color:var(--isd-side-ink-2)}"
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-side{width:232px;background:var(--isd-side);border-right:1px solid var(--isd-side-rule);color:var(--isd-side-ink);line-height:1.35;display:flex;flex-direction:column}.ds-head{height:52px;display:flex;align-items:flex-end;gap:8px;padding:0 18px 14px}.ds-logo{color:var(--isd-accent);font-size:18px}.ds-ver{font-size:12px;line-height:1;color:var(--isd-side-ink-2)}.ds-search{margin:4px 12px 8px;height:32px;padding:0 10px;border:1px solid var(--isd-side-rule);border-radius:var(--isd-radius);background:var(--isd-side-2);font:inherit}.ds-search:focus{outline:none;border-color:var(--isd-accent)}.ds-label{padding:14px 18px 6px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-group{display:flex;justify-content:space-between;align-items:center;margin:0 8px;min-height:34px;padding:7px 10px;border:0;background:none;border-radius:var(--isd-radius);font:inherit;font-weight:500;color:var(--isd-side-ink);cursor:pointer;text-align:left}.ds-group:hover,.ds-item:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-group.is-open{color:var(--isd-side-strong)}.ds-group.is-open svg{transform:rotate(180deg)}.ds-group svg{transition:transform 160ms var(--isd-ease)}.ds-group:focus,.ds-item:focus{outline:none;box-shadow:none}.ds-group:focus-visible,.ds-item:focus-visible{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-items{list-style:none;margin:2px 8px 6px 27px;padding-left:10px;border-left:1px solid var(--isd-side-rule)}.ds-item{display:block;min-height:30px;padding:6px 8px 6px 10px;border-radius:var(--isd-radius);color:var(--isd-side-ink);text-decoration:none}.ds-item.is-active{background:var(--isd-side-3);color:var(--isd-side-active);font-weight:600}.ds-foot{margin-top:12px;padding:8px 16px;border-top:1px solid var(--isd-side-rule)}.ds-foot small{display:block;font-size:11px;color:var(--isd-side-ink-2)}"
     },
     {
       "name": "Waiting Tiles",
@@ -680,7 +1010,7 @@
       "refersTo": "menu",
       "description": "Floating menu for the company switcher and rail flyouts; the only shadowed surface.",
       "html": "<div class=\"ds-menu\"><div class=\"ds-mt\">Company</div><button class=\"ds-opt is-current\">ITEC LDA</button><button class=\"ds-opt\">Nova Distribuição Angola</button></div>",
-      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-menu{min-width:220px;max-width:300px;padding:6px;background:var(--isd-side);border:1px solid var(--isd-side-rule);border-radius:8px;box-shadow:var(--isd-shadow-menu);color:var(--isd-side-ink)}.ds-mt{padding:6px 8px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-opt{display:flex;width:100%;padding:7px 8px;border:0;border-radius:var(--isd-radius);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-opt:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-opt.is-current{background:var(--isd-side-3);color:var(--isd-side-active)}.ds-opt:focus-visible{outline:2px solid var(--isd-accent);outline-offset:-2px}"
+      "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-menu{min-width:220px;max-width:300px;padding:6px;background:var(--isd-side);border:1px solid var(--isd-side-rule);border-radius:8px;box-shadow:var(--isd-shadow-menu);color:var(--isd-side-ink)}.ds-mt{padding:6px 8px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-opt{display:flex;width:100%;padding:7px 8px;border:0;border-radius:var(--isd-radius);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-opt:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-opt.is-current{background:var(--isd-side-3);color:var(--isd-side-active)}.ds-opt:focus{outline:none}.ds-opt:focus-visible{background:var(--isd-side-2);color:var(--isd-side-strong)}"
     },
     {
       "name": "Top Bar Search",
@@ -689,22 +1019,53 @@
       "description": "Core awesomebar on the cool ground; white with accent border and soft halo on focus.",
       "html": "<input class=\"ds-tsearch\" placeholder=\"Search or type a command (Ctrl + G)\">",
       "css": ":host{--isd-accent:#006fad;--isd-accent-hover:#005a8c;--isd-accent-soft:#e4f1f9;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e4f1f9;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#006fad;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-tsearch{width:360px;height:32px;padding:0 12px;background:var(--isd-ground);border:1px solid var(--isd-rule);border-radius:var(--isd-radius);color:var(--isd-ink);font:inherit}.ds-tsearch::placeholder{color:var(--isd-ink-3)}.ds-tsearch:focus{outline:none;background:var(--isd-surface);border-color:var(--isd-accent);box-shadow:0 0 0 3px var(--isd-accent-soft)}"
+    },
+    {
+      "name": "Login Card (light vault)",
+      "kind": "card",
+      "refersTo": "login-card",
+      "description": "The vault's sign-in card recoloured for the light variant: translucent white, faint blue border, blue-glow lift, white inputs with a blue focus halo, ISOFT Blue button.",
+      "html": "<div class=\"ds-vault\"><form class=\"ds-lcard\"><p class=\"ds-lsub\">Login to ISOFT ERP</p><input class=\"ds-lin\" type=\"email\" placeholder=\"jane@example.com\"><input class=\"ds-lin\" type=\"password\" placeholder=\"Password\"><a class=\"ds-llink\" href=\"#\">Forgot Password?</a><button class=\"ds-lbtn\" type=\"button\">Login</button></form></div>",
+      "css": ".ds-vault{padding:32px;background:#eef3f7;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-lcard{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto;padding:32px 38px;background:rgba(255,255,255,.86);border:1px solid rgba(0,111,173,.2);border-radius:8px;box-shadow:0 12px 40px rgba(15,34,54,.12),0 0 60px rgba(0,140,210,.08);color:#1b2a38}.ds-lsub{margin:0 0 8px;text-align:center;color:#33424f}.ds-lin{height:34px;padding:0 10px;background:#fff;color:#14202b;border:1px solid #c9d2db;border-radius:6px;font:inherit}.ds-lin::placeholder{color:#6b7b8a}.ds-lin:focus{outline:none;border-color:#006fad;box-shadow:0 0 0 3px rgba(0,111,173,.15)}.ds-llink{align-self:flex-end;font-size:12px;color:#006fad;text-decoration:none}.ds-lbtn{height:28px;background:#006fad;border:1px solid #006fad;color:#fff;border-radius:6px;font:inherit;box-shadow:0 6px 18px rgba(0,111,173,.25);cursor:pointer}.ds-lbtn:hover{background:#005a8c}.ds-lbtn:focus-visible{outline:2px solid #006fad;outline-offset:2px}"
+    },
+    {
+      "name": "Login Module Chip (light vault)",
+      "kind": "chip",
+      "refersTo": "login-module-chip",
+      "description": "A vault door's module chip in the light variant: pale gradient, faint blue border, soft lift, blue icon, dark label.",
+      "html": "<div class=\"ds-vault\"><span class=\"ds-mn\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><path d=\"M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg><b>Finance</b></span></div>",
+      "css": ".ds-vault{padding:24px;background:#eef3f7;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px}.ds-mn{display:inline-flex;align-items:center;gap:10px;width:208px;height:38px;padding:0 12px;background:linear-gradient(160deg,#fff,#f2f6f9);border:1px solid rgba(0,111,173,.22);border-radius:8px;box-shadow:inset 0 1px 0 #fff,0 6px 16px rgba(15,34,54,.08);color:#006fad}.ds-mn b{color:#1b2a38;font-weight:600}"
+    },
+    {
+      "name": "Loading Screen",
+      "kind": "custom",
+      "refersTo": "loader",
+      "description": "The splash and boot-cover loader: six module chips send pulses along dashed traces into a ringed core (1.6s pulse, 9s ring); still under reduced motion. Mark simplified here.",
+      "html": "<div class=\"ds-load\"><svg viewBox=\"0 0 520 240\" width=\"420\" role=\"img\" aria-label=\"ISOFT ERP is loading\"><g class=\"b\"><path d=\"M44 60H120V120H206\"/><path d=\"M44 120H206\"/><path d=\"M44 180H120V120H206\"/><path d=\"M476 60H400V120H314\"/><path d=\"M476 120H314\"/><path d=\"M476 180H400V120H314\"/></g><g class=\"p\"><path pathLength=\"100\" d=\"M44 60H120V120H206\"/><path pathLength=\"100\" style=\"animation-delay:.45s\" d=\"M44 120H206\"/><path pathLength=\"100\" style=\"animation-delay:.9s\" d=\"M44 180H120V120H206\"/><path pathLength=\"100\" style=\"animation-delay:.2s\" d=\"M476 60H400V120H314\"/><path pathLength=\"100\" style=\"animation-delay:.65s\" d=\"M476 120H314\"/><path pathLength=\"100\" style=\"animation-delay:1.1s\" d=\"M476 180H400V120H314\"/></g><g class=\"c\"><rect x=\"21\" y=\"51\" width=\"18\" height=\"18\" rx=\"5\"/><rect x=\"21\" y=\"111\" width=\"18\" height=\"18\" rx=\"5\"/><rect x=\"21\" y=\"171\" width=\"18\" height=\"18\" rx=\"5\"/><rect x=\"481\" y=\"51\" width=\"18\" height=\"18\" rx=\"5\"/><rect x=\"481\" y=\"111\" width=\"18\" height=\"18\" rx=\"5\"/><rect x=\"481\" y=\"171\" width=\"18\" height=\"18\" rx=\"5\"/></g><circle class=\"r2\" cx=\"260\" cy=\"120\" r=\"64\"/><circle class=\"r\" cx=\"260\" cy=\"120\" r=\"54\"/><circle class=\"d\" cx=\"260\" cy=\"120\" r=\"42\"/><path class=\"m\" d=\"M250 106v28M258 108l16 12-16 12z\"/></svg></div>",
+      "css": ".ds-load{display:flex;justify-content:center;padding:24px;background:#f4f6f8}.ds-load .b path{fill:none;stroke:#c3d0dc;stroke-width:1.4;stroke-dasharray:3 6}.ds-load .p path{fill:none;stroke:#0a8fd6;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:9 120;stroke-dashoffset:110;opacity:0;animation:ds-send 1.6s cubic-bezier(.45,0,.2,1) infinite}.ds-load .c rect{fill:#fff;stroke:#c9d6e2;stroke-width:1.2}.ds-load .r{fill:none;stroke:rgba(0,111,173,.32);stroke-width:1.3;stroke-dasharray:5 7;transform-origin:260px 120px;animation:ds-spin 9s linear infinite}.ds-load .r2{fill:none;stroke:rgba(0,111,173,.14)}.ds-load .d{fill:#fff;stroke:rgba(0,111,173,.22)}.ds-load .m{fill:#0a8fd6;stroke:#0a8fd6;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}@keyframes ds-send{0%{stroke-dashoffset:110;opacity:0}10%{opacity:1}85%{opacity:1}100%{stroke-dashoffset:0;opacity:0}}@keyframes ds-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.ds-load .p path,.ds-load .r{animation:none}}"
     }
   ],
   "narrative": {
     "northStar": "The Category Standard, Played Straight",
-    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.",
+    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.\n\nTwo surfaces sit before the shell and follow different rules. The login page is the incumbent core \"vault\" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) shows one animated loader: circuit traces from six module chips into a ringed core around the ISOFT mark. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.",
     "keyCharacteristics": [
       "Theme-following sidebar: a white panel with a 1px rule in light mode, deep slate in dark mode.",
       "One accent, ISOFT blue. Semantic colours carry state only.",
       "Inter with tabular figures. Counts are large, and labels sit below them.",
       "6px radii everywhere. Menus and popovers are the only things with a shadow.",
-      "Fully scoped (`body.isd-on`). Core lists, forms and reports are not restyled."
+      "Fully scoped (`body.isd-on`). Core lists, forms and reports are not restyled.",
+      "The login vault opens in the browser's last desk theme; the light vault is a recolour, never a relayout.",
+      "One animated loader for every load, in the desk theme the server rendered."
     ],
     "rules": [
       {
         "name": "The One Accent Rule",
-        "body": "ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong in this world.",
+        "body": "Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loader are blue worlds too: their glow and pulse hues are lighter blues from the same family, never a second hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Vault Is Core's Rule",
+        "body": "The dark vault (core `login.scss` and `www/login.html`) is the incumbent design and stays where it is. This app only recolours it, under `html[data-isd-login=\"light\"]`. Doors, chips, traces, core and card keep core's geometry, motion and gradients, and the light variant swaps their colours one for one.",
         "section": "colors"
       },
       {
@@ -729,13 +1090,15 @@
       },
       {
         "name": "The Only Menus Float Rule",
-        "body": "A surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless.",
+        "body": "In the desk shell, a surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless. The login vault is outside the shell and keeps the glow and lift that core's vault is built from, recoloured.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do scope every selector under `body.isd-on` (or the `.isd-` shell elements it creates), so switching the app off restores the standard desk.",
-      "Do use the `--isd-*` custom properties, never literal hex, so light and dark both follow the desk theme.",
+      "Do scope every selector under `body.isd-on` (or the `.isd-` shell elements it creates), so switching the app off restores the standard desk. Two documented exceptions: the light vault (`html[data-isd-login=\"light\"]`, set only while the app is enabled) and the loader (html-level, site-wide, because it paints before boot).",
+      "Do use the `--isd-*` custom properties, never literal hex, so light and dark both follow the desk theme. The login and loader stylesheets are the exception: the tokens are not loaded there, so they use literal values from the Login Surface and Loading Screen palette.",
+      "Do settle the login theme before first paint (remembered desk theme, then the OS preference), so the vault never flashes the other variant.",
+      "Do keep the loader's reduced-motion still frame complete: chips, traces, rings and mark all visible, nothing moving.",
       "Do keep ISOFT blue for where-you-are, the primary action, focus and links. Nothing else is blue.",
       "Do colour a count only through a definition's tone, and only when it is above zero.",
       "Do translate added strings with context \"ISOFT Desk\".",
@@ -748,7 +1111,9 @@
       "Don't bring back the v13 cyan-topped card grid, the star watermark or a flat module list.",
       "Don't add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.",
       "Don't give other apps' navbar buttons their own colours inside the shell.",
-      "Don't fill chart areas or use more than one accent-coloured series."
+      "Don't fill chart areas or use more than one accent-coloured series.",
+      "Don't restyle the dark vault from this app, or move, resize or re-animate any part of the vault in the light variant. Change colours only.",
+      "Don't draw an outline or ring on a clicked sidebar or menu control. Keyboard focus shows as the hover background."
     ]
   }
 }

@@ -38,6 +38,25 @@ colors:
   dark-state-ok: "#4cc38a"
   dark-state-warn: "#e7a54a"
   dark-state-bad: "#f2766b"
+  login-ground: "#eef3f7"
+  login-door: "#f6f9fb"
+  login-door-mid: "#ebf0f5"
+  login-door-seam: "#e4ebf1"
+  login-interior-floor: "#e7eef4"
+  login-glow: "#008cd2"
+  login-shade: "#0f2236"
+  login-trace: "#3c648c"
+  login-title: "#0b3a57"
+  login-chip-ink: "#1b2a38"
+  login-core-label: "#3c6482"
+  login-core-mid: "#4aa8e0"
+  login-core-deep: "#0b5d8f"
+  loader-trace: "#c3d0dc"
+  loader-chip-rule: "#c9d6e2"
+  loader-pulse: "#0a8fd6"
+  dark-loader-pulse: "#6cc0f0"
+  dark-loader-chip: "#101a26"
+  dark-loader-disc: "#0c1520"
 typography:
   count:
     fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
@@ -192,6 +211,31 @@ components:
     textColor: "{colors.surface}"
     rounded: "{rounded.md}"
     padding: "8px 10px"
+  login-ground:
+    backgroundColor: "{colors.login-ground}"
+  login-door:
+    backgroundColor: "{colors.login-door}"
+  login-module-chip:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.login-chip-ink}"
+  login-core-disc:
+    backgroundColor: "{colors.login-core-mid}"
+    textColor: "{colors.login-core-label}"
+  login-card:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.login-chip-ink}"
+  login-input:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+  login-button:
+    backgroundColor: "{colors.isoft-blue}"
+    textColor: "{colors.on-accent}"
+  login-button-hover:
+    backgroundColor: "{colors.isoft-blue-deep}"
+  boot-cover:
+    backgroundColor: "{colors.cool-ground}"
+  loader:
+    width: "420px"
 ---
 
 # Design System: ISOFT Desk
@@ -206,12 +250,16 @@ The world is quiet so that state can be loud. ISOFT cyan-blue is the only accent
 
 The scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.
 
+Two surfaces sit before the shell and follow different rules. The login page is the incumbent core "vault" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) shows one animated loader: circuit traces from six module chips into a ringed core around the ISOFT mark. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.
+
 **Key Characteristics:**
 - Theme-following sidebar: a white panel with a 1px rule in light mode, deep slate in dark mode.
 - One accent, ISOFT blue. Semantic colours carry state only.
 - Inter with tabular figures. Counts are large, and labels sit below them.
 - 6px radii everywhere. Menus and popovers are the only things with a shadow.
 - Fully scoped (`body.isd-on`). Core lists, forms and reports are not restyled.
+- The login vault opens in the browser's last desk theme; the light vault is a recolour, never a relayout.
+- One animated loader for every load, in the desk theme the server rendered.
 
 ## Colors
 
@@ -234,8 +282,28 @@ A cool slate-and-white neutral field with one saturated blue, and semantic hues 
 ### State
 - **OK / Warn / Bad** (state-ok, state-warn, state-bad and their dark counterparts): only for counts and states that need action. Shipped counts use `bad` (overdue invoices, rejected by AGT). The stylesheet also supports `warn`.
 
+### Login Surface (light vault)
+Cool and pale, so the vault reads as the same room with the lights on. Defined in `isd_login.css` under `html[data-isd-login="light"]`; the dark vault's colours stay in core's `login.scss`.
+- **Login Ground** (login-ground): the page and vault background behind the doors.
+- **Door Steel** (login-door, login-door-mid, login-door-seam): the door gradient, pale at the edges and darkest at the 50% seam, over a faint 3px Login Shade line texture. The inner edge of each door is a 1px ISOFT Blue rule at 24%.
+- **Interior** (login-door to login-interior-floor): the revealed core behind the doors, a vertical gradient under a 9% ISOFT Blue radial wash, with 46px gridlines in ISOFT Blue at 7%.
+- **Core Glow** (login-glow): the one glow hue of the light vault. It lights the core halo (22%), the core disc shadow (35%), the interior glow (18%), the title text-shadow (25%) and the card's outer halo (8%).
+- **Core Disc** (surface to login-core-mid to login-core-deep): a radial sphere, white highlight at 38% from the top. Its ring is ISOFT Blue at 30% and its label is Login Core Label.
+- **Module Chips**: Surface to a pale cool white, a 1px ISOFT Blue border at 22%, ISOFT Blue icons and Login Chip Ink labels. The traces that wire them to the core are Login Trace at 32%.
+- **Title** (login-title): the interior title; its subtitle is the same ink at 62%.
+- **Card, inputs, button**: the card is Surface at 86% with an ISOFT Blue border at 20% and Login Chip Ink text; its heading and subtitle are Side Ink. Inputs are Surface with a Rule Strong border, Ink text, Ink Faint placeholders and icons, and an ISOFT Blue border with a 3px 15% halo on focus. The button is ISOFT Blue on white with a soft blue shadow, ISOFT Blue Deep on hover. Show/forgot/sign-up links are ISOFT Blue, and the sign-up line is Ink Muted.
+- **Login Shade** (login-shade): the cool ink behind every light-vault shadow and door rule. It is never used as a fill.
+
+### Loading Screen
+Two hand-written SVGs (`isd_loader_light.svg`, `isd_loader_dark.svg`) share one drawing and swap only colour.
+- **Light:** traces in Loader Trace (dashed 3/6), chips Surface with a Loader Chip Rule border, pulses and chip lights in Loader Pulse, ring and disc rules in ISOFT Blue at 14 to 32%, a white disc, and a halo in Core Glow at 16%.
+- **Dark:** pulses and chip lights in Dark Loader Pulse, chips in Dark Loader Chip, the disc in Dark Loader Disc, and traces, chip borders and rings in pale cool blue at 16 to 40%. The halo is Login Core Mid at 26%.
+- **Ground:** the boot cover sits on Cool Ground under an 8% ISOFT Blue radial wash in light mode. The dark ground and the splash ground are core's.
+
 ### Named Rules
-**The One Accent Rule.** ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong in this world.
+**The One Accent Rule.** Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loader are blue worlds too: their glow and pulse hues are lighter blues from the same family, never a second hue.
+
+**The Vault Is Core's Rule.** The dark vault (core `login.scss` and `www/login.html`) is the incumbent design and stays where it is. This app only recolours it, under `html[data-isd-login="light"]`. Doors, chips, traces, core and card keep core's geometry, motion and gradients, and the light variant swaps their colours one for one.
 
 **The Colour Is State Rule.** A tile count turns red or amber only when its definition carries a tone and the count is above zero. A zero count goes faint, never green. Charts draw series 1 in the accent and further series in Ink Faint and Rule Strong, with no area fill.
 
@@ -269,6 +337,8 @@ Page titles, form headings and every other text size come from core.
 - **Below 992px:** the sidebar becomes a 272px off-canvas drawer with a 45% slate backdrop, opened from a 36px button in the top bar. The rail is desktop-only.
 - **Module page:** the header has the title, a context line (company · month) and up to 3 New buttons on the right. The most-created DocType is the primary button. The body is a column with 28px gaps: the waiting tiles (auto-fit, min 176px, 12px gap, at most 5), a wrapping row of quick links (8px gap), at most one chart, and a 4-column link index (28px row gap, 32px column gap). The index drops to 3 columns below 1280px, 2 below 992px and 1 below 576px, where the tiles go to 2 columns. A 96px bottom pad and a 64px right pad keep the floating assistant button off the last links.
 - **Rhythm:** 4, 8, 12, 16, 28 and 32px. Sidebar rows are 30px (items) and 34px (groups). The sidebar head is 52px.
+- **Login:** the vault layout is core's (doors full height, six chips per side, the card centred on the seam). The light variant changes no dimension.
+- **Loader:** one 520x240 drawing, centred, `min(420px, 80vw)` wide at that aspect ratio, for both the splash and the boot cover.
 
 ## Elevation & Depth
 
@@ -278,8 +348,10 @@ The shell is flat. Depth comes from tone (cool ground under white surfaces, or s
 - **Menu** (`0 8px 24px rgba(15,34,54,0.18), 0 2px 6px rgba(15,34,54,0.12)`; dark: `0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4)`): the company menu, rail flyouts and disabled-link tooltips only.
 - **Focus halo** (`0 0 0 3px` Blue Tint): top-bar search on focus.
 
+- **Login card** (`0 12px 40px rgba(15,34,54,0.12), 0 0 60px rgba(0,140,210,0.08)`), **login chip** (`inset 0 1px 0 #fff, 0 6px 16px rgba(15,34,54,0.08)`), **login button** (`0 6px 18px rgba(0,111,173,0.25)`) and **core disc** (`0 0 22px rgba(0,140,210,0.35), inset 0 0 14px rgba(255,255,255,0.4)`): the light vault's versions of core's dark-vault glows, on the login page only.
+
 ### Named Rules
-**The Only Menus Float Rule.** A surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless.
+**The Only Menus Float Rule.** In the desk shell, a surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless. The login vault is outside the shell and keeps the glow and lift that core's vault is built from, recoloured.
 
 ## Shapes
 
@@ -293,13 +365,13 @@ Calm, theme-following and always present on desk routes.
 - **Search:** a 32px field on Hover Wash with a leading search icon. It filters groups and items with accent-insensitive matching.
 - **Favorites:** pinned items, shared with the core sidebar's pins. A pin button appears on row hover or focus and stays visible, in the accent, when pinned.
 - **Groups:** a section label, then group buttons (icon, two-line text, chevron that rotates 180° in 160ms). The group holding the active page opens automatically. Items sit indented behind the left tree rule.
-- **States:** hover = Hover Wash + Side Strong. Active = Blue Tint + accent text, weight 600. Focus = 2px accent outline, inset.
+- **States:** hover = Hover Wash + Side Strong. Active = Blue Tint + accent text, weight 600. Focus: a click draws no outline or ring (Bootstrap's dark button ring is removed), and keyboard focus (`:focus-visible`) shows the hover background (Hover Wash, `--isd-side-2`) with Side Strong text. The same applies inside sidebar menus.
 - **Foot:** the company switcher (company name, with "Company" in 11px below) and a 32px collapse/expand button, above a 1px top rule.
 - **Rail:** 60px, icons only. Group buttons open a flyout menu.
 - **Drawer:** below 992px, 272px wide, slides in over 220ms with the shared ease.
 
 ### Menus (company switcher, rail flyouts)
-Fixed-position panels on the sidebar colour, min 220px and max 300px wide, 70vh tall at most, with 6px padding, an 8px radius and the Menu shadow. An optional title uses Label Small. Options have a Hover Wash hover, and the current option shows Blue Tint with accent text.
+Fixed-position panels on the sidebar colour, min 220px and max 300px wide, 70vh tall at most, with 6px padding, an 8px radius and the Menu shadow. An optional title uses Label Small. Options have a Hover Wash hover, and the current option shows Blue Tint with accent text. Keyboard focus looks like hover, and a click draws no ring.
 
 ### Top Bar
 White with a 1px bottom rule and no shadow. The core brand is hidden because the sidebar carries it, and breadcrumbs are Ink Muted. Search sits on Cool Ground and turns white with an accent border and halo on focus. Other Isoft apps' navbar buttons (POS, Command Center, Insights, Invenza, FE, Angola HR, Permission Manager, launcher) get one treatment: a 34px square, transparent, Ink Muted icon, and Hover Wash on hover. The bar reads as one row of tools.
@@ -316,14 +388,25 @@ Inline chips: 30px minimum height, 5/12px padding, a Rule Strong border on Surfa
 ### Chart
 At most one core chart widget, with a 1px Rule border, a 6px radius and no shadow or chrome. Series 1 is the accent, series 2 Ink Faint, series 3 Rule Strong, legend dots match, and there is no region fill.
 
+### Login Vault (light variant)
+Core's vault, recoloured (see Colors, Login Surface). It covers the login, email-login, forgot-password and sign-up cards. Selectors start at `html[data-isd-login="light"]` so they outrank core's login stylesheet and its inline critical style, both of which load later. Ground and body backgrounds use `!important` for the same reason.
+
+### Theme Memory
+The login page knows no user, so the browser remembers the theme. On every desk load and every theme switch, the desk writes `localStorage["isoft_theme"]` (`light` or `dark` only) for every desk user, pilot or not. An inline script in the login page's `<head>` reads it before the first paint and sets `data-isd-login`. If the value is missing or storage is blocked, it falls back to `prefers-color-scheme`. The script is injected only while Isoft Desk Settings is enabled; when it is off, the login page is core's dark vault.
+
+### Loading Screen (signature)
+One loader replaces core's splash image and the bar of the post-login boot cover. Six module chips (three each side) send light along dashed circuit traces into a core: a dashed ring that turns once every 9s, a fixed outer ring and a disc holding the ISOFT mark. Each trace carries a short pulse on a 1.6s cycle with staggered starts (0 to 1.1s) and the ease `cubic-bezier(.45,0,.2,1)`. As a pulse leaves, its chip light blinks, and the halo breathes and the mark beats once (scale 1.045) on the same 1.6s cycle. Under `prefers-reduced-motion` every animation stops and the pulses hide, leaving a still frame of chips, traces, rings and mark. It follows the server-rendered `html[data-theme]`. Because it paints before any script runs, it cannot see the pilot or the settings switch and applies site-wide wherever the app is installed. Core's star watermark is hidden only while the splash is on screen.
+
 ### Link Index
 Four columns of cards. A heading is Label type in Ink Muted over a 1px Rule Strong line. Links are 13px rows with 7px vertical padding, each over a 1px Rule. Hover turns the text to the accent. A disabled link is Ink Faint with a help cursor and shows a dark tooltip (Ink background, Surface text, 12px, Menu shadow) on hover or focus.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** scope every selector under `body.isd-on` (or the `.isd-` shell elements it creates), so switching the app off restores the standard desk.
-- **Do** use the `--isd-*` custom properties, never literal hex, so light and dark both follow the desk theme.
+- **Do** scope every selector under `body.isd-on` (or the `.isd-` shell elements it creates), so switching the app off restores the standard desk. Two documented exceptions: the light vault (`html[data-isd-login="light"]`, set only while the app is enabled) and the loader (html-level, site-wide, because it paints before boot).
+- **Do** use the `--isd-*` custom properties, never literal hex, so light and dark both follow the desk theme. The login and loader stylesheets are the exception: the tokens are not loaded there, so they use literal values from the Login Surface and Loading Screen palette.
+- **Do** settle the login theme before first paint (remembered desk theme, then the OS preference), so the vault never flashes the other variant.
+- **Do** keep the loader's reduced-motion still frame complete: chips, traces, rings and mark all visible, nothing moving.
 - **Do** keep ISOFT blue for where-you-are, the primary action, focus and links. Nothing else is blue.
 - **Do** colour a count only through a definition's tone, and only when it is above zero.
 - **Do** translate added strings with context "ISOFT Desk".
@@ -337,3 +420,5 @@ Four columns of cards. A heading is Label type in Ink Muted over a 1px Rule Stro
 - **Don't** add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.
 - **Don't** give other apps' navbar buttons their own colours inside the shell.
 - **Don't** fill chart areas or use more than one accent-coloured series.
+- **Don't** restyle the dark vault from this app, or move, resize or re-animate any part of the vault in the light variant. Change colours only.
+- **Don't** draw an outline or ring on a clicked sidebar or menu control. Keyboard focus shows as the hover background.
