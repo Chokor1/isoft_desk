@@ -70,6 +70,7 @@
 				</button>
 			`).prependTo($(".navbar .container").first());
 
+			this.make_fullscreen_button();
 			this.bind();
 			this.render_company();
 			this.apply_rail(read_store(RAIL_KEY, false));
@@ -120,6 +121,49 @@
 			frappe.router.on("change", () => this.on_route());
 			$(document).on("page-change", () => this.on_route());
 			DESKTOP.addListener(() => this.apply_rail(this.rail_pref));
+		},
+
+		// ---- full screen (top bar) ----
+		make_fullscreen_button() {
+			const root = document.documentElement;
+			if (!document.fullscreenEnabled || !root.requestFullscreen) return; // e.g. iPhone Safari
+			this.$fullscreen = $(`<li class="nav-item isd-fullscreen-item">
+				<button class="nav-link isd-fullscreen" type="button"></button>
+			</li>`);
+			this.place_fullscreen_button();
+			// other apps (re)insert their tool buttons in front of the bell at start-up and
+			// on every route; move ours back beside the bell whenever the list changes
+			// (a no-op when it is already there, so this cannot loop)
+			const list = this.$fullscreen.parent()[0];
+			if (list) new MutationObserver(() => this.place_fullscreen_button()).observe(list, { childList: true });
+
+			const paint = () => {
+				const state = core.fullscreen_toggle(!!document.fullscreenElement);
+				this.$fullscreen.find("button")
+					.attr({ title: t(state.label), "aria-label": t(state.label) })
+					.html(icon(state.icon));
+			};
+			this.$fullscreen.on("click", "button", () => {
+				const request = document.fullscreenElement ? document.exitFullscreen() : root.requestFullscreen();
+				if (request && request.catch) request.catch(() => {}); // refused (iframe, policy): stay as is
+			});
+			// F11, Esc and the browser's own controls change it too
+			document.addEventListener("fullscreenchange", paint);
+			paint();
+		},
+
+		// right before the bell, in the tools list (not #navbar-breadcrumbs, which is
+		// also .navbar-nav and is redrawn per route)
+		place_fullscreen_button() {
+			if (!this.$fullscreen) return;
+			// those apps' buttons also carry .dropdown-notifications; the bell is the
+			// first item holding core's notifications link
+			const $bell = $(".navbar .navbar-collapse a.notifications-icon").first().closest("li");
+			if ($bell.length) {
+				if ($bell.prev()[0] !== this.$fullscreen[0]) this.$fullscreen.insertBefore($bell);
+			} else if (!this.$fullscreen.parent().length) {
+				this.$fullscreen.prependTo($(".navbar .navbar-collapse .navbar-nav").first());
+			}
 		},
 
 		// ---- route ----

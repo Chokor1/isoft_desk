@@ -76,7 +76,15 @@
 	}
 
 
+	// the top-bar full-screen button shows the action a click will take
+	function fullscreen_toggle(is_full) {
+		return is_full
+			? { icon: "collapse", label: "Exit full screen" }
+			: { icon: "expand", label: "Full screen" };
+	}
+
 	return {
 		route_mode, find_active, filter_groups, landing_workspace, theme_to_remember, direct_item,
+		fullscreen_toggle,
 	};
 });

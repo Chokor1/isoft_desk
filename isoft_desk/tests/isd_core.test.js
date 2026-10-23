@@ -70,3 +70,8 @@ test('favorites are gone from the core', () => {
 	assert.strictEqual(core.favorite_items, undefined);
 	assert.strictEqual(core.side_mode, undefined);
 });
+
+test('fullscreen_toggle describes the action the button will take', () => {
+	assert.deepStrictEqual(core.fullscreen_toggle(false), { icon: 'expand', label: 'Full screen' });
+	assert.deepStrictEqual(core.fullscreen_toggle(true), { icon: 'collapse', label: 'Exit full screen' });
+});

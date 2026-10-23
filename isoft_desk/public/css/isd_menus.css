@@ -49,6 +49,40 @@ body.isd-on .navbar .dropdown-notifications > .nav-link:hover {
 	--icon-stroke: var(--isd-ink);
 }
 
+/* ---- full-screen toggle (added by isd_shell.js) ---- */
+body.isd-on .navbar .isd-fullscreen-item {
+	display: flex;
+	align-items: center;
+}
+
+body.isd-on .navbar .isd-fullscreen {
+	width: 34px;
+	height: 34px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: transparent;
+	color: var(--isd-ink-2);
+	--icon-stroke: var(--isd-ink-2);
+	cursor: pointer;
+}
+
+body.isd-on .navbar .isd-fullscreen:hover {
+	background: var(--isd-hover);
+	--icon-stroke: var(--isd-ink);
+}
+
+body.isd-on .navbar .isd-fullscreen:focus {
+	outline: none;
+}
+
+body.isd-on .navbar .isd-fullscreen:focus-visible {
+	background: var(--isd-hover);
+}
+
 /* ---- notifications panel ---- */
 body.isd-on .navbar .notifications-list {
 	padding: 0;
