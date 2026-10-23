@@ -25,10 +25,10 @@ html {
 
 html:not([data-theme="dark"]) {
 	/* the light vault interior (isd_login.css) */
-	--isd-core-ground: radial-gradient(1000px 620px at 50% 45%, rgba(0, 111, 173, 0.09), transparent 60%),
+	--isd-core-ground: radial-gradient(1000px 620px at 50% 45%, rgba(0, 121, 194, 0.09), transparent 60%),
 		linear-gradient(180deg, #f6f9fb, #e7eef4);
 	--isd-core-base: #eef3f7;
-	--isd-core-grid: rgba(0, 111, 173, 0.07);
+	--isd-core-grid: rgba(0, 121, 194, 0.07);
 	--isd-core-glow: rgba(0, 140, 210, 0.18);
 	--isd-core-title: #0b3a57;
 	--isd-core-title-glow: rgba(0, 140, 210, 0.25);

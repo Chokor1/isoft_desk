@@ -26,6 +26,15 @@
         ],
         "createdAt": "2026-10-23T12:37:26.149Z",
         "reason": "user asked (2026-10-23) for the loading page to be the login vault interior, whose grid is the incumbent .vi-gridlines"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#000",
+        "files": [
+          "isoft_desk/public/css/isd_loader.css"
+        ],
+        "createdAt": "2026-10-23T12:49:22.253Z",
+        "reason": "opaque stop of the grid's radial mask (transparency only, never painted), copied from the vault interior's .vi-gridlines"
       }
     ]
   }

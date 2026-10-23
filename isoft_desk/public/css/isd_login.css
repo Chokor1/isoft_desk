@@ -15,7 +15,7 @@ html[data-isd-login="light"] .isoft-vault {
 
 /* revealed core behind the doors */
 html[data-isd-login="light"] .vault-interior {
-	background: radial-gradient(1000px 620px at 50% 45%, rgba(0, 111, 173, 0.09), transparent 60%),
+	background: radial-gradient(1000px 620px at 50% 45%, rgba(0, 121, 194, 0.09), transparent 60%),
 		linear-gradient(180deg, #f6f9fb, #e7eef4);
 }
 
@@ -24,8 +24,8 @@ html[data-isd-login="light"] .vi-glow {
 }
 
 html[data-isd-login="light"] .vi-gridlines {
-	background: linear-gradient(rgba(0, 111, 173, 0.07) 1px, transparent 1px) 0 0 / 100% 46px,
-		linear-gradient(90deg, rgba(0, 111, 173, 0.07) 1px, transparent 1px) 0 0 / 46px 100%;
+	background: linear-gradient(rgba(0, 121, 194, 0.07) 1px, transparent 1px) 0 0 / 100% 46px,
+		linear-gradient(90deg, rgba(0, 121, 194, 0.07) 1px, transparent 1px) 0 0 / 46px 100%;
 }
 
 html[data-isd-login="light"] .vi-title {
@@ -50,11 +50,11 @@ html[data-isd-login="light"] .vault-door::before {
 }
 
 html[data-isd-login="light"] .vault-door.left {
-	border-right-color: rgba(0, 111, 173, 0.24);
+	border-right-color: rgba(0, 121, 194, 0.24);
 }
 
 html[data-isd-login="light"] .vault-door.right {
-	border-left-color: rgba(0, 111, 173, 0.24);
+	border-left-color: rgba(0, 121, 194, 0.24);
 }
 
 html[data-isd-login="light"] .trace {
@@ -63,7 +63,7 @@ html[data-isd-login="light"] .trace {
 
 html[data-isd-login="light"] .mod-node {
 	background: linear-gradient(160deg, #ffffff, #f2f6f9);
-	border-color: rgba(0, 111, 173, 0.22);
+	border-color: rgba(0, 121, 194, 0.22);
 	box-shadow: inset 0 1px 0 #ffffff, 0 6px 16px rgba(15, 34, 54, 0.08);
 }
 
@@ -86,7 +86,7 @@ html[data-isd-login="light"] .core-glow {
 }
 
 html[data-isd-login="light"] .core-ring {
-	border-color: rgba(0, 111, 173, 0.3);
+	border-color: rgba(0, 121, 194, 0.3);
 }
 
 html[data-isd-login="light"] .core-label {
@@ -96,7 +96,7 @@ html[data-isd-login="light"] .core-label {
 /* login, email-login, forgot and signup cards */
 html[data-isd-login="light"] .isoft-login-root .page-card {
 	background-color: rgba(255, 255, 255, 0.86) !important;
-	border-color: rgba(0, 111, 173, 0.2) !important;
+	border-color: rgba(0, 121, 194, 0.2) !important;
 	box-shadow: 0 12px 40px rgba(15, 34, 54, 0.12), 0 0 60px rgba(0, 140, 210, 0.08) !important;
 	color: #1b2a38;
 }

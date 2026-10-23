@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T21:00:00Z",
+  "generatedAt": "2026-10-23T23:30:00Z",
   "title": "Design System: ISOFT Desk",
   "extensions": {
     "colorMeta": {
@@ -589,36 +589,6 @@
           "#fde9e8"
         ]
       },
-      "login-blue": {
-        "role": "primary",
-        "displayName": "Login Blue",
-        "canonical": "#006fad",
-        "tonalRamp": [
-          "#000731",
-          "#002553",
-          "#004378",
-          "#00639e",
-          "#2e84c0",
-          "#5aa6e0",
-          "#87ccff",
-          "#b7f6ff"
-        ]
-      },
-      "login-blue-deep": {
-        "role": "primary",
-        "displayName": "Login Blue Deep",
-        "canonical": "#005a8c",
-        "tonalRamp": [
-          "#00092d",
-          "#00264e",
-          "#004371",
-          "#156395",
-          "#4384b4",
-          "#6aa5d4",
-          "#94cbf7",
-          "#c3f5ff"
-        ]
-      },
       "login-ground": {
         "role": "neutral",
         "displayName": "Login Ground",
@@ -844,21 +814,6 @@
           "#e8effb"
         ]
       },
-      "core-dark-fade": {
-        "role": "neutral",
-        "displayName": "Core Dark Fade",
-        "canonical": "#080e19",
-        "tonalRamp": [
-          "#060b16",
-          "#1e2430",
-          "#39404c",
-          "#575e6a",
-          "#777e89",
-          "#999fa9",
-          "#bfc4ce",
-          "#eaeff8"
-        ]
-      },
       "core-dark-glow": {
         "role": "primary",
         "displayName": "Core Dark Glow",
@@ -932,7 +887,7 @@
       },
       "core-title": {
         "displayName": "Core Title",
-        "purpose": "\"ISOFT ERP\" on the loading screen, as the vault interior's title."
+        "purpose": "\"ISOFT ERP\" on the loading screen, as the vault interior's title, in the system font stack (--isd-core-font)."
       },
       "core-sub": {
         "displayName": "Core Sub",
@@ -943,7 +898,7 @@
       {
         "name": "menu",
         "value": "0 8px 24px rgba(15, 34, 54, 0.18), 0 2px 6px rgba(15, 34, 54, 0.12)",
-        "purpose": "Company menu, rail flyouts, disabled-link tooltip (light)."
+        "purpose": "Company menu, rail flyouts, top-bar menus (Help, user, notifications), search results, the applications launcher, disabled-link tooltip (light)."
       },
       {
         "name": "menu-dark",
@@ -967,7 +922,7 @@
       },
       {
         "name": "login-button",
-        "value": "0 6px 18px rgba(0, 111, 173, 0.25)",
+        "value": "0 6px 18px rgba(0, 121, 194, 0.25)",
         "purpose": "Light vault Login button."
       },
       {
@@ -977,13 +932,18 @@
       },
       {
         "name": "login-input-focus",
-        "value": "0 0 0 3px rgba(0, 111, 173, 0.15)",
-        "purpose": "Light vault inputs on focus, with an ISOFT Blue border."
+        "value": "0 0 0 3px rgba(0, 121, 194, 0.15)",
+        "purpose": "Light vault inputs on focus, with a Logo Blue border."
       },
       {
         "name": "core-title-glow",
         "value": "0 0 32px rgba(93, 180, 230, 0.6) (dark) / rgba(0, 140, 210, 0.25) (light)",
-        "purpose": "Loading-screen title glow; breathes between 22px and 44px."
+        "purpose": "Loading-screen title glow; holds still."
+      },
+      {
+        "name": "core-glow",
+        "value": "radial-gradient(closest-side, var(--isd-core-glow), transparent 70%) on a 520px disc, filter: blur(10px)",
+        "purpose": "The breathing light behind the loading-screen title, as in the vault interior."
       }
     ],
     "motion": [
@@ -1015,12 +975,17 @@
       {
         "name": "core-breathe",
         "value": "3.6s ease-in-out infinite",
-        "purpose": "Loading-screen title glow breathing, text-shadow 22px to 44px and back."
+        "purpose": "Loading-screen glow breathing: opacity 0.55 to 0.9, scale 1 to 1.12, centred (translate -50% -50% kept)."
       },
       {
         "name": "core-reduced",
         "value": "animation: none",
-        "purpose": "prefers-reduced-motion: the title and its glow hold still."
+        "purpose": "prefers-reduced-motion: the glow holds still, centred."
+      },
+      {
+        "name": "vault-glow-centre",
+        "value": "isd-vi-breathe 3.6s (same as core-breathe)",
+        "purpose": "Replaces core's vault glow keyframes in both login themes so the glow stays centred on the title."
       }
     ],
     "breakpoints": [
@@ -1091,6 +1056,22 @@
       "css": ":host{--isd-accent:#0079c2;--isd-accent-hover:#006aa9;--isd-accent-strong:#0a93e0;--isd-accent-text:#0079c2;--isd-accent-soft:#e2f5ff;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e2f5ff;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#0079c2;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-menu{min-width:220px;max-width:300px;padding:6px;background:var(--isd-side);border:1px solid var(--isd-side-rule);border-radius:8px;box-shadow:var(--isd-shadow-menu);color:var(--isd-side-ink)}.ds-mt{padding:6px 8px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--isd-side-ink-2)}.ds-opt{display:flex;width:100%;padding:7px 8px;border:0;border-radius:var(--isd-radius);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}.ds-opt:hover{background:var(--isd-side-2);color:var(--isd-side-strong)}.ds-opt.is-current{background:var(--isd-side-3);color:var(--isd-side-active)}.ds-opt:focus{outline:none}.ds-opt:focus-visible{background:var(--isd-side-2);color:var(--isd-side-strong)}"
     },
     {
+      "name": "Top-Bar Menus",
+      "kind": "custom",
+      "refersTo": "topbar-menu",
+      "description": "Help/user dropdown and the search results list under the top-bar search, on the desk surface with the menu shadow; matched letters in the text accent, no fill.",
+      "html": "<div class=\"ds-tb\"><div class=\"ds-dd\"><a class=\"ds-ddi\" href=\"#\">My Profile</a><a class=\"ds-ddi\" href=\"#\">My Settings</a><div class=\"ds-div\"></div><a class=\"ds-ddi\" href=\"#\">Logout</a></div><ul class=\"ds-sr\"><li class=\"is-sel\">Search for <mark>sales</mark></li><li><mark>Sales</mark> Order List</li><li>New <mark>Sales</mark> Order</li></ul></div>",
+      "css": ":host{--isd-accent:#0079c2;--isd-accent-hover:#006aa9;--isd-accent-strong:#0a93e0;--isd-accent-text:#0079c2;--isd-accent-soft:#e2f5ff;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e2f5ff;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#0079c2;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-tb{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--isd-ground)}.ds-dd,.ds-sr{min-width:200px;margin:0;padding:6px;list-style:none;background:var(--isd-surface);border:1px solid var(--isd-rule);border-radius:8px;box-shadow:var(--isd-shadow-menu);color:var(--isd-ink)}.ds-ddi{display:block;padding:7px 10px;border-radius:var(--isd-radius);color:var(--isd-ink);font-size:13px;text-decoration:none}.ds-ddi:hover,.ds-ddi:focus{background:var(--isd-hover);outline:none}.ds-div{margin:6px 4px;border-top:1px solid var(--isd-rule)}.ds-sr li{padding:8px 10px;border-radius:var(--isd-radius);cursor:pointer}.ds-sr li:hover,.ds-sr li.is-sel{background:var(--isd-hover)}.ds-sr mark{padding:0;background:transparent;color:var(--isd-accent-text);font-weight:600}"
+    },
+    {
+      "name": "Notifications Panel",
+      "kind": "custom",
+      "refersTo": "notification-item",
+      "description": "Tabs with a Logo Blue Bright underline on the active one, rows with a hover wash, unread as a dot only, footer link in the text accent.",
+      "html": "<div class=\"ds-np\"><div class=\"ds-nh\"><span class=\"ds-nt is-on\">Notifications</span><span class=\"ds-nt\">Today's Events</span><span class=\"ds-nt\">Updates</span></div><a class=\"ds-ni is-unread\" href=\"#\"><b>Administrator</b> assigned a new task Work Order <b>KIT-SCR-ESS</b><small>2 days ago</small></a><a class=\"ds-ni\" href=\"#\"><b>Administrator</b> assigned a new task Work Order <b>NB-HP-50</b><small>3 days ago</small></a><a class=\"ds-nf\" href=\"#\">See all activity</a></div>",
+      "css": ":host{--isd-accent:#0079c2;--isd-accent-hover:#006aa9;--isd-accent-strong:#0a93e0;--isd-accent-text:#0079c2;--isd-accent-soft:#e2f5ff;--isd-accent-ink:#fff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-side:#fff;--isd-side-2:#eef2f5;--isd-side-3:#e2f5ff;--isd-side-rule:#e1e6eb;--isd-side-ink:#33424f;--isd-side-ink-2:#5f6f7e;--isd-side-strong:#0b1b2a;--isd-side-active:#0079c2;--isd-bad:#b42318;--isd-warn:#a15c07;--isd-radius:6px;--isd-ease:cubic-bezier(0.16,1,0.3,1);--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-np{width:340px;overflow:hidden;background:var(--isd-surface);border:1px solid var(--isd-rule);border-radius:8px;box-shadow:var(--isd-shadow-menu);color:var(--isd-ink)}.ds-nh{display:flex;gap:16px;padding:0 12px;border-bottom:1px solid var(--isd-rule)}.ds-nt{padding:10px 0;color:var(--isd-ink-2);font-weight:500;border-bottom:2px solid transparent;cursor:pointer}.ds-nt:hover{color:var(--isd-ink)}.ds-nt.is-on{color:var(--isd-ink);border-bottom-color:var(--isd-accent-strong)}.ds-ni{position:relative;display:block;margin:2px 6px;padding:8px 10px 8px 22px;border-radius:var(--isd-radius);color:var(--isd-ink);text-decoration:none}.ds-ni b{font-weight:600}.ds-ni:hover{background:var(--isd-hover)}.ds-ni.is-unread::before{content:'';position:absolute;left:9px;top:14px;width:6px;height:6px;border-radius:50%;background:var(--isd-accent-strong)}.ds-ni small{display:block;margin-top:2px;color:var(--isd-ink-3);font-size:12px}.ds-nf{display:block;padding:10px;border-top:1px solid var(--isd-rule);color:var(--isd-accent-text);font-weight:500;text-align:center;text-decoration:none}.ds-nf:hover{background:var(--isd-hover)}"
+    },
+    {
       "name": "Top Bar Search",
       "kind": "input",
       "refersTo": "topbar-search",
@@ -1102,9 +1083,9 @@
       "name": "Login Card (light vault)",
       "kind": "card",
       "refersTo": "login-card",
-      "description": "The vault's sign-in card recoloured for the light variant: translucent white, faint blue border, blue-glow lift, white inputs with a blue focus halo, ISOFT Blue button.",
+      "description": "The vault's sign-in card recoloured for the light variant: translucent white, faint blue border, blue-glow lift, white inputs with a blue focus halo, Logo Blue button.",
       "html": "<div class=\"ds-vault\"><form class=\"ds-lcard\"><p class=\"ds-lsub\">Login to ISOFT ERP</p><input class=\"ds-lin\" type=\"email\" placeholder=\"jane@example.com\"><input class=\"ds-lin\" type=\"password\" placeholder=\"Password\"><a class=\"ds-llink\" href=\"#\">Forgot Password?</a><button class=\"ds-lbtn\" type=\"button\">Login</button></form></div>",
-      "css": ".ds-vault{padding:32px;background:#eef3f7;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-lcard{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto;padding:32px 38px;background:rgba(255,255,255,.86);border:1px solid rgba(0,111,173,.2);border-radius:8px;box-shadow:0 12px 40px rgba(15,34,54,.12),0 0 60px rgba(0,140,210,.08);color:#1b2a38}.ds-lsub{margin:0 0 8px;text-align:center;color:#33424f}.ds-lin{height:34px;padding:0 10px;background:#fff;color:#14202b;border:1px solid #c9d2db;border-radius:6px;font:inherit}.ds-lin::placeholder{color:#6b7b8a}.ds-lin:focus{outline:none;border-color:#006fad;box-shadow:0 0 0 3px rgba(0,111,173,.15)}.ds-llink{align-self:flex-end;font-size:12px;color:#006fad;text-decoration:none}.ds-lbtn{height:28px;background:#006fad;border:1px solid #006fad;color:#fff;border-radius:6px;font:inherit;box-shadow:0 6px 18px rgba(0,111,173,.25);cursor:pointer}.ds-lbtn:hover{background:#005a8c}.ds-lbtn:focus-visible{outline:2px solid #006fad;outline-offset:2px}"
+      "css": ".ds-vault{padding:32px;background:#eef3f7;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px}.ds-lcard{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto;padding:32px 38px;background:rgba(255,255,255,.86);border:1px solid rgba(0,121,194,.2);border-radius:8px;box-shadow:0 12px 40px rgba(15,34,54,.12),0 0 60px rgba(0,140,210,.08);color:#1b2a38}.ds-lsub{margin:0 0 8px;text-align:center;color:#33424f}.ds-lin{height:34px;padding:0 10px;background:#fff;color:#14202b;border:1px solid #c9d2db;border-radius:6px;font:inherit}.ds-lin::placeholder{color:#6b7b8a}.ds-lin:focus{outline:none;border-color:#0079c2;box-shadow:0 0 0 3px rgba(0,121,194,.15)}.ds-llink{align-self:flex-end;font-size:12px;color:#0079c2;text-decoration:none}.ds-lbtn{height:28px;background:#0079c2;border:1px solid #0079c2;color:#fff;border-radius:6px;font:inherit;box-shadow:0 6px 18px rgba(0,121,194,.25);cursor:pointer}.ds-lbtn:hover{background:#006aa9}.ds-lbtn:focus-visible{outline:2px solid #0079c2;outline-offset:2px}"
     },
     {
       "name": "Login Module Chip (light vault)",
@@ -1112,25 +1093,26 @@
       "refersTo": "login-module-chip",
       "description": "A vault door's module chip in the light variant: pale gradient, faint blue border, soft lift, blue icon, dark label.",
       "html": "<div class=\"ds-vault\"><span class=\"ds-mn\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><path d=\"M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg><b>Finance</b></span></div>",
-      "css": ".ds-vault{padding:24px;background:#eef3f7;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px}.ds-mn{display:inline-flex;align-items:center;gap:10px;width:208px;height:38px;padding:0 12px;background:linear-gradient(160deg,#fff,#f2f6f9);border:1px solid rgba(0,111,173,.22);border-radius:8px;box-shadow:inset 0 1px 0 #fff,0 6px 16px rgba(15,34,54,.08);color:#006fad}.ds-mn b{color:#1b2a38;font-weight:600}"
+      "css": ".ds-vault{padding:24px;background:#eef3f7;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px}.ds-mn{display:inline-flex;align-items:center;gap:10px;width:208px;height:38px;padding:0 12px;background:linear-gradient(160deg,#fff,#f2f6f9);border:1px solid rgba(0,121,194,.22);border-radius:8px;box-shadow:inset 0 1px 0 #fff,0 6px 16px rgba(15,34,54,.08);color:#0079c2}.ds-mn b{color:#1b2a38;font-weight:600}"
     },
     {
       "name": "Loading Screen",
       "kind": "custom",
       "refersTo": "loading-screen",
-      "description": "Core's splash and the post-login boot cover drawn as the login vault's interior: ISOFT ERP over ENTERPRISE CORE · ONLINE on the gridded, glowing core ground; the title glow breathes, still under reduced motion. Dark shown; light swaps the --ds-core-* values.",
-      "html": "<div class=\"ds-core\"><div class=\"ds-core-title\">ISOFT ERP</div><div class=\"ds-core-sub\">ENTERPRISE CORE · ONLINE</div></div>",
-      "css": ".ds-core{--ds-core-grid:rgba(93,180,230,.07);--ds-core-title:#d6f0ff;--ds-core-glow:rgba(93,180,230,.6);--ds-core-sub:rgba(169,224,255,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;padding-bottom:26px;background:radial-gradient(260px 260px at 50% 45%,rgba(93,180,230,.22),transparent 70%),radial-gradient(circle at 50% 45%,transparent 0%,#080e19 70%),linear-gradient(var(--ds-core-grid) 1px,transparent 1px) 0 0/100% 46px,linear-gradient(90deg,var(--ds-core-grid) 1px,transparent 1px) 0 0/46px 100%,radial-gradient(1000px 620px at 50% 45%,rgba(93,180,230,.1),transparent 60%),linear-gradient(180deg,#060a12,#0a1120);font-family:Inter,-apple-system,'Segoe UI',Roboto,sans-serif}.ds-core-title{font-size:3rem;font-weight:800;line-height:1.2;letter-spacing:6px;color:var(--ds-core-title);text-shadow:0 0 32px var(--ds-core-glow);animation:ds-breathe 3.6s ease-in-out infinite}.ds-core-sub{margin-top:12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:4px;color:var(--ds-core-sub)}@keyframes ds-breathe{0%,100%{text-shadow:0 0 22px var(--ds-core-glow)}50%{text-shadow:0 0 44px var(--ds-core-glow)}}@media (prefers-reduced-motion:reduce){.ds-core-title{animation:none}}"
+      "description": "Core's splash and the post-login boot cover drawn from the login vault interior's recipe: ISOFT ERP over ENTERPRISE CORE · ONLINE on the core ground, a masked 46px grid at 50% and a 520px blurred glow that breathes (still under reduced motion). Dark shown; light swaps the --ds-core-* values.",
+      "html": "<div class=\"ds-core\"><div class=\"ds-core-text\"><div class=\"ds-core-title\">ISOFT ERP</div><div class=\"ds-core-sub\">ENTERPRISE CORE · ONLINE</div></div></div>",
+      "css": ".ds-core{--ds-core-grid:rgba(93,180,230,.07);--ds-core-glow:rgba(93,180,230,.28);--ds-core-title:#d6f0ff;--ds-core-title-glow:rgba(93,180,230,.6);--ds-core-sub:rgba(169,224,255,.7);position:relative;overflow:hidden;min-height:300px;background:radial-gradient(1000px 620px at 50% 45%,rgba(93,180,230,.1),transparent 60%),linear-gradient(180deg,#060a12,#0a1120);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif}.ds-core::before{content:'';position:absolute;inset:0;opacity:.5;background:linear-gradient(var(--ds-core-grid) 1px,transparent 1px) 0 0/100% 46px,linear-gradient(90deg,var(--ds-core-grid) 1px,transparent 1px) 0 0/46px 100%;-webkit-mask:radial-gradient(circle at 50% 45%,#000 0%,transparent 70%);mask:radial-gradient(circle at 50% 45%,#000 0%,transparent 70%)}.ds-core::after{content:'';position:absolute;left:50%;top:45%;width:520px;height:520px;background:radial-gradient(closest-side,var(--ds-core-glow),transparent 70%);filter:blur(10px);transform:translate(-50%,-50%);animation:ds-breathe 3.6s ease-in-out infinite}.ds-core-text{position:absolute;left:0;right:0;top:45%;z-index:1;transform:translateY(-50%);text-align:center}.ds-core-title{font-size:48px;font-weight:800;letter-spacing:6px;color:var(--ds-core-title);text-shadow:0 0 32px var(--ds-core-title-glow)}.ds-core-sub{margin-top:12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:4px;color:var(--ds-core-sub)}@keyframes ds-breathe{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.55}50%{transform:translate(-50%,-50%) scale(1.12);opacity:.9}}@media (prefers-reduced-motion:reduce){.ds-core::after{animation:none}}"
     }
   ],
   "narrative": {
     "northStar": "The Category Standard, Played Straight",
-    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.\n\nTwo surfaces sit before the shell and follow different rules. The login page is the incumbent core \"vault\" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) is drawn as the vault's own interior, \"ISOFT ERP\" over \"ENTERPRISE CORE · ONLINE\" on the gridded, glowing core ground, so after login the room the doors open onto simply stays on screen until the desk is ready: one screen, not two. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.",
+    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.\n\nTwo surfaces sit before the shell and follow different rules. The login page is the incumbent core \"vault\" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) is drawn from the vault interior's own recipe, \"ISOFT ERP\" over \"ENTERPRISE CORE · ONLINE\" on the gridded core ground with its breathing glow, so after login the room the doors open onto simply stays on screen until the desk is ready: one screen, not two. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.",
     "keyCharacteristics": [
       "Theme-following sidebar: a white panel with a 1px rule in light mode, deep slate in dark mode.",
       "One accent, the ISOFT ERP logo's blue, in three strengths: a fill, a line and a text shade. Semantic colours carry state only.",
       "Inter with tabular figures. Counts are large, and labels sit below them.",
-      "6px radii everywhere. Menus and popovers are the only things with a shadow.",
+      "6px radii everywhere, 8px on menus. Menus and popovers are the only things with a shadow.",
+      "Every top-bar menu (Help, user, notifications, search results, the ISOFT applications launcher) sits on the desk's own surface, rule and shadow.",
       "Fully scoped (`body.isd-on`). Core lists, forms and reports are not restyled.",
       "The login vault opens in the browser's last desk theme; the light vault is a recolour, never a relayout.",
       "Every load shows the vault interior, light or dark, in the desk theme the server rendered."
@@ -1138,7 +1120,7 @@
     "rules": [
       {
         "name": "The One Accent Rule",
-        "body": "Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue.",
+        "body": "Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens.",
         "section": "colors"
       },
       {
@@ -1148,7 +1130,7 @@
       },
       {
         "name": "The Vault Is Core's Rule",
-        "body": "The dark vault (core `login.scss` and `www/login.html`) is the incumbent design and stays where it is. This app only recolours it, under `html[data-isd-login=\"light\"]`. Doors, chips, traces, core and card keep core's geometry, motion and gradients, and the light variant swaps their colours one for one.",
+        "body": "The dark vault (core `login.scss` and `www/login.html`) is the incumbent design and stays where it is. This app only recolours it, under `html[data-isd-login=\"light\"]`. Doors, chips, traces, core and card keep core's geometry, motion and gradients, and the light variant swaps their colours one for one. The single change that reaches both themes is a repair: core's breathing keyframes drop the glow's centring translate, so the app re-runs the same breath (`isd-vi-breathe`, 3.6s, opacity 0.55 to 0.9, scale 1 to 1.12) with the translate kept, and the glow sits centred on the title as core intended.",
         "section": "colors"
       },
       {
@@ -1193,9 +1175,9 @@
       "Don't list Isoft app pages in the sidebar. They live in the applications launcher.",
       "Don't bring back the v13 cyan-topped card grid, the star watermark or a flat module list.",
       "Don't add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.",
-      "Don't give other apps' navbar buttons their own colours inside the shell.",
+      "Don't give other apps' navbar buttons or menus their own colours inside the shell. The launcher's app icon tones are the only hues kept, because each names an app.",
       "Don't fill chart areas or use more than one accent-coloured series.",
-      "Don't restyle the dark vault from this app, or move, resize or re-animate any part of the vault in the light variant. Change colours only.",
+      "Don't restyle the dark vault from this app, or move, resize or re-animate any part of the vault in the light variant. Change colours only. The glow-centring repair (same breath, translate kept) is the one change that reaches both vaults.",
       "Don't draw an outline or ring on a clicked sidebar or menu control. Keyboard focus shows as the hover background."
     ]
   }
