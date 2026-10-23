@@ -19,6 +19,8 @@ EARLY_SCRIPT = """<script>(function () {
 
 
 def update_website_context(context):
-	if context.get("path") != "login" or not get_settings().get("enabled"):
+	# match the template, not the URL: logout goes to "/", which renders the
+	# login page when it is the website home page
+	if context.get("template") != "www/login.html" or not get_settings().get("enabled"):
 		return None
 	return {"head_html": (context.get("head_html") or "") + EARLY_SCRIPT}
