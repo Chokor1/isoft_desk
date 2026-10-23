@@ -14,6 +14,8 @@
 		"Journal Entry", "Stock Entry", "Stock Reconciliation", "Lead", "Opportunity",
 		"Leave Application", "Isoft Salary Slip", "Asset", "Task", "Issue",
 	];
+	// interface strings carry their own context so they never override other apps' translations
+	const t = (text, replace) => __(text, replace, "ISOFT Desk");
 	const esc = (text) => frappe.utils.escape_html(String(text == null ? "" : text));
 
 	function company() {
@@ -29,6 +31,15 @@
 		return options;
 	}
 
+	// "{} To Deliver" -> "To Deliver", translated as a whole format when the
+	// dictionary has it, otherwise as the bare label
+	function tile_label(shortcut) {
+		if (!shortcut.format) return __(shortcut.label);
+		const whole = __(shortcut.format);
+		if (whole !== shortcut.format) return whole.replace(/{}/g, "").trim();
+		return __(shortcut.format.replace(/{}/g, "").trim());
+	}
+
 	function stats_filter(shortcut) {
 		if (shortcut.type !== "DocType" || !shortcut.stats_filter) return null;
 		try {
@@ -41,7 +52,7 @@
 
 	frappe.standard_pages["Workspaces"] = function () {
 		const wrapper = frappe.container.add_page("Workspaces");
-		frappe.ui.make_app_page({ parent: wrapper, name: "Workspaces", title: __("Workspace") });
+		frappe.ui.make_app_page({ parent: wrapper, name: "Workspaces", title: t("Workspace") });
 		frappe.workspace = new IsdWorkspace(wrapper);
 		$(wrapper).bind("show", () => frappe.workspace.show());
 	};
@@ -83,11 +94,11 @@
 			this.page.clear_actions();
 			this.page.clear_custom_actions();
 			if (frappe.user.has_role("System Manager")) {
-				this.page.add_menu_item(__("Edit Workspace"), () => frappe.set_route("Form", "Workspace", name));
+				this.page.add_menu_item(t("Edit Workspace"), () => frappe.set_route("Form", "Workspace", name));
 			}
-			this.page.add_menu_item(__("Reset Customizations"), () => {
+			this.page.add_menu_item(t("Reset Customizations"), () => {
 				frappe.xcall("frappe.desk.desktop.reset_customization", { page: name }).then(() => {
-					frappe.show_alert({ message: __("Removed page customizations"), indicator: "green" });
+					frappe.show_alert({ message: t("Removed page customizations"), indicator: "green" });
 					this.pages[name].reload();
 				});
 			});
@@ -119,7 +130,7 @@
 		}
 
 		reload() {
-			this.$el.html(`<div class="isd-ws-loading">${esc(__("Loading..."))}</div>`);
+			this.$el.html(`<div class="isd-ws-loading">${esc(t("Loading..."))}</div>`);
 			frappe.xcall("frappe.desk.desktop.get_desktop_page", { page: this.name }).then((data) => {
 				if (!data || !Object.keys(data).length) {
 					// no access or no such workspace: same fallback as core
@@ -142,7 +153,7 @@
 			const name = company();
 			// page.set_title_sub targets an element this desk's page template lacks
 			this.parent.wrapper.find(".page-head .sub-heading").first()
-				.html(`<span class="isd-ws-context">${esc(name ? name + " · " : "")}${esc(moment().format("MMMM YYYY"))}</span>`)
+				.html(`<span class="isd-ws-context">${esc(name ? name + " · " : "")}${esc(__(moment().format("MMMM")) + " " + moment().format("YYYY"))}</span>`)
 				.removeClass("hide");
 			if (!this.data) return;
 
@@ -162,7 +173,7 @@
 				.sort((a, b) => rank(a) - rank(b));
 			// frappe places the primary button last, so the most important one goes first here
 			creatable.slice(0, MAX_NEW_BUTTONS).forEach((doctype, index) => {
-				const label = __("New {0}", [__(doctype)]);
+				const label = t("New {0}", [__(doctype)]);
 				const go = () => frappe.new_doc(doctype);
 				if (index === 0) page.set_primary_action(label, go);
 				else page.add_button(label, go);
@@ -173,21 +184,21 @@
 		render() {
 			this.tiles = this.data.shortcuts.items
 				.map((s) => ({ shortcut: s, filters: stats_filter(s) }))
-				.filter((t) => t.filters)
+				.filter((entry) => entry.filters)
 				.slice(0, MAX_TILES)
-				.map((t) => ({
-					doctype: t.shortcut.link_to,
-					label: t.shortcut.format ? __(t.shortcut.format).replace(/{}/g, "").trim() : __(t.shortcut.label),
-					filters: t.filters,
+				.map((entry) => ({
+					doctype: entry.shortcut.link_to,
+					label: tile_label(entry.shortcut),
+					filters: entry.filters,
 					count: undefined,
 				}));
-			const counted = this.tiles.map((t) => t.doctype);
+			const counted = this.tiles.map((entry) => entry.doctype);
 			const quick = this.data.shortcuts.items.filter((s) => !(s.type === "DocType" && counted.includes(s.link_to)));
 
 			this.$el.html(`
 				<div class="isd-ws-onboarding"></div>
-				<section class="isd-waiting" aria-label="${esc(__("What is waiting"))}"></section>
-				${quick.length ? `<nav class="isd-quick" aria-label="${esc(__("Shortcuts"))}">
+				<section class="isd-waiting" aria-label="${esc(t("What is waiting"))}"></section>
+				${quick.length ? `<nav class="isd-quick" aria-label="${esc(t("Shortcuts"))}">
 					${quick.map((s) => `<a class="isd-quick-link" href="${esc(this.shortcut_route(s))}">${esc(__(s.label))}</a>`).join("")}
 				</nav>` : ""}
 				<section class="isd-ws-chart"></section>
@@ -227,7 +238,7 @@
 				// same rule as core links_widget: visible, greyed, explains what is missing
 				const missing = link.incomplete_dependencies.map((d) => __(d)).join(", ");
 				return `<span class="isd-link is-disabled" tabindex="0">${label}
-					<span class="isd-pop" role="tooltip">${esc(__("You need to create these first: "))}${esc(missing)}</span>
+					<span class="isd-pop" role="tooltip">${esc(t("You need to create these first: "))}${esc(missing)}</span>
 				</span>`;
 			}
 			const opts = {
@@ -251,7 +262,7 @@
 				defaults = frappe.xcall("isoft_desk.api.get_counts", {
 					workspace: this.name,
 					company: name,
-					exclude: JSON.stringify(this.tiles.map((t) => t.doctype)),
+					exclude: JSON.stringify(this.tiles.map((tile) => tile.doctype)),
 				}).catch(() => []);
 			}
 			this.render_tiles(true);
@@ -311,7 +322,7 @@
 			const onboarding = this.data.onboarding;
 			if (!onboarding || !onboarding.items || !onboarding.items.length) return;
 			frappe.widget.make_widget({
-				label: onboarding.label || __("Let's Get Started"),
+				label: onboarding.label || t("Let's Get Started"),
 				subtitle: onboarding.subtitle,
 				steps: onboarding.items,
 				success: onboarding.success,

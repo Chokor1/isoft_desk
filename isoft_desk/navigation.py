@@ -127,7 +127,7 @@ def build_groups(workspaces, pages, page_titles):
 		})
 
 	return [
-		{"key": key, "label": _(label), "icon": icon, "items": items[key]}
+		{"key": key, "label": _(label, context="ISOFT Desk"), "icon": icon, "items": items[key]}
 		for key, label, icon in GROUPS
 		if items[key]
 	]

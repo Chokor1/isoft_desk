@@ -9,6 +9,8 @@
 	const RAIL_KEY = "isd_rail";
 	const DESKTOP = window.matchMedia("(min-width: 992px)");
 
+	// interface strings carry their own context so they never override other apps' translations
+	const t = (text, replace) => __(text, replace, "ISOFT Desk");
 	const esc = (text) => frappe.utils.escape_html(String(text == null ? "" : text));
 	const icon = (name, size) => frappe.utils.icon(name, size || "md");
 
@@ -39,14 +41,14 @@
 
 		init() {
 			this.$side = $(`
-				<aside class="isd-sidebar" aria-label="${esc(__("Main navigation"))}">
+				<aside class="isd-sidebar" aria-label="${esc(t("Main navigation"))}">
 					<div class="isd-head">
 						<a class="isd-logo" href="/app/home" aria-label="ISOFT ERP"></a>
 					</div>
 					<div class="isd-search">
 						${icon("search", "sm")}
-						<input type="search" placeholder="${esc(__("Search modules"))}"
-							aria-label="${esc(__("Search modules"))}" autocomplete="off">
+						<input type="search" placeholder="${esc(t("Search modules"))}"
+							aria-label="${esc(t("Search modules"))}" autocomplete="off">
 					</div>
 					<nav class="isd-scroll"></nav>
 					<div class="isd-foot">
@@ -58,7 +60,7 @@
 			this.$nav = this.$side.find(".isd-scroll");
 
 			this.$drawer_btn = $(`
-				<button class="isd-drawer-btn" type="button" aria-label="${esc(__("Open navigation"))}">
+				<button class="isd-drawer-btn" type="button" aria-label="${esc(t("Open navigation"))}">
 					${icon("menu")}
 				</button>
 			`).prependTo($(".navbar .container").first());
@@ -144,7 +146,7 @@
 			write_store(RAIL_KEY, this.rail_pref);
 			const rail = DESKTOP.matches && (this.rail_pref || this.forced_rail);
 			document.body.classList.toggle("isd-rail", rail);
-			const label = rail ? __("Expand sidebar") : __("Collapse sidebar");
+			const label = rail ? t("Expand sidebar") : t("Collapse sidebar");
 			this.$side.find(".isd-collapse")
 				.attr({ title: label, "aria-label": label })
 				.html(icon(rail ? "sidebar-expand" : "sidebar-collapse"));
@@ -162,13 +164,13 @@
 				const favorites = core.favorite_items(this.groups, read_store(PINS_KEY, []));
 				if (favorites.length) {
 					html += `<div class="isd-favorites">
-						<div class="isd-label">${esc(__("Favorites"))}</div>
+						<div class="isd-label">${esc(t("Favorites"))}</div>
 						<ul class="isd-items">${favorites.map((item) => this.item_html(item)).join("")}</ul>
 					</div>`;
 				}
 			}
 
-			html += `<div class="isd-label">${esc(__("Modules"))}</div>`;
+			html += `<div class="isd-label">${esc(t("Modules"))}</div>`;
 			html += groups.map((group) => {
 				const open = searching || group.key === this.open_key;
 				const has_active = this.active && this.active.group_key === group.key;
@@ -185,7 +187,7 @@
 			}).join("");
 
 			if (!groups.length) {
-				html += `<div class="isd-empty">${esc(__("No modules match"))}</div>`;
+				html += `<div class="isd-empty">${esc(t("No modules match"))}</div>`;
 			}
 			this.$nav.html(html);
 		},
@@ -193,7 +195,7 @@
 		item_html(item) {
 			const pinned = read_store(PINS_KEY, []).includes(item.name);
 			const is_active = this.active && this.active.item_name === item.name;
-			const pin_label = pinned ? __("Remove from favorites") : __("Add to favorites");
+			const pin_label = pinned ? t("Remove from favorites") : t("Add to favorites");
 			return `<li class="isd-row">
 				<a class="isd-item${is_active ? " is-active" : ""}" href="/app/${esc(item.route)}"
 					${is_active ? 'aria-current="page"' : ""}>
@@ -249,7 +251,7 @@
 			const name = this.company();
 			this.$side.find(".isd-company").attr("title", name).html(`
 				${icon("organization")}
-				<span class="isd-text">${esc(name || __("No company"))}<small>${esc(__("Company"))}</small></span>
+				<span class="isd-text">${esc(name || t("No company"))}<small>${esc(t("Company"))}</small></span>
 			`);
 		},
 
@@ -258,7 +260,7 @@
 			frappe.db.get_list("Company", { fields: ["name"], limit: 100, order_by: "name asc" }).then((rows) => {
 				const current = this.company();
 				const $menu = $(`<div class="isd-menu" role="menu">
-					<div class="isd-menu-title">${esc(__("Switch company"))}</div>
+					<div class="isd-menu-title">${esc(t("Switch company"))}</div>
 					${rows.map((row) => `<button class="isd-menu-option${row.name === current ? " is-current" : ""}"
 						type="button" role="menuitemradio" aria-checked="${row.name === current}"
 						data-company="${esc(row.name)}">${esc(row.name)}</button>`).join("")}
@@ -276,7 +278,7 @@
 				args: { default_values: { company: name } },
 			}).then(() => {
 				// same as core's Session Defaults dialog: reload so every form and report picks it up
-				frappe.show_alert({ message: __("Company set to {0}", [name]), indicator: "green" });
+				frappe.show_alert({ message: t("Company set to {0}", [name]), indicator: "green" });
 				frappe.ui.toolbar.clear_cache();
 			});
 		},
