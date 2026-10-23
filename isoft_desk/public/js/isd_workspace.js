@@ -18,9 +18,6 @@
 	const t = (text, replace) => __(text, replace, "ISOFT Desk");
 	const esc = (text) => frappe.utils.escape_html(String(text == null ? "" : text));
 
-	// core shortcut colours that mean "needs action"
-	const SHORTCUT_TONES = { red: "bad", orange: "warn", yellow: "warn" };
-
 	function company() {
 		return frappe.defaults.get_user_default("Company") || "";
 	}
@@ -193,7 +190,9 @@
 			creatable.slice(0, MAX_NEW_BUTTONS).forEach((doctype, index) => {
 				// "+ Sales Invoice": a plus icon instead of "New {0}", which no gendered
 				// language can translate correctly for every DocType
-				const label = __(doctype);
+				const name = __(doctype);
+				// some core translations start lowercase ("cotação")
+				const label = name.charAt(0).toUpperCase() + name.slice(1);
 				const go = () => frappe.new_doc(doctype);
 				if (index === 0) page.set_primary_action(label, go, "add");
 				else page.add_button(label, go, { icon: "add" });
@@ -211,7 +210,6 @@
 					doctype: entry.shortcut.link_to,
 					label: tile_label(entry.shortcut),
 					filters: entry.filters,
-					tone: SHORTCUT_TONES[(entry.shortcut.color || "").toLowerCase()] || null,
 					count: undefined,
 				}));
 			const counted = this.tiles.map((entry) => entry.doctype);

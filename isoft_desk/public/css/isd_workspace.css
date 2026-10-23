@@ -200,6 +200,8 @@ body.isd-on .isd-index {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 28px 32px;
+	/* the floating assistant button sits bottom-right over the last column */
+	padding-right: 64px;
 }
 
 body.isd-on .isd-card h2 {
