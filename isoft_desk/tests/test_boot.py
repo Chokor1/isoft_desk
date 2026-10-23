@@ -31,3 +31,16 @@ class TestBoot(unittest.TestCase):
 		finally:
 			boot.get_settings = original
 		self.assertEqual(bootinfo.isoft_desk, {"active": False})
+
+
+class TestBootCounts(unittest.TestCase):
+	def test_count_workspaces_listed(self):
+		original = boot.get_settings
+		boot.get_settings = lambda: {"enabled": 1, "rollout": "Everyone", "pilot_users": [], "pilot_roles": []}
+		try:
+			frappe.set_user("Administrator")
+			bootinfo = frappe._dict(page_info={})
+			boot.boot_session(bootinfo)
+		finally:
+			boot.get_settings = original
+		self.assertIn("Accounting", bootinfo.isoft_desk["count_workspaces"])

@@ -2,6 +2,7 @@ import frappe
 from frappe.desk.desktop import get_desk_sidebar_items
 
 from isoft_desk.activation import get_settings, is_active_for
+from isoft_desk.counts import workspaces_with_counts
 from isoft_desk.navigation import HIDDEN_ROUTES, RAIL_ROUTES, build_groups
 
 
@@ -21,5 +22,5 @@ def boot_session(bootinfo):
 		),
 		"rail_routes": RAIL_ROUTES,
 		"hidden_routes": HIDDEN_ROUTES,
-		"count_workspaces": [],
+		"count_workspaces": workspaces_with_counts(),
 	}
