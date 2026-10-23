@@ -1,0 +1,46 @@
+// Run: node --test isoft_desk/tests/isd_core.test.js
+const test = require('node:test');
+const assert = require('node:assert');
+const core = require('../public/js/isd_core.js');
+
+const R = ['isoft-invenza', 'saft-center'];
+const H = ['posapp'];
+const groups = [
+	{ key: 'home', label: 'Home', items: [{ type: 'workspace', name: 'Home', label: 'Home', route: 'home' }] },
+	{ key: 'finance', label: 'Finance', items: [
+		{ type: 'workspace', name: 'Accounting', label: 'Contabilidade', route: 'accounting' },
+		{ type: 'workspace', name: 'Isoft Angola Tax Compliance', label: 'Isoft Angola Tax Compliance', route: 'isoft-angola-tax-compliance' },
+	] },
+	{ key: 'sales', label: 'Sales', items: [
+		{ type: 'workspace', name: 'Selling', label: 'Comércio', route: 'selling' },
+		{ type: 'page', name: 'intelize-dashboard', label: 'Intelize', route: 'intelize-dashboard' },
+	] },
+];
+
+test('route_mode', () => {
+	assert.strictEqual(core.route_mode(['posapp'], R, H), 'hidden');
+	assert.strictEqual(core.route_mode(['isoft-invenza'], R, H), 'rail');
+	assert.strictEqual(core.route_mode(['List', 'Sales Invoice'], R, H), 'normal');
+	assert.strictEqual(core.route_mode(['Workspaces', 'Selling'], R, H), 'normal');
+	assert.strictEqual(core.route_mode([], R, H), 'normal');
+});
+
+test('find_active matches workspaces with spaces and pages', () => {
+	assert.deepStrictEqual(core.find_active(groups, ['Workspaces', 'Isoft Angola Tax Compliance']),
+		{ group_key: 'finance', item_name: 'Isoft Angola Tax Compliance' });
+	assert.deepStrictEqual(core.find_active(groups, ['intelize-dashboard']),
+		{ group_key: 'sales', item_name: 'intelize-dashboard' });
+	assert.strictEqual(core.find_active(groups, ['List', 'Sales Invoice']), null);
+});
+
+test('filter_groups is accent and case insensitive', () => {
+	const out = core.filter_groups(groups, 'COMER');
+	assert.deepStrictEqual(out.map(g => g.key), ['sales']);
+	assert.deepStrictEqual(out[0].items.map(i => i.name), ['Selling']);
+	assert.strictEqual(core.filter_groups(groups, '').length, 3);
+});
+
+test('favorite_items keeps pin order and drops unknown pins', () => {
+	const out = core.favorite_items(groups, ['Selling', 'Gone', 'Home']);
+	assert.deepStrictEqual(out.map(i => i.name), ['Selling', 'Home']);
+});
