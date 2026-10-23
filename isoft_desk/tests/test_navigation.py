@@ -32,10 +32,9 @@ class TestNavigation(unittest.TestCase):
 		self.assertEqual([i["type"] for g in groups for i in g["items"]], ["workspace"])
 
 	def test_route_slug_with_spaces(self):
-		groups = build_groups([ws("Isoft Angola Tax Compliance")])
+		groups = build_groups([ws("Isoft Angola Tax Compliance"), ws("Point of Sale Screens")])
 		item = groups[0]["items"][0]
-		self.assertEqual(groups[0]["key"], "finance")
-		self.assertEqual(item["route"], "isoft-angola-tax-compliance")
+		self.assertEqual(item["route"], "point-of-sale-screens")
 		self.assertEqual(item["type"], "workspace")
 
 	def test_items_follow_mapping_order(self):
@@ -57,3 +56,7 @@ class TestNavigation(unittest.TestCase):
 		# reached from the ISOFT applications launcher instead
 		groups = build_groups([ws("Isoft Business AI"), ws("Itec Integrations"), ws("HP"), ws("HP Partnership"), ws("Selling")])
 		self.assertEqual(keys(groups), ["sales"])
+
+	def test_isoft_app_workspaces_left_out(self):
+		groups = build_groups([ws("CS-Cart Integration"), ws("Isoft Angola Tax Compliance"), ws("Accounting")])
+		self.assertEqual([i["name"] for g in groups for i in g["items"]], ["Accounting"])

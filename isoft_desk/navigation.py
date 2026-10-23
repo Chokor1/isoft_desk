@@ -19,12 +19,10 @@ WORKSPACE_GROUP = {
 	"Accounting": "finance",
 	"Assets": "finance",
 	"Loans": "finance",
-	"Isoft Angola Tax Compliance": "finance",
 	"Selling": "sales",
 	"CRM": "sales",
 	"Retail": "sales",
 	"POS Awesome": "sales",
-	"CS-Cart Integration": "sales",
 	"Buying": "purchasing",
 	"Stock": "stock",
 	"Manufacturing": "stock",
@@ -69,7 +67,14 @@ WORKSPACE_ORDER = {name: index for index, name in enumerate(WORKSPACE_GROUP)}
 
 # Isoft app workspaces stay out of the sidebar: the user opens Isoft apps from
 # the ISOFT applications launcher in the top bar.
-HIDDEN_WORKSPACES = {"Isoft Business AI", "Itec Integrations", "HP", "HP Partnership"}
+HIDDEN_WORKSPACES = {
+	"Isoft Business AI",
+	"Itec Integrations",
+	"HP",
+	"HP Partnership",
+	"CS-Cart Integration",
+	"Isoft Angola Tax Compliance",
+}
 
 
 def slug(name):
