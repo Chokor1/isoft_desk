@@ -188,3 +188,6 @@ user_data_fields = [
 #	"isoft_desk.auth.validate"
 # ]
 
+
+# Ships `frappe.boot.isoft_desk`; inactive users get only {"active": false}.
+boot_session = "isoft_desk.boot.boot_session"
