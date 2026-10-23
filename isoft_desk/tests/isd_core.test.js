@@ -40,10 +40,6 @@ test('filter_groups is accent and case insensitive', () => {
 	assert.strictEqual(core.filter_groups(groups, '').length, 3);
 });
 
-test('favorite_items keeps pin order and drops unknown pins', () => {
-	const out = core.favorite_items(groups, ['Selling', 'Gone', 'Home']);
-	assert.deepStrictEqual(out.map(i => i.name), ['Selling', 'Home']);
-});
 
 test('landing_workspace falls back to the user\'s own first workspace, not a hard-coded Home', () => {
 	const stock_only = [{ key: 'stock', items: [{ type: 'page', name: 'isoft-invenza' }, { type: 'workspace', name: 'Stock' }] }];
@@ -59,4 +55,18 @@ test('theme_to_remember keeps only light or dark', () => {
 	assert.strictEqual(core.theme_to_remember('Light'), 'light');
 	assert.strictEqual(core.theme_to_remember('automatic'), null);
 	assert.strictEqual(core.theme_to_remember(null), null);
+});
+
+test('direct_item: a group with one module opens it in one click', () => {
+	assert.strictEqual(core.direct_item(groups[0]).name, 'Home');
+	assert.strictEqual(core.direct_item(groups[1]), null);
+	// still direct while searching, judged on the full group, not the filtered one
+	const filtered = core.filter_groups(groups, 'contab');
+	assert.strictEqual(core.direct_item(filtered[0]), null);
+});
+
+
+test('favorites are gone from the core', () => {
+	assert.strictEqual(core.favorite_items, undefined);
+	assert.strictEqual(core.side_mode, undefined);
 });

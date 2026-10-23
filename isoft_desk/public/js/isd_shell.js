@@ -5,7 +5,6 @@
 	if (!conf.active) return;
 
 	const core = window.isd_core;
-	const PINS_KEY = "workspace_sidebar_pinned"; // shared with the core sidebar
 	const RAIL_KEY = "isd_rail";
 	const DESKTOP = window.matchMedia("(min-width: 992px)");
 
@@ -92,7 +91,8 @@
 				}
 			});
 
-			this.$nav.on("click", ".isd-group-btn", (e) => {
+			// one-module groups are links (a.isd-group-btn) and route on their own
+			this.$nav.on("click", "button.isd-group-btn", (e) => {
 				const key = $(e.currentTarget).closest(".isd-group").attr("data-key");
 				if (this.is_rail()) {
 					this.open_flyout(key, e.currentTarget);
@@ -102,19 +102,13 @@
 				}
 			});
 
-			this.$side.on("click", ".isd-pin", (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				this.toggle_pin($(e.currentTarget).attr("data-name"));
-			});
-
-			this.$side.on("click", ".isd-item", () => this.close_drawer());
+			this.$side.on("click", ".isd-item, .isd-direct-link", () => this.close_drawer());
 			this.$side.find(".isd-collapse").on("click", () => this.apply_rail(!this.rail_pref));
 			this.$side.find(".isd-company").on("click", (e) => this.open_company_menu(e.currentTarget));
 			this.$drawer_btn.on("click", () => this.open_drawer());
 
 			$(document).on("click", (e) => {
-				if (!$(e.target).closest(".isd-menu, .isd-group-btn, .isd-company").length) this.close_menu();
+				if (!$(e.target).closest(".isd-menu, button.isd-group-btn, .isd-company").length) this.close_menu();
 			});
 			$(document).on("keydown", (e) => {
 				if (e.key === "Escape") {
@@ -171,24 +165,20 @@
 
 		// ---- render ----
 		render() {
+			this.$nav.html(this.modules_html());
+		},
+
+		modules_html() {
 			const groups = core.filter_groups(this.groups, this.term);
 			const searching = !!this.term.trim();
-			let html = "";
-
-			if (!searching) {
-				const favorites = core.favorite_items(this.groups, read_store(PINS_KEY, []));
-				if (favorites.length) {
-					html += `<div class="isd-favorites">
-						<div class="isd-label">${esc(t("Favorites"))}</div>
-						<ul class="isd-items">${favorites.map((item) => this.item_html(item)).join("")}</ul>
-					</div>`;
-				}
+			if (!groups.length) {
+				return `<div class="isd-empty">${esc(searching ? t("No modules match") : t("No modules"))}</div>`;
 			}
-
-			html += `<div class="isd-label">${esc(t("Modules"))}</div>`;
-			html += groups.map((group) => {
-				const open = searching || group.key === this.open_key;
+			return groups.map((group) => {
 				const has_active = this.active && this.active.group_key === group.key;
+				const direct = core.direct_item(group);
+				if (direct) return this.direct_html(group, direct, has_active);
+				const open = searching || group.key === this.open_key;
 				return `<div class="isd-group${open ? " is-open" : ""}${has_active ? " has-active" : ""}"
 						data-key="${esc(group.key)}">
 					<button class="isd-group-btn" type="button" aria-expanded="${open}"
@@ -200,31 +190,27 @@
 					<ul class="isd-items">${group.items.map((item) => this.item_html(item)).join("")}</ul>
 				</div>`;
 			}).join("");
+		},
 
-			if (!groups.length) {
-				html += `<div class="isd-empty">${esc(t("No modules match"))}</div>`;
-			}
-			this.$nav.html(html);
+		// a group with one module: the group row itself opens it
+		direct_html(group, item, is_active) {
+			return `<div class="isd-group isd-direct${is_active ? " has-active" : ""}" data-key="${esc(group.key)}">
+				<a class="isd-group-btn isd-direct-link${is_active ? " is-active" : ""}" href="/app/${esc(item.route)}"
+					title="${esc(group.label)}" ${is_active ? 'aria-current="page"' : ""}>
+					${icon(group.icon)}
+					<span class="isd-text">${esc(group.label)}</span>
+				</a>
+			</div>`;
 		},
 
 		item_html(item) {
-			const pinned = read_store(PINS_KEY, []).includes(item.name);
 			const is_active = this.active && this.active.item_name === item.name;
-			const pin_label = pinned ? t("Remove from favorites") : t("Add to favorites");
-			return `<li class="isd-row">
+			return `<li>
 				<a class="isd-item${is_active ? " is-active" : ""}" href="/app/${esc(item.route)}"
-					${is_active ? 'aria-current="page"' : ""}>
+					title="${esc(item.label)}" ${is_active ? 'aria-current="page"' : ""}>
 					<span class="isd-text">${esc(item.label)}</span>
 				</a>
-				<button class="isd-pin${pinned ? " is-pinned" : ""}" type="button" data-name="${esc(item.name)}"
-					title="${esc(pin_label)}" aria-label="${esc(pin_label)}">${icon("star", "sm")}</button>
 			</li>`;
-		},
-
-		toggle_pin(name) {
-			const pins = read_store(PINS_KEY, []);
-			write_store(PINS_KEY, pins.includes(name) ? pins.filter((n) => n !== name) : pins.concat(name));
-			this.render();
 		},
 
 		// ---- menus ----

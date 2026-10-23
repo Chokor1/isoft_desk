@@ -4,18 +4,23 @@ body.isd-on {
 	/* the sidebar follows the desk theme: a white panel in light, deep slate in dark */
 	--isd-side: #ffffff;
 	--isd-side-2: #eef2f5;
-	--isd-side-3: #e4f1f9;
+	--isd-side-3: #e2f5ff;
 	--isd-side-rule: #e1e6eb;
 	--isd-side-ink: #33424f;
 	--isd-side-ink-2: #5f6f7e;
 	--isd-side-strong: #0b1b2a;
-	--isd-side-active: #006fad;
-	--isd-brand: #006fad;
+	--isd-side-active: #0079c2;
+	--isd-brand: #0a93e0;
 
-	--isd-accent: #006fad;
-	--isd-accent-hover: #005a8c;
-	--isd-accent-soft: #e4f1f9;
-	--isd-accent-ink: #ffffff;
+	/* the ISOFT ERP logo's sky blue, in three strengths: a fill for primary
+	   actions (with dark ink), a stroke for lines and borders (3:1 on white),
+	   and a text shade (4.5:1 on white) */
+	--isd-accent: #2fb4ff;
+	--isd-accent-hover: #1aa6f7;
+	--isd-accent-strong: #0a93e0;
+	--isd-accent-text: #0079c2;
+	--isd-accent-soft: #e2f5ff;
+	--isd-accent-ink: #03263c;
 
 	--isd-ground: #f4f6f8;
 	--isd-surface: #ffffff;
@@ -38,8 +43,8 @@ body.isd-on {
 
 	/* hand the ground and the accent to core components too */
 	--bg-color: var(--isd-ground);
-	--primary: var(--isd-accent);
-	--primary-color: var(--isd-accent);
+	--primary: var(--isd-accent-text);
+	--primary-color: var(--isd-accent-text);
 }
 
 html.isd-on {
@@ -53,18 +58,20 @@ html.isd-on[data-theme="dark"] {
 [data-theme="dark"] body.isd-on {
 	--isd-side: #121c26;
 	--isd-side-2: #1b2733;
-	--isd-side-3: #10314a;
+	--isd-side-3: #0c3350;
 	--isd-side-rule: #243240;
 	--isd-side-ink: #c3d1de;
 	--isd-side-ink-2: #8a9bab;
 	--isd-side-strong: #ffffff;
-	--isd-side-active: #7accf5;
-	--isd-brand: #4cb8f0;
+	--isd-side-active: #7fd6ff;
+	--isd-brand: #3fb5ff;
 
-	--isd-accent: #4cb8f0;
-	--isd-accent-hover: #7accf5;
-	--isd-accent-soft: #10314a;
-	--isd-accent-ink: #06141f;
+	--isd-accent: #3fb5ff;
+	--isd-accent-hover: #64c6ff;
+	--isd-accent-strong: #3fb5ff;
+	--isd-accent-text: #6dcbff;
+	--isd-accent-soft: #0c3350;
+	--isd-accent-ink: #03263c;
 
 	--isd-ground: #0e151c;
 	--isd-surface: #151f29;

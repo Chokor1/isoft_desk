@@ -52,12 +52,12 @@ body.isd-on .isd-tile {
 }
 
 body.isd-on .isd-tile:hover {
-	border-color: var(--isd-accent);
+	border-color: var(--isd-accent-strong);
 	text-decoration: none;
 }
 
 body.isd-on .isd-tile:focus-visible {
-	outline: 2px solid var(--isd-accent);
+	outline: 2px solid var(--isd-accent-strong);
 	outline-offset: 2px;
 }
 
@@ -138,8 +138,8 @@ body.isd-on .isd-quick-link {
 }
 
 body.isd-on .isd-quick-link:hover {
-	border-color: var(--isd-accent);
-	color: var(--isd-accent);
+	border-color: var(--isd-accent-strong);
+	color: var(--isd-accent-text);
 	text-decoration: none;
 }
 
@@ -163,7 +163,7 @@ body.isd-on .isd-ws-chart .widget::after {
    colour is for state, not decoration */
 body.isd-on .isd-ws-chart .dataset-0 .line-graph-path,
 body.isd-on .isd-ws-chart .dataset-0 path {
-	stroke: var(--isd-accent) !important;
+	stroke: var(--isd-accent-strong) !important;
 }
 
 body.isd-on .isd-ws-chart .dataset-1 .line-graph-path,
@@ -182,7 +182,7 @@ body.isd-on .isd-ws-chart .region-fill {
 
 body.isd-on .isd-ws-chart .dataset-0 rect.bar,
 body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(1) .legend-dot {
-	fill: var(--isd-accent) !important;
+	fill: var(--isd-accent-strong) !important;
 }
 
 body.isd-on .isd-ws-chart .dataset-1 rect.bar,
@@ -238,7 +238,7 @@ body.isd-on .isd-link {
 }
 
 body.isd-on a.isd-link:hover {
-	color: var(--isd-accent);
+	color: var(--isd-accent-text);
 	text-decoration: none;
 }
 

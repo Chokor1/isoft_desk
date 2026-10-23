@@ -59,7 +59,7 @@ body.isd-on .navbar #navbar-search {
 
 body.isd-on .navbar #navbar-search:focus {
 	background: var(--isd-surface);
-	border-color: var(--isd-accent);
+	border-color: var(--isd-accent-strong);
 	box-shadow: 0 0 0 3px var(--isd-accent-soft);
 }
 
@@ -142,6 +142,11 @@ body.isd-hidden .isd-sidebar {
 	border: 0;
 	padding: 0;
 	cursor: pointer;
+}
+
+/* outrank the reset above: group rows and their links share one inset */
+.isd-sidebar .isd-group-btn {
+	padding: 7px 10px;
 }
 
 /* no ring on click (Bootstrap's reboot draws a dark one on button:focus);
@@ -314,15 +319,8 @@ body.isd-hidden .isd-sidebar {
 	list-style: none;
 }
 
-.isd-group.is-open .isd-items,
-.isd-favorites .isd-items {
+.isd-group.is-open .isd-items {
 	display: block;
-}
-
-.isd-favorites .isd-items {
-	margin-left: 0;
-	padding-left: 0;
-	border-left: 0;
 }
 
 .isd-item {
@@ -335,42 +333,6 @@ body.isd-hidden .isd-sidebar {
 	background: var(--isd-side-3);
 	color: var(--isd-side-active);
 	font-weight: 600;
-}
-
-.isd-row {
-	position: relative;
-}
-
-.isd-row .isd-item {
-	padding-right: 30px;
-}
-
-.isd-pin {
-	position: absolute;
-	top: 4px;
-	right: 4px;
-	width: 22px;
-	height: 22px;
-	display: grid;
-	place-items: center;
-	border-radius: 4px;
-	opacity: 0;
-	--icon-stroke: var(--isd-side-ink-2);
-}
-
-.isd-row:hover .isd-pin,
-.isd-row:focus-within .isd-pin,
-.isd-pin.is-pinned {
-	opacity: 1;
-}
-
-.isd-pin.is-pinned {
-	--icon-stroke: var(--isd-brand);
-	--icon-fill: var(--isd-brand);
-}
-
-.isd-pin:hover {
-	background: var(--isd-side-3);
 }
 
 .isd-empty {
@@ -429,6 +391,28 @@ body.isd-hidden .isd-sidebar {
 
 .isd-collapse:hover {
 	background: var(--isd-side-2);
+}
+
+/* one-module groups: the group row is the link */
+.isd-direct-link.is-active {
+	background: var(--isd-side-3);
+	color: var(--isd-side-active);
+	font-weight: 600;
+	--icon-stroke: var(--isd-side-active);
+}
+
+.isd-empty {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 12px 10px;
+	color: var(--isd-side-ink-2);
+	line-height: 1.45;
+}
+
+.isd-empty strong {
+	color: var(--isd-side-strong);
+	font-weight: 600;
 }
 
 /* ---- menus (company list, rail flyouts) ---- */
@@ -501,7 +485,6 @@ body.isd-rail .isd-logo-mark {
 
 body.isd-rail .isd-search,
 body.isd-rail .isd-label,
-body.isd-rail .isd-favorites,
 body.isd-rail .isd-group-btn .isd-text,
 body.isd-rail .isd-chevron,
 body.isd-rail .isd-items,
@@ -517,6 +500,11 @@ body.isd-rail .isd-company {
 
 body.isd-rail .isd-foot {
 	flex-direction: column;
+}
+
+body.isd-rail .isd-direct-link {
+	justify-content: center;
+	padding: 8px 0;
 }
 
 /* ---- below 992px: off-canvas drawer ---- */

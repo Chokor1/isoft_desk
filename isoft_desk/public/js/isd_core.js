@@ -42,16 +42,12 @@
 		if (!needle) return groups;
 		return groups
 			.map(group => Object.assign({}, group, {
+				// remember the full size: a filtered group is not a one-module group
+				size: group.size || group.items.length,
 				items: group.items.filter(item =>
 					fold(item.label).includes(needle) || fold(item.name).includes(needle)),
 			}))
 			.filter(group => group.items.length);
-	}
-
-	function favorite_items(groups, pinned) {
-		const by_name = {};
-		groups.forEach(group => group.items.forEach(item => { by_name[item.name] = item; }));
-		return pinned.map(name => by_name[name]).filter(Boolean);
 	}
 
 	// /app with no workspace in the route: the remembered one, else the one core
@@ -73,5 +69,14 @@
 		return theme === "light" || theme === "dark" ? theme : null;
 	}
 
-	return { route_mode, find_active, filter_groups, favorite_items, landing_workspace, theme_to_remember };
+	// a group holding a single module opens it directly instead of expanding
+	function direct_item(group) {
+		const size = group.size || group.items.length;
+		return size === 1 && group.items.length === 1 ? group.items[0] : null;
+	}
+
+
+	return {
+		route_mode, find_active, filter_groups, landing_workspace, theme_to_remember, direct_item,
+	};
 });
