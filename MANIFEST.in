@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include isoft_desk *.css
+recursive-include isoft_desk *.csv
+recursive-include isoft_desk *.html
+recursive-include isoft_desk *.ico
+recursive-include isoft_desk *.js
+recursive-include isoft_desk *.json
+recursive-include isoft_desk *.md
+recursive-include isoft_desk *.png
+recursive-include isoft_desk *.py
+recursive-include isoft_desk *.svg
+recursive-include isoft_desk *.txt
+recursive-exclude isoft_desk *.pyc
