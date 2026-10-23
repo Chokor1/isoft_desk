@@ -203,6 +203,7 @@ app_include_css = [
 	"/assets/isoft_desk/css/isd_tokens.css",
 	"/assets/isoft_desk/css/isd_shell.css",
 	"/assets/isoft_desk/css/isd_workspace.css",
+	"/assets/isoft_desk/css/isd_menus.css",
 	# the loading screen is styled for every user: it paints before boot
 	"/assets/isoft_desk/css/isd_loader.css",
 ]

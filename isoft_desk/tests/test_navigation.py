@@ -52,3 +52,8 @@ class TestNavigation(unittest.TestCase):
 		from isoft_desk.navigation import RAIL_ROUTES
 
 		self.assertIn("Form", RAIL_ROUTES)
+
+	def test_isoft_apps_group_is_not_in_the_sidebar(self):
+		# reached from the ISOFT applications launcher instead
+		groups = build_groups([ws("Isoft Business AI"), ws("Itec Integrations"), ws("HP"), ws("HP Partnership"), ws("Selling")])
+		self.assertEqual(keys(groups), ["sales"])

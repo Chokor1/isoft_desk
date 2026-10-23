@@ -1,0 +1,223 @@
+/* ISOFT Desk top-bar menus: Help, user menu, notifications, search results and
+   the ISOFT applications launcher, on the desk's surfaces in both themes.
+   Only colours, borders, radii and spacing change; every menu keeps its markup
+   and behaviour. Scoped to body.isd-on like the rest of the shell. */
+
+/* ---- core dropdowns (Help, user, notifications container) ---- */
+body.isd-on .navbar .dropdown-menu {
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: 8px;
+	box-shadow: var(--isd-shadow-menu);
+	padding: 6px;
+	color: var(--isd-ink);
+}
+
+body.isd-on .navbar .dropdown-menu .dropdown-item {
+	border-radius: var(--isd-radius);
+	padding: 7px 10px;
+	color: var(--isd-ink);
+	font-size: 13px;
+}
+
+body.isd-on .navbar .dropdown-menu .dropdown-item:hover,
+body.isd-on .navbar .dropdown-menu .dropdown-item:focus {
+	background: var(--isd-hover);
+	color: var(--isd-ink);
+	outline: none;
+}
+
+body.isd-on .navbar .dropdown-menu .dropdown-divider {
+	margin: 6px 4px;
+	border-top-color: var(--isd-rule);
+}
+
+/* the toggles themselves: quiet until open */
+body.isd-on .navbar .dropdown-help > .nav-link,
+body.isd-on .navbar .dropdown-notifications > .nav-link {
+	border-radius: var(--isd-radius);
+	color: var(--isd-ink-2);
+	--icon-stroke: var(--isd-ink-2);
+}
+
+body.isd-on .navbar .dropdown-help.show > .nav-link,
+body.isd-on .navbar .dropdown-help > .nav-link:hover,
+body.isd-on .navbar .dropdown-notifications.show > .nav-link,
+body.isd-on .navbar .dropdown-notifications > .nav-link:hover {
+	background: var(--isd-hover);
+	color: var(--isd-ink);
+	--icon-stroke: var(--isd-ink);
+}
+
+/* ---- notifications panel ---- */
+body.isd-on .navbar .notifications-list {
+	padding: 0;
+	overflow: hidden;
+}
+
+body.isd-on .navbar .notification-list-header {
+	background: var(--isd-surface);
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .navbar .notification-item-tabs {
+	border-bottom: 0;
+}
+
+body.isd-on .navbar .notifications-category {
+	color: var(--isd-ink-2);
+	font-weight: 500;
+	border-bottom: 2px solid transparent;
+}
+
+body.isd-on .navbar .notifications-category:hover {
+	color: var(--isd-ink);
+}
+
+body.isd-on .navbar .notifications-category.active {
+	color: var(--isd-ink);
+	border-bottom-color: var(--isd-accent-strong);
+}
+
+body.isd-on .navbar .notification-list-header .header-actions {
+	--icon-stroke: var(--isd-ink-2);
+}
+
+body.isd-on .navbar .notification-list-body {
+	background: var(--isd-surface);
+}
+
+body.isd-on .navbar .recent-item.notification-item,
+body.isd-on .navbar .cc-upd-row {
+	margin: 2px 6px;
+	border-radius: var(--isd-radius);
+	color: var(--isd-ink);
+}
+
+body.isd-on .navbar .recent-item.notification-item:hover,
+body.isd-on .navbar .cc-upd-row:hover {
+	background: var(--isd-hover);
+	text-decoration: none;
+}
+
+/* unread: core's dot and a bold subject; no fill, or a busy inbox turns blue */
+body.isd-on .navbar .recent-item.notification-item.unread {
+	background: transparent;
+}
+
+body.isd-on .navbar .recent-item.notification-item.unread .notification-body::before {
+	background: var(--isd-accent-strong);
+}
+
+body.isd-on .navbar .recent-item.notification-item.unread:hover {
+	background: var(--isd-hover);
+}
+
+body.isd-on .navbar .notification-item .subject-title {
+	color: var(--isd-ink);
+	font-weight: 600;
+}
+
+body.isd-on .navbar .notification-timestamp,
+body.isd-on .navbar .cc-upd-when,
+body.isd-on .navbar .cc-upd-prev {
+	color: var(--isd-ink-3) !important;
+}
+
+body.isd-on .navbar .notifications-list .list-footer {
+	border-top: 1px solid var(--isd-rule);
+	color: var(--isd-accent-text);
+	font-weight: 500;
+}
+
+body.isd-on .navbar .notifications-list .list-footer:hover {
+	background: var(--isd-hover);
+	text-decoration: none;
+}
+
+/* ---- search results (awesomplete under the top-bar search) ---- */
+body.isd-on .navbar .search-bar .awesomplete > ul {
+	margin-top: 6px;
+	padding: 6px;
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: 8px;
+	box-shadow: var(--isd-shadow-menu);
+}
+
+body.isd-on .navbar .search-bar .awesomplete > ul > li {
+	border-radius: var(--isd-radius);
+	padding: 8px 10px;
+	color: var(--isd-ink);
+}
+
+body.isd-on .navbar .search-bar .awesomplete > ul > li:hover,
+body.isd-on .navbar .search-bar .awesomplete > ul > li[aria-selected="true"] {
+	background: var(--isd-hover);
+	color: var(--isd-ink);
+}
+
+body.isd-on .navbar .search-bar .awesomplete mark {
+	padding: 0;
+	background: transparent;
+	color: var(--isd-accent-text);
+	font-weight: 600;
+}
+
+body.isd-on .navbar .search-bar .awesomplete li[aria-selected="true"] mark {
+	background: transparent;
+	color: var(--isd-accent-text);
+}
+
+/* ---- ISOFT applications launcher (isoft_command_center_client) ----
+   it reads every colour from --cca-* variables; point them at the desk tokens.
+   App icon tones (.cca-tone-*) keep their own hue: each one names an app. */
+body.isd-on .cca-scope,
+body.isd-on .cca-nav-item,
+body.isd-on .cca-pin-item {
+	--cca-surface: var(--isd-surface);
+	--cca-surface-2: var(--isd-ground);
+	--cca-border: var(--isd-rule);
+	--cca-hair: var(--isd-rule);
+	--cca-text: var(--isd-ink);
+	--cca-muted: var(--isd-ink-2);
+	--cca-faint: var(--isd-ink-3);
+	--cca-hover: var(--isd-hover);
+	--cca-accent: var(--isd-accent);
+	--cca-accent-hover: var(--isd-accent-hover);
+	--cca-accent-soft: var(--isd-accent-soft);
+	--cca-accent-soft-hover: var(--isd-side-3);
+	--cca-ok: var(--isd-ok);
+	--cca-shadow: var(--isd-shadow-menu);
+}
+
+[data-theme="dark"] body.isd-on .cca-scope,
+[data-theme="dark"] body.isd-on .cca-nav-item,
+[data-theme="dark"] body.isd-on .cca-pin-item {
+	--cca-surface: var(--isd-surface);
+	--cca-surface-2: var(--isd-ground);
+	--cca-border: var(--isd-rule);
+	--cca-hair: var(--isd-rule);
+	--cca-text: var(--isd-ink);
+	--cca-muted: var(--isd-ink-2);
+	--cca-faint: var(--isd-ink-3);
+	--cca-hover: var(--isd-hover);
+	--cca-accent: var(--isd-accent);
+	--cca-accent-hover: var(--isd-accent-hover);
+	--cca-accent-soft: var(--isd-accent-soft);
+	--cca-accent-soft-hover: var(--isd-side-3);
+	--cca-ok: var(--isd-ok);
+	--cca-shadow: var(--isd-shadow-menu);
+}
+
+body.isd-on .cca-pop {
+	border: 1px solid var(--isd-rule);
+	border-radius: 8px;
+}
+
+/* focus on open shows as a tint, not a blue box */
+body.isd-on .cca-tile:hover,
+body.isd-on .cca-tile:focus-visible {
+	background: var(--isd-hover);
+	box-shadow: none;
+}

@@ -68,7 +68,7 @@ html[data-isd-login="light"] .mod-node {
 }
 
 html[data-isd-login="light"] .mn-icon {
-	color: #006fad;
+	color: #0079c2;
 }
 
 html[data-isd-login="light"] .mn-label {
@@ -115,8 +115,8 @@ html[data-isd-login="light"] .isoft-login-root .page-card input[type="password"]
 }
 
 html[data-isd-login="light"] .isoft-login-root .page-card input:focus {
-	border-color: #006fad !important;
-	box-shadow: 0 0 0 3px rgba(0, 111, 173, 0.15) !important;
+	border-color: #0079c2 !important;
+	box-shadow: 0 0 0 3px rgba(0, 121, 194, 0.15) !important;
 }
 
 html[data-isd-login="light"] .isoft-login-root .page-card ::placeholder {
@@ -129,20 +129,20 @@ html[data-isd-login="light"] .isoft-login-root .page-card .field-icon path {
 
 html[data-isd-login="light"] .isoft-login-root .page-card .toggle-password,
 html[data-isd-login="light"] .isoft-login-root .page-card .forgot-password-message > * {
-	color: #006fad;
+	color: #0079c2;
 }
 
 html[data-isd-login="light"] .isoft-login-root .page-card .btn-login,
 html[data-isd-login="light"] .isoft-login-root .page-card .btn-primary {
-	background-color: #006fad;
-	border-color: #006fad;
+	background-color: #0079c2;
+	border-color: #0079c2;
 	color: #ffffff;
-	box-shadow: 0 6px 18px rgba(0, 111, 173, 0.25);
+	box-shadow: 0 6px 18px rgba(0, 121, 194, 0.25);
 }
 
 html[data-isd-login="light"] .isoft-login-root .page-card .btn-login:hover,
 html[data-isd-login="light"] .isoft-login-root .page-card .btn-primary:hover {
-	background-color: #005a8c;
+	background-color: #006aa9;
 }
 
 html[data-isd-login="light"] .isoft-login-root .sign-up-message {
@@ -150,5 +150,17 @@ html[data-isd-login="light"] .isoft-login-root .sign-up-message {
 }
 
 html[data-isd-login="light"] .isoft-login-root .sign-up-message a {
-	color: #006fad;
+	color: #0079c2;
+}
+
+/* both vault themes: core's breathing animation replaces the glow's centring
+   translate, which leaves the glow low and to the right of the title; the
+   desk loading screen draws it centred, so centre it here too */
+html[data-isd-login] .vault-interior .vi-glow {
+	animation-name: isd-vi-breathe;
+}
+
+@keyframes isd-vi-breathe {
+	0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.55; }
+	50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.9; }
 }

@@ -10,7 +10,6 @@ GROUPS = [
 	("stock", "Stock", "stock"),
 	("people", "People", "hr"),
 	("projects", "Projects & Support", "projects"),
-	("isoft", "Isoft Apps", "integration"),
 	("settings", "Settings", "setting"),
 	("more", "More", "folder-normal"),
 ]
@@ -34,10 +33,6 @@ WORKSPACE_GROUP = {
 	"Payroll": "people",
 	"Projects": "projects",
 	"Support": "projects",
-	"Isoft Business AI": "isoft",
-	"Itec Integrations": "isoft",
-	"HP": "isoft",
-	"HP Partnership": "isoft",
 	"Build": "settings",
 	"Settings": "settings",
 	"Users": "settings",
@@ -72,6 +67,10 @@ RAIL_ROUTES = ["Form"]
 
 WORKSPACE_ORDER = {name: index for index, name in enumerate(WORKSPACE_GROUP)}
 
+# Isoft app workspaces stay out of the sidebar: the user opens Isoft apps from
+# the ISOFT applications launcher in the top bar.
+HIDDEN_WORKSPACES = {"Isoft Business AI", "Itec Integrations", "HP", "HP Partnership"}
+
 
 def slug(name):
 	# same as frappe.router.slug in the desk
@@ -90,6 +89,7 @@ def build_groups(workspaces):
 	"""Workspaces only: Isoft app pages are reached from the ISOFT applications launcher."""
 	items = {key: [] for key, _label, _icon in GROUPS}
 
+	workspaces = [w for w in workspaces if w["name"] not in HIDDEN_WORKSPACES]
 	ordered = sorted(workspaces, key=lambda w: (WORKSPACE_ORDER.get(w["name"], len(WORKSPACE_ORDER)), w["name"]))
 	for workspace in ordered:
 		items[_workspace_group(workspace)].append({
