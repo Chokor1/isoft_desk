@@ -12,15 +12,15 @@ body.isd-on {
 	--isd-side-active: #0079c2;
 	--isd-brand: #0a93e0;
 
-	/* the ISOFT ERP logo's sky blue, in three strengths: a fill for primary
-	   actions (with dark ink), a stroke for lines and borders (3:1 on white),
-	   and a text shade (4.5:1 on white) */
-	--isd-accent: #2fb4ff;
-	--isd-accent-hover: #1aa6f7;
+	/* the ISOFT ERP logo's blue: a solid fill for primary actions with white
+	   text (4.8:1), a brighter stroke for lines and borders (3:1 on white), and
+	   the same deep shade for text links */
+	--isd-accent: #0079c2;
+	--isd-accent-hover: #006aa9;
 	--isd-accent-strong: #0a93e0;
 	--isd-accent-text: #0079c2;
 	--isd-accent-soft: #e2f5ff;
-	--isd-accent-ink: #03263c;
+	--isd-accent-ink: #ffffff;
 
 	--isd-ground: #f4f6f8;
 	--isd-surface: #ffffff;
@@ -66,12 +66,12 @@ html.isd-on[data-theme="dark"] {
 	--isd-side-active: #7fd6ff;
 	--isd-brand: #3fb5ff;
 
-	--isd-accent: #3fb5ff;
-	--isd-accent-hover: #64c6ff;
+	--isd-accent: #0879be;
+	--isd-accent-hover: #1488cf;
 	--isd-accent-strong: #3fb5ff;
 	--isd-accent-text: #6dcbff;
 	--isd-accent-soft: #0c3350;
-	--isd-accent-ink: #03263c;
+	--isd-accent-ink: #ffffff;
 
 	--isd-ground: #0e151c;
 	--isd-surface: #151f29;

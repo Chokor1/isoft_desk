@@ -1,52 +1,129 @@
-/* ISOFT Desk loading screen: core's splash (every desk load) and the ISOFT boot
-   cover (after the login vault). Both paint before any script runs, so this
-   file cannot know the pilot or the settings switch: it applies wherever the
-   app is installed. The artwork follows the user's desk theme (data-theme is
-   rendered on <html> by the server). Selectors carry an extra html/attribute
-   step because app.html's own <style> comes after this file. */
+/* ISOFT Desk loading screen: core's splash (every desk load or refresh) and the
+   ISOFT boot cover (right after the login vault). Both are drawn as the vault's
+   own interior, "ISOFT ERP · ENTERPRISE CORE · ONLINE" (login.scss .vault-interior),
+   so the screen the doors open onto simply stays until the desk is ready: one
+   screen after login, not two.
+
+   Both paint before any script runs, so this file cannot know the pilot or the
+   settings switch: it applies wherever the app is installed. It follows the
+   user's desk theme (data-theme is rendered on <html> by the server).
+   Selectors carry an extra html/attribute step because app.html's own <style>
+   comes after this file. */
+
+html {
+	/* the vault interior, dark (login.scss) */
+	--isd-core-ground: radial-gradient(1000px 620px at 50% 45%, rgba(93, 180, 230, 0.1), transparent 60%),
+		linear-gradient(180deg, #060a12, #0a1120);
+	--isd-core-glow: radial-gradient(260px 260px at 50% 45%, rgba(93, 180, 230, 0.22), transparent 70%);
+	--isd-core-fade: radial-gradient(circle at 50% 45%, transparent 0%, #080e19 70%);
+	--isd-core-grid: rgba(93, 180, 230, 0.07);
+	--isd-core-title: #d6f0ff;
+	--isd-core-title-glow: rgba(93, 180, 230, 0.6);
+	--isd-core-sub: rgba(169, 224, 255, 0.7);
+}
+
+html:not([data-theme="dark"]) {
+	/* the light vault interior (isd_login.css) */
+	--isd-core-ground: radial-gradient(1000px 620px at 50% 45%, rgba(0, 111, 173, 0.09), transparent 60%),
+		linear-gradient(180deg, #f6f9fb, #e7eef4);
+	--isd-core-glow: radial-gradient(260px 260px at 50% 45%, rgba(0, 140, 210, 0.16), transparent 70%);
+	--isd-core-fade: radial-gradient(circle at 50% 45%, transparent 0%, #eef3f7 70%);
+	--isd-core-grid: rgba(0, 111, 173, 0.07);
+	--isd-core-title: #0b3a57;
+	--isd-core-title-glow: rgba(0, 140, 210, 0.25);
+	--isd-core-sub: rgba(11, 58, 87, 0.62);
+}
+
+/* one full-screen surface for both hosts */
+html .splash,
+html .isoft-boot-cover {
+	position: fixed !important;
+	inset: 0;
+	z-index: 999999;
+	display: flex !important;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/* the vault centres its core at 45% of the height */
+	padding-bottom: 10vh;
+	transform: none !important;
+	background:
+		var(--isd-core-glow),
+		var(--isd-core-fade),
+		linear-gradient(var(--isd-core-grid) 1px, transparent 1px) 0 0 / 100% 46px,
+		linear-gradient(90deg, var(--isd-core-grid) 1px, transparent 1px) 0 0 / 46px 100%,
+		var(--isd-core-ground) !important;
+	font-family: var(--font-stack, -apple-system, "Segoe UI", Roboto, sans-serif);
+}
+
+html.isoft-boot {
+	background: #0a1120;
+}
+
+html.isoft-boot:not([data-theme="dark"]) {
+	background: #eef3f7;
+}
 
 html .splash img {
 	display: none !important;
 }
 
-html .splash::before {
-	content: "";
+/* title and subtitle, as .vi-title and .vi-sub */
+html .splash::before,
+html .isoft-boot-cover .ibc-bar::before {
+	content: "ISOFT ERP";
 	display: block;
-	width: min(420px, 80vw);
-	aspect-ratio: 520 / 240;
-	background: url("/assets/isoft_desk/images/isd_loader_light.svg") center / contain no-repeat;
+	font-size: 3rem;
+	font-weight: 800;
+	line-height: 1.2;
+	letter-spacing: 6px;
+	color: var(--isd-core-title);
+	text-shadow: 0 0 32px var(--isd-core-title-glow);
+	animation: isd-core-breathe 3.6s ease-in-out infinite;
 }
 
-html[data-theme="dark"] .splash::before {
-	background-image: url("/assets/isoft_desk/images/isd_loader_dark.svg");
-}
-
-html.isoft-boot:not([data-theme="dark"]) {
-	background: #f4f6f8;
-}
-
-html:not([data-theme="dark"]) .isoft-boot-cover {
-	background: radial-gradient(900px 560px at 50% 45%, rgba(0, 111, 173, 0.08), transparent 60%), #f4f6f8;
+html .splash::after,
+html .isoft-boot-cover .ibc-bar::after {
+	content: "ENTERPRISE CORE · ONLINE";
+	display: block;
+	position: static;
+	width: auto;
+	height: auto;
+	margin-top: 12px;
+	border-radius: 0;
+	background: none;
+	animation: none;
+	transform: none;
+	font-family: ui-monospace, Menlo, Consolas, monospace;
+	font-size: 12px;
+	letter-spacing: 4px;
+	color: var(--isd-core-sub);
+	text-align: center;
 }
 
 html .isoft-boot-cover .ibc-bar {
-	width: min(420px, 80vw);
+	width: auto;
 	height: auto;
-	aspect-ratio: 520 / 240;
 	border-radius: 0;
 	overflow: visible;
-	background: url("/assets/isoft_desk/images/isd_loader_light.svg") center / contain no-repeat;
+	background: none;
+	text-align: center;
 }
 
-html[data-theme="dark"] .isoft-boot-cover .ibc-bar {
-	background-image: url("/assets/isoft_desk/images/isd_loader_dark.svg");
+/* the glow breathes like the vault's core while the desk loads */
+@keyframes isd-core-breathe {
+	0%, 100% { text-shadow: 0 0 22px var(--isd-core-title-glow); }
+	50% { text-shadow: 0 0 44px var(--isd-core-title-glow); }
 }
 
-html .isoft-boot-cover .ibc-bar::after {
-	display: none;
+@media (prefers-reduced-motion: reduce) {
+	html .splash::before,
+	html .isoft-boot-cover .ibc-bar::before {
+		animation: none;
+	}
 }
 
-/* core's star watermark (body::before) would sit behind the loader; hide it
+/* core's star watermark (body::before) would sit behind the splash; hide it
    only while the splash is on screen, so the standard desk keeps it after */
 body:has(> .splash)::before {
 	display: none;
