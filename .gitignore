@@ -3,4 +3,5 @@
 *.egg-info
 *.swp
 tags
-isoft_desk/docs/current
+isoft_desk/docs/current.superpowers/
+node_modules/
