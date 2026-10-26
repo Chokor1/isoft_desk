@@ -1,4 +1,5 @@
-"""Who sees the new desk: a site switch plus a pilot list of users and roles."""
+"""Who sees the new desk: a site switch, on for every user by default; a pilot
+list of users and roles is kept only for trying a change on a few people first."""
 import frappe
 
 SETTINGS_CACHE_KEY = "isoft_desk_settings"
@@ -21,7 +22,7 @@ def get_settings():
 	doc = frappe.get_cached_doc("Isoft Desk Settings")
 	settings = {
 		"enabled": doc.enabled,
-		"rollout": doc.rollout or "Pilot",
+		"rollout": doc.rollout or "Everyone",
 		"pilot_users": [row.user for row in doc.pilot_users],
 		"pilot_roles": [row.role for row in doc.pilot_roles],
 	}

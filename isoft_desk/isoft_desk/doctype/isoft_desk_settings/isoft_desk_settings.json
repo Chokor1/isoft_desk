@@ -6,14 +6,14 @@
  "field_order": ["enabled", "rollout", "pilot_section", "pilot_users", "pilot_roles"],
  "fields": [
   {"default": "1", "description": "Site-wide switch. Off returns every user to the standard desk.", "fieldname": "enabled", "fieldtype": "Check", "label": "Enabled"},
-  {"default": "Pilot", "description": "Pilot: only the users and roles below get the new desk. Everyone: all desk users.", "fieldname": "rollout", "fieldtype": "Select", "label": "Rollout", "options": "Pilot\nEveryone"},
+  {"default": "Everyone", "description": "Everyone: all desk users. Pilot: only the users and roles below, to try a change on a few people first.", "fieldname": "rollout", "fieldtype": "Select", "label": "Rollout", "options": "Everyone\nPilot"},
   {"depends_on": "eval:doc.rollout=='Pilot'", "fieldname": "pilot_section", "fieldtype": "Section Break", "label": "Pilot"},
   {"fieldname": "pilot_users", "fieldtype": "Table MultiSelect", "label": "Pilot Users", "options": "Isoft Desk Pilot User"},
   {"fieldname": "pilot_roles", "fieldtype": "Table MultiSelect", "label": "Pilot Roles", "options": "Isoft Desk Pilot Role"}
  ],
  "issingle": 1,
  "links": [],
- "modified": "2026-10-23 10:00:00.000000",
+ "modified": "2026-10-26 08:00:00.000000",
  "modified_by": "Administrator",
  "module": "ISOFT Desk",
  "name": "Isoft Desk Settings",

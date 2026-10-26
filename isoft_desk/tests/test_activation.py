@@ -34,6 +34,11 @@ class TestActivation(unittest.TestCase):
 
 
 class TestSettingsSave(unittest.TestCase):
+	def test_new_sites_default_to_everyone(self):
+		import frappe
+
+		self.assertEqual(frappe.get_meta("Isoft Desk Settings").get_field("rollout").default, "Everyone")
+
 	def test_save_clears_boot_cache(self):
 		import frappe
 

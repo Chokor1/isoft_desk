@@ -1,6 +1,6 @@
 """Browser check: the sidebar is drawn on every kind of desk address.
 
-    cd ~/frappe-bench && env/bin/python -I apps/isoft_desk/isoft_desk/tests/browser_sidebar.py dev.isoft.ao
+    cd ~/frappe-bench && env/bin/python -I apps/isoft_desk/isoft_desk/tests/browser_sidebar.py dev.isoft.ao [user]
 
 Exits 1 when the sidebar list is empty on a route (the bare /app address once
 skipped the first draw), or when /app does not highlight the workspace it shows.
@@ -18,14 +18,14 @@ STATE = """(() => ({
 }))()"""
 
 
-def main(site):
+def main(site, user="Administrator"):
 	os.chdir(os.path.expanduser("~/frappe-bench/sites"))
 	import frappe
 	from playwright.sync_api import sync_playwright
 
 	frappe.init(site=site)
 	frappe.connect()
-	sid = login(site, "Administrator")
+	sid = login(site, user)
 	frappe.destroy()
 
 	failures = []
@@ -52,4 +52,4 @@ def main(site):
 
 
 if __name__ == "__main__":
-	main(sys.argv[1])
+	main(*sys.argv[1:3])

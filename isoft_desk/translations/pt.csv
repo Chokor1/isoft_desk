@@ -52,7 +52,7 @@ Rollout,Implementação
 Pilot Users,Utilizadores piloto
 Pilot Roles,Funções piloto
 "Site-wide switch. Off returns every user to the standard desk.","Interruptor geral do site. Desligado, todos os utilizadores voltam ao ambiente de trabalho padrão."
-"Pilot: only the users and roles below get the new desk. Everyone: all desk users.","Piloto: só os utilizadores e funções abaixo veem o novo ambiente. Todos: todos os utilizadores."
+"Everyone: all desk users. Pilot: only the users and roles below, to try a change on a few people first.","Todos: todos os utilizadores. Piloto: só os utilizadores e funções abaixo, para experimentar uma alteração com poucas pessoas primeiro."
 Search or type a command (Ctrl + G),Pesquisar ou escrever um comando (Ctrl + G)
 Full screen,Ecrã inteiro,ISOFT Desk
 Exit full screen,Sair do ecrã inteiro,ISOFT Desk
