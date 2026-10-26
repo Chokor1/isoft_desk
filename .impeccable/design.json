@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T12:00:00Z",
+  "generatedAt": "2026-10-26T18:00:00Z",
   "title": "Design System: ISOFT Desk",
   "extensions": {
     "colorMeta": {
@@ -908,7 +908,12 @@
       {
         "name": "focus-halo",
         "value": "0 0 0 3px var(--isd-accent-soft)",
-        "purpose": "Top-bar search, list search and list filter-panel inputs on focus."
+        "purpose": "Top-bar search, list search, list filter-panel inputs and editable form inputs on focus."
+      },
+      {
+        "name": "form-head-band",
+        "value": "0 1px 0 var(--isd-rule), 0 6px 12px -8px rgba(15, 34, 54, 0.18)",
+        "purpose": "Stuck form section links: one rule and core's page-head shadow carried over (the head's own is removed while stuck), with Surface spread 16px over the page gutter on both sides."
       },
       {
         "name": "login-card",
@@ -968,6 +973,16 @@
         "purpose": "Off-canvas sidebar slide below 992px."
       },
       {
+        "name": "form-section-link",
+        "value": "150ms",
+        "purpose": "Form section-link background and colour on the shared ease; none under prefers-reduced-motion."
+      },
+      {
+        "name": "form-section-jump",
+        "value": "window.scrollTo smooth",
+        "purpose": "Section link click lands the section under the stuck band; instant under prefers-reduced-motion."
+      },
+      {
         "name": "shimmer",
         "value": "1.2s linear infinite",
         "purpose": "Count skeleton; disabled under prefers-reduced-motion."
@@ -997,7 +1012,7 @@
       {
         "name": "md",
         "value": "768px",
-        "purpose": "List and Report views below: search full width, chips wrap, filter panel fixed to the bottom in one column, status dot carries its word."
+        "purpose": "List and Report views below: search full width, chips wrap, filter panel fixed to the bottom in one column, status dot carries its word. Forms below: the page head grows with a wrapped title and actions on their own line, totals cells two per row with wrapping labels, 16px inputs."
       },
       {
         "name": "lg",
@@ -1123,25 +1138,42 @@
       "description": "List view table: 34px header over a Rule Strong line, 36px rows, title with the largest share, fixed 8.75rem figure columns, status as a 7px dot plus its word (blue states neutral), 104px activity column, segmented pager with the current size on Blue Tint.",
       "html": "<div class=\"ds-list\"><div class=\"ds-row ds-head\"><span class=\"ds-t\">Title</span><span class=\"ds-s\">Status</span><span class=\"ds-n\">Grand Total</span><span class=\"ds-a\">20 of 30</span></div><div class=\"ds-row\"><span class=\"ds-t\">CONSUMIDOR FINAL - FR FR3726S1925N/12</span><span class=\"ds-s ok\">Paid</span><span class=\"ds-n\">KZ 114 000,00</span><span class=\"ds-a\">8 M</span></div><div class=\"ds-row\"><span class=\"ds-t\">3 LIRIOS COMERCIO GERAL - FT 2026/41</span><span class=\"ds-s bad\">Overdue</span><span class=\"ds-n\">KZ 1 140,00</span><span class=\"ds-a\">8 M</span></div><div class=\"ds-row\"><span class=\"ds-t\">2WHM - FT 2026/44</span><span class=\"ds-s\">Submitted</span><span class=\"ds-n\">KZ 57 000,00</span><span class=\"ds-a\">9 M</span></div><div class=\"ds-pager\"><button class=\"is-on\">20</button><button>100</button><button>500</button></div></div>",
       "css": ":host{--isd-accent-strong:#0a93e0;--isd-accent-text:#0079c2;--isd-accent-soft:#e2f5ff;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-ok:#1f7a4d;--isd-warn:#a15c07;--isd-bad:#b42318;--isd-radius:6px;--isd-shadow-menu:0 8px 24px rgba(15,34,54,.18),0 2px 6px rgba(15,34,54,.12);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px;font-variant-numeric:tabular-nums}.ds-list{background:var(--isd-surface);border:1px solid var(--isd-rule);border-radius:var(--isd-radius)}.ds-row{display:flex;align-items:center;height:36px;padding:0 14px;border-bottom:1px solid var(--isd-rule);color:var(--isd-ink)}.ds-row:not(.ds-head):hover{background:var(--isd-hover)}.ds-head{height:34px;border-bottom-color:var(--isd-rule-strong);color:var(--isd-ink-2);font-size:12px;font-weight:500}.ds-row>span{min-width:0;margin-right:14px;white-space:nowrap}.ds-t{flex:3;overflow:hidden;text-overflow:ellipsis;font-weight:500}.ds-head .ds-t{font-weight:500}.ds-s{flex:1;display:inline-flex;align-items:center;font-weight:500;color:var(--isd-ink-2)}.ds-row:not(.ds-head) .ds-s::before{content:'';width:7px;height:7px;margin-right:7px;border-radius:50%;background:currentColor}.ds-s.ok{color:var(--isd-ok)}.ds-s.bad{color:var(--isd-bad)}.ds-s.warn{color:var(--isd-warn)}.ds-n{flex:0 0 8.75rem;text-align:right}.ds-a{flex:0 0 104px;margin-right:0!important;text-align:right;color:var(--isd-ink-3);font-size:12px}.ds-head .ds-a{color:var(--isd-ink-2)}.ds-pager{display:flex;padding:10px 14px}.ds-pager button{height:30px;padding:0 10px;border:1px solid var(--isd-rule-strong);margin-left:-1px;background:var(--isd-surface);color:var(--isd-ink);font:inherit;cursor:pointer}.ds-pager button:first-child{margin-left:0;border-radius:var(--isd-radius) 0 0 var(--isd-radius)}.ds-pager button:last-child{border-radius:0 var(--isd-radius) var(--isd-radius) 0}.ds-pager button:hover{background:var(--isd-hover)}.ds-pager button.is-on{background:var(--isd-accent-soft);color:var(--isd-accent-text);font-weight:600}.ds-pager button:focus{outline:none}.ds-pager button:focus-visible{box-shadow:inset 0 0 0 2px var(--isd-accent-strong)}"
+    },
+    {
+      "name": "Form Head (Connections, Totals, Section Links)",
+      "kind": "custom",
+      "refersTo": "form-totals-strip",
+      "description": "Above core's form layout: chips for linked DocTypes with records plus \"Show all connections\"; the totals strip (net total, taxes, grand total, outstanding in State Bad when overdue, due date with days late, Lines), each cell scrolling to its field; the form's own section links, current one on Blue Tint.",
+      "html": "<div class=\"ds-f\"><div class=\"ds-conn\"><button class=\"ds-chip\" title=\"Sales Invoice\">Returns <b>1</b></button><button class=\"ds-tog\">Show all connections</button></div><div class=\"ds-sum\"><button class=\"ds-cell\"><span class=\"ds-l\">Total Taxes and Charges</span><span class=\"ds-v\">KZ 83 350,65</span></button><button class=\"ds-cell\"><span class=\"ds-l\">Grand Total</span><span class=\"ds-v\">KZ 678 712,41</span></button><button class=\"ds-cell is-bad\"><span class=\"ds-l\">Outstanding Amount</span><span class=\"ds-v\">KZ 450 370,41</span></button><button class=\"ds-cell\"><span class=\"ds-l\">Payment Due Date</span><span class=\"ds-v\">11-02-2026<span class=\"ds-late\">257 days late</span></span></button><button class=\"ds-cell\"><span class=\"ds-l\">Lines</span><span class=\"ds-v\">23</span></button></div><nav class=\"ds-nav\"><button class=\"ds-sl\">Currency and Price List</button><button class=\"ds-sl is-on\" aria-current=\"true\">Items</button><button class=\"ds-sl\">Tax Breakup</button><button class=\"ds-sl\">Payment Terms</button></nav></div>",
+      "css": ":host{--isd-accent-strong:#0a93e0;--isd-accent-text:#0079c2;--isd-accent-soft:#e2f5ff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-bad:#b42318;--isd-radius:6px;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px;font-variant-numeric:tabular-nums}.ds-f{display:flex;flex-direction:column;gap:12px;padding:12px;background:var(--isd-ground)}.ds-conn{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}.ds-chip{height:28px;display:inline-flex;align-items:center;gap:8px;padding:0 10px;border:1px solid var(--isd-rule-strong);border-radius:var(--isd-radius);background:var(--isd-surface);color:var(--isd-ink);font:inherit;cursor:pointer}.ds-chip b{font-weight:600}.ds-chip:hover{border-color:var(--isd-accent-strong)}.ds-tog{height:28px;padding:0 4px;border:0;background:transparent;color:var(--isd-accent-text);font:inherit;font-weight:500;cursor:pointer}.ds-tog:hover{text-decoration:underline;text-underline-offset:3px}.ds-sum{display:flex;flex-wrap:wrap;background:var(--isd-surface);border:1px solid var(--isd-rule);border-radius:var(--isd-radius);overflow:hidden}.ds-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 18px 11px;border:0;border-right:1px solid var(--isd-rule);background:transparent;color:var(--isd-ink);font:inherit;text-align:left;cursor:pointer}.ds-cell:last-child{border-right:0}.ds-cell:hover{background:var(--isd-hover)}.ds-l{color:var(--isd-ink-2);font-size:12px;white-space:nowrap}.ds-v{display:inline-flex;align-items:baseline;gap:8px;font-size:17px;font-weight:600;white-space:nowrap}.ds-cell.is-bad .ds-v,.ds-late{color:var(--isd-bad)}.ds-late{font-size:12px;font-weight:500}.ds-nav{display:flex;gap:4px;padding:6px 0}.ds-sl{height:28px;padding:0 10px;border:0;border-radius:var(--isd-radius);background:transparent;color:var(--isd-ink-2);font:inherit;white-space:nowrap;cursor:pointer;transition:background-color 150ms cubic-bezier(0.16,1,0.3,1),color 150ms cubic-bezier(0.16,1,0.3,1)}.ds-sl:hover{background:var(--isd-hover);color:var(--isd-ink)}.ds-sl.is-on{background:var(--isd-accent-soft);color:var(--isd-accent-text);font-weight:500}:is(.ds-chip,.ds-tog,.ds-cell,.ds-sl):focus{outline:none}:is(.ds-chip,.ds-tog,.ds-cell,.ds-sl):focus-visible{box-shadow:inset 0 0 0 2px var(--isd-accent-strong)}"
+    },
+    {
+      "name": "Form Section and Fields",
+      "kind": "input",
+      "refersTo": "form-input",
+      "description": "Core's card section as a flat card: 13/600 head, 12/500 Ink Muted labels, editable inputs white with a Rule Strong border and Logo Blue Bright focus + Blue Tint halo, read-only values in core's muted look on its disabled fill, a missing mandatory value in State Bad.",
+      "html": "<section class=\"ds-sec\"><h4>Customer</h4><div class=\"ds-grid\"><label class=\"ds-fld\"><span class=\"ds-lab\">Customer</span><input value=\"~CELESTINO MANGO\"></label><div class=\"ds-fld\"><span class=\"ds-lab\">Tax Id</span><div class=\"ds-ro\">000261023HO033</div></div><label class=\"ds-fld is-err\"><span class=\"ds-lab\">Payment Due Date *</span><input placeholder=\"dd-mm-yyyy\"></label></div></section>",
+      "css": ":host{--isd-accent-strong:#0a93e0;--isd-accent-text:#0079c2;--isd-accent-soft:#e2f5ff;--isd-ground:#f4f6f8;--isd-surface:#fff;--isd-ink:#14202b;--isd-ink-2:#4f5f6f;--isd-ink-3:#6b7b8a;--isd-rule:#e1e6eb;--isd-rule-strong:#c9d2db;--isd-hover:#eef2f5;--isd-bad:#b42318;--isd-radius:6px;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px;font-variant-numeric:tabular-nums}.ds-sec{padding:16px 20px;background:var(--isd-surface);border:1px solid var(--isd-rule);border-radius:var(--isd-radius)}.ds-sec h4{margin:0 0 12px;color:var(--isd-ink);font-size:13px;font-weight:600}.ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}.ds-fld{display:flex;flex-direction:column;gap:6px}.ds-lab{color:var(--isd-ink-2);font-size:12px;font-weight:500}.ds-fld input{height:34px;padding:0 10px;border:1px solid var(--isd-rule-strong);border-radius:var(--isd-radius);background:var(--isd-surface);color:var(--isd-ink);font:inherit}.ds-fld input::placeholder{color:var(--isd-ink-3)}.ds-fld input:focus{outline:none;border-color:var(--isd-accent-strong);box-shadow:0 0 0 3px var(--isd-accent-soft)}.ds-ro{min-height:34px;display:flex;align-items:center;padding:0 10px;border-radius:var(--isd-radius);background:var(--disabled-control-bg,#f9fafa);color:var(--disabled-text-color,#505a62)}.is-err input{border-color:var(--isd-bad)}.is-err .ds-lab{color:var(--isd-bad)}"
     }
   ],
   "narrative": {
     "northStar": "The Category Standard, Played Straight",
-    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Since phase 2, the List and Report views of every DocType (`/app/<doctype>` and `/view/report`) are restyled: one toolbar line of search, filter chips and \"+ Add filter\" over a full-width table whose amounts are never cut. Everything else keeps core styling inside the shell: forms (which only get the primary-button accent and the collapsed rail with the core left column hidden), query and script reports, and the Kanban, Image, Tree and Calendar views.\n\nTwo surfaces sit before the shell and follow different rules. The login page is the incumbent core \"vault\" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) is drawn from the vault interior's own recipe, \"ISOFT ERP\" over \"ENTERPRISE CORE · ONLINE\" on the gridded core ground with its breathing glow, so after login the room the doors open onto simply stays on screen until the desk is ready: one screen, not two. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.",
+    "overview": "ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation and module pages with the polish users already know from Odoo 17, Linear, Stripe Dashboard and ERPNext v15: a theme-following sidebar on the left, a slim white top bar, and module pages that answer \"what is waiting for me in this company\" before anything else. The people using it are accounting, sales, stock and management staff on 1366x768 laptops, working in Portuguese or English. They arrive with a job, do it and leave. Density is moderate (13px body, 30 to 34px rows), and every surface is flat, white or slate, and separated by 1px tinted rules.\n\nThe world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.\n\nThe scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Since phase 2, the List and Report views of every DocType (`/app/<doctype>` and `/view/report`) are restyled: one toolbar line of search, filter chips and \"+ Add filter\" over a full-width table whose amounts are never cut. Since phase 3, the form of every DocType (Isoft apps' included) is restyled too: a compact Connections row, a totals strip on transactions and links to the form's own sections over core's layout, with core's sections, fields and child tables on the desk's surfaces. The form's structure stays the DocType's and Customize Form's; the desk only reads it. Kanban, Image, Tree and Calendar views, query and script reports, and dialogs keep core styling inside the shell (the form rules are scoped to the page, so a dialog opened over a form keeps core's look too).\n\nTwo surfaces sit before the shell and follow different rules. The login page is the incumbent core \"vault\" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) is drawn from the vault interior's own recipe, \"ISOFT ERP\" over \"ENTERPRISE CORE · ONLINE\" on the gridded core ground with its breathing glow, so after login the room the doors open onto simply stays on screen until the desk is ready: one screen, not two. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.",
     "keyCharacteristics": [
       "Theme-following sidebar: a white panel with a 1px rule in light mode, deep slate in dark mode.",
       "One accent, the ISOFT ERP logo's blue, in three strengths: a fill, a line and a text shade. Semantic colours carry state only.",
       "Inter with tabular figures. Counts are large, and labels sit below them.",
-      "6px radii everywhere, 8px on menus. Menus and popovers are the only things with a shadow.",
+      "6px radii everywhere, 8px on menus. Menus and popovers are the only things with a shadow, apart from the stuck form section links, which carry core's own page-head shadow.",
       "Every top-bar menu (Help, user, notifications, search results, the ISOFT applications launcher) sits on the desk's own surface, rule and shadow.",
-      "Fully scoped (`body.isd-on`). List and Report views are restyled from core's own controls; forms, query and script reports, Kanban, Image, Tree and Calendar keep core styling.",
+      "Fully scoped (`body.isd-on`). List and Report views and every form are restyled from core's own controls; query and script reports, Kanban, Image, Tree and Calendar views and dialogs keep core styling.",
+      "Forms keep the DocType's structure untouched: the desk adds a Connections row, a totals strip and section links on top, and dresses core's sections, fields and tables.",
       "The login vault opens in the browser's last desk theme; the light vault is a recolour, never a relayout.",
       "Every load shows the vault interior, light or dark, in the desk theme the server rendered."
     ],
     "rules": [
       {
         "name": "The One Accent Rule",
-        "body": "Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens. In List and Report views, blue workflow states (core's blue, light-blue, cyan and purple indicators: Submitted, Enabled, To Bill and the like) read as neutral Ink Muted, so blue never stands for a state.",
+        "body": "Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens. In List and Report views, blue workflow states (core's blue, light-blue, cyan and purple indicators: Submitted, Enabled, To Bill and the like) read as neutral Ink Muted, so blue never stands for a state. The same holds for a form's status in the page head in dark mode.",
         "section": "colors"
       },
       {
@@ -1156,12 +1188,12 @@
       },
       {
         "name": "The Colour Is State Rule",
-        "body": "A tile count turns red or amber only when its definition carries a tone and the count is above zero. A zero count goes faint, never green. Charts draw series 1 in Logo Blue Bright and further series in Ink Faint and Rule Strong, with no area fill.",
+        "body": "A tile count turns red or amber only when its definition carries a tone and the count is above zero. A zero count goes faint, never green. Charts draw series 1 in Logo Blue Bright and further series in Ink Faint and Rule Strong, with no area fill. On a form, the outstanding amount turns State Bad only on a submitted document with money still owed past its due date, and the due date then names the days late in State Bad; an outstanding that is not late stays Ink.",
         "section": "colors"
       },
       {
         "name": "The Names Read As Names Rule",
-        "body": "Some core translations start in lowercase (\"cotação\"). Tile labels, DocType lines, quick links, index links and index headings capitalise their first letter, through CSS `::first-letter` or, for New buttons, in JS.",
+        "body": "Some core translations start in lowercase (\"cotação\"). Tile labels, DocType lines, quick links, index links, index headings, form totals labels and section links capitalise their first letter, through CSS `::first-letter` or, for New buttons, in JS.",
         "section": "typography"
       },
       {
@@ -1175,8 +1207,13 @@
         "section": "typography"
       },
       {
+        "name": "The Structure Is The DocType's Rule",
+        "body": "The DocType and Customize Form own a form's structure: field order, sections, column breaks, collapsible sections, hidden and depends_on, read-only and mandatory, permissions and child-table column widths. Nothing in the desk moves, hides, folds, regroups or resizes a field. It only reads the form (its fields, its sections and their visibility, the dashboard's link counts) and calls core's own methods: `scroll_to_field` from a totals cell, `Section.collapse(false)` from a section link, and the dashboard's own badge links from a Connections chip. Read-only values keep core's own look, muted text on core's disabled fill, because the user asked for it after a restyle made them look editable. Editable inputs are white (Surface) with a Rule Strong border, and on focus a Logo Blue Bright border with a 3px Blue Tint halo. A missing mandatory or invalid value shows a State Bad border and a State Bad label.",
+        "section": "layout"
+      },
+      {
         "name": "The Only Menus Float Rule",
-        "body": "In the desk shell, a surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless. The login vault is outside the shell and keeps the glow and lift that core's vault is built from, recoloured.",
+        "body": "In the desk shell, a surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar, the sidebar and form section cards stay shadowless. The one carried shadow is core's own: core's sticky form head casts a shadow once the page scrolls, and when the section links stick under it they take that shadow over (the head's is removed), so the head and the links cast one shadow as one band. The login vault is outside the shell and keeps the glow and lift that core's vault is built from, recoloured.",
         "section": "elevation"
       }
     ],
@@ -1190,13 +1227,15 @@
       "Do translate added strings with context \"ISOFT Desk\".",
       "Do hide the desk sidebar on any page that draws its own fixed sidebar, and add the route to the hidden list instead of restyling the page.",
       "Do build list UI from core's own controls, moved into place and never copied (the search is the title filter control, the panel holds core's standard filters, chips remove and edit core's filters), so filtering, saving, sorting, paging and permissions behave as core.",
-      "Do honour `prefers-reduced-motion` for the chevron, drawer and skeleton. The shared ease is `cubic-bezier(0.16, 1, 0.3, 1)`."
+      "Do leave a form's structure to the DocType and Customize Form: read the form and call core's own methods (`scroll_to_field`, `Section.collapse`, the dashboard's badge links), never move, hide, fold, regroup or resize a field, and leave read-only values in core's look.",
+      "Do honour `prefers-reduced-motion` for the chevron, drawer, skeleton and form section-link scrolling. The shared ease is `cubic-bezier(0.16, 1, 0.3, 1)`."
     ],
     "donts": [
-      "Don't restyle Kanban, Image, Tree or Calendar views, query or script reports, or forms in this phase. Only the primary-button accent and the form full-width rule reach forms.",
+      "Don't restyle Kanban, Image, Tree or Calendar views, query or script reports, or dialogs in this phase.",
+      "Don't change a form's layout from the desk (order, sections, columns, visibility, widths, collapsing), or dress read-only values as inputs. Forms get the Connections row, totals strip and section links on top and the desk's surfaces on core's own parts.",
       "Don't list Isoft app pages in the sidebar. They live in the applications launcher.",
       "Don't bring back the v13 cyan-topped card grid, the star watermark or a flat module list.",
-      "Don't add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.",
+      "Don't add shadows to tiles, cards, form sections, the top bar or the sidebar. Only floating menus and tooltips cast one, plus the stuck section links, which carry core's own page-head shadow.",
       "Don't give other apps' navbar buttons or menus their own colours inside the shell. The launcher's app icon tones are the only hues kept, because each names an app.",
       "Don't fill chart areas or use more than one accent-coloured series.",
       "Don't restyle the dark vault from this app, or move, resize or re-animate any part of the vault in the light variant. Change colours only. The glow-centring repair (same breath, translate kept) is the one change that reaches both vaults.",

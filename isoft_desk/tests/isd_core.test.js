@@ -150,3 +150,65 @@ test('filter_chips: labels and values are looked up on the filter\'s own DocType
 	assert.strictEqual(chips[0].text, 'item_code@Sales Invoice Item: KIT-1@Sales Invoice Item');
 	assert.strictEqual(chips[0].doctype, 'Sales Invoice Item');
 });
+
+const SI_FIELDS = {
+	net_total: { label: 'Net Total' }, total_taxes_and_charges: { label: 'Total Taxes and Charges' },
+	grand_total: { label: 'Grand Total' }, outstanding_amount: { label: 'Outstanding Amount' },
+	due_date: { label: 'Payment Due Date' }, items: { label: 'Items' },
+};
+const SI_DOC = {
+	docstatus: 1, net_total: 595361.76, total_taxes_and_charges: 83350.65, grand_total: 678712.41,
+	outstanding_amount: 450370.41, due_date: '2026-02-11', items: new Array(23).fill({}),
+};
+
+test('form_summary: an overdue invoice reads totals, red outstanding and days late', () => {
+	const cells = core.form_summary(SI_DOC, SI_FIELDS, '2026-10-26');
+	assert.deepStrictEqual(cells.map(c => c.fieldname),
+		['net_total', 'total_taxes_and_charges', 'grand_total', 'outstanding_amount', 'due_date', 'items']);
+	assert.strictEqual(cells.find(c => c.fieldname === 'outstanding_amount').tone, 'bad');
+	assert.strictEqual(cells.find(c => c.fieldname === 'due_date').late_days, 257);
+	assert.strictEqual(cells.find(c => c.fieldname === 'items').count, 23);
+	assert.strictEqual(cells[0].label, 'Net Total');
+});
+
+test('form_summary: only fields the form shows; none without a grand total', () => {
+	const fields = Object.assign({}, SI_FIELDS);
+	delete fields.total_taxes_and_charges;
+	delete fields.outstanding_amount;
+	const cells = core.form_summary(SI_DOC, fields, '2026-10-26');
+	assert.deepStrictEqual(cells.map(c => c.fieldname), ['net_total', 'grand_total', 'due_date', 'items']);
+	assert.strictEqual(cells.find(c => c.fieldname === 'due_date').late_days, null);
+	assert.deepStrictEqual(core.form_summary({ docstatus: 0 }, { items: { label: 'Items' } }, '2026-10-26'), []);
+});
+
+test('form_summary: a draft shows no outstanding; zero tax and empty dates are left out', () => {
+	const doc = Object.assign({}, SI_DOC, { docstatus: 0, total_taxes_and_charges: 0, due_date: null });
+	assert.deepStrictEqual(core.form_summary(doc, SI_FIELDS, '2026-10-26').map(c => c.fieldname),
+		['net_total', 'grand_total', 'items']);
+});
+
+test('form_summary: a paid or not yet due invoice is not red', () => {
+	const paid = Object.assign({}, SI_DOC, { outstanding_amount: 0 });
+	assert.strictEqual(core.form_summary(paid, SI_FIELDS, '2026-10-26').find(c => c.fieldname === 'outstanding_amount').tone, null);
+	const future = Object.assign({}, SI_DOC, { due_date: '2026-11-30' });
+	const cells = core.form_summary(future, SI_FIELDS, '2026-10-26');
+	assert.strictEqual(cells.find(c => c.fieldname === 'outstanding_amount').tone, null);
+	assert.strictEqual(cells.find(c => c.fieldname === 'due_date').late_days, null);
+});
+
+test('section_links: visible sections with a label, in the DocType order', () => {
+	assert.deepStrictEqual(core.section_links([
+		{ index: 0, label: null, visible: true },
+		{ index: 1, label: 'FE Angola Status', visible: true },
+		{ index: 2, label: 'Currency and Price List', visible: false },
+		{ index: 3, label: '  ', visible: true },
+		{ index: 4, label: 'Items', visible: true },
+	]), [{ index: 1, label: 'FE Angola Status' }, { index: 4, label: 'Items' }]);
+});
+
+test('active_section: the last section whose top has passed the line', () => {
+	assert.strictEqual(core.active_section([400, 900, 1500], 200), -1);
+	assert.strictEqual(core.active_section([400, 900, 1500], 400), 0);
+	assert.strictEqual(core.active_section([400, 900, 1500], 1200), 1);
+	assert.strictEqual(core.active_section([400, 900, 1500], 5000), 2);
+});

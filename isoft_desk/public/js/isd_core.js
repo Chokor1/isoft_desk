@@ -128,8 +128,58 @@
 			});
 	}
 
+	function days_between(from, to) {
+		const day = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10));
+		return Math.round((day(to) - day(from)) / 86400000);
+	}
+
+	const DUE_FIELDS = ["due_date", "valid_till", "schedule_date", "delivery_date"];
+
+	// the form summary strip of a transaction, from the fields this form shows
+	// (fields: {fieldname: {label}}, already filtered by what the user can see);
+	// today is "YYYY-MM-DD"
+	function form_summary(doc, fields, today) {
+		if (!fields.grand_total) return [];
+		const cells = [];
+		const money = (fieldname, extra) => cells.push(Object.assign(
+			{ fieldname, label: fields[fieldname].label, kind: "money", tone: null }, extra));
+
+		if (fields.net_total) money("net_total");
+		if (fields.total_taxes_and_charges && doc.total_taxes_and_charges) money("total_taxes_and_charges");
+		money("grand_total");
+
+		const due_field = DUE_FIELDS.find(f => fields[f] && doc[f]);
+		const due = due_field ? String(doc[due_field]).slice(0, 10) : null;
+		const owed = fields.outstanding_amount && doc.docstatus === 1 ? doc.outstanding_amount || 0 : null;
+		const late = owed > 0 && due_field === "due_date" && due < today ? days_between(due, today) : null;
+
+		if (owed !== null) money("outstanding_amount", { tone: late ? "bad" : null });
+		if (due_field) cells.push({ fieldname: due_field, label: fields[due_field].label, kind: "date", late_days: late });
+		if (fields.items && Array.isArray(doc.items)) {
+			cells.push({ fieldname: "items", label: fields.items.label, kind: "count", count: doc.items.length });
+		}
+		return cells;
+	}
+
+	// the form's section links: its own labelled, visible sections, in order
+	function section_links(sections) {
+		return sections
+			.filter(s => s.visible && s.label && String(s.label).trim())
+			.map(s => ({ index: s.index, label: s.label }));
+	}
+
+	// which link is current: the last section whose top has passed the line
+	function active_section(tops, line) {
+		let active = -1;
+		tops.forEach((top, i) => {
+			if (top <= line) active = i;
+		});
+		return active;
+	}
+
 	return {
 		route_mode, find_active, filter_groups, landing_workspace, theme_to_remember, direct_item,
 		fullscreen_toggle, effective_route, list_search_field, filter_chips,
+		form_summary, section_links, active_section,
 	};
 });

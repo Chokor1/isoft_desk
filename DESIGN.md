@@ -399,6 +399,80 @@ components:
     typography: "{typography.meta}"
     rounded: "{rounded.md}"
     height: "26px"
+  form-connection-chip:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    rounded: "{rounded.md}"
+    padding: "0 10px"
+    height: "28px"
+  form-connection-toggle:
+    textColor: "{colors.isoft-blue}"
+    typography: "{typography.title}"
+    rounded: "{rounded.md}"
+    padding: "0 4px"
+    height: "28px"
+  form-totals-strip:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.md}"
+  form-totals-cell:
+    textColor: "{colors.ink}"
+    padding: "10px 18px 11px"
+  form-totals-cell-hover:
+    backgroundColor: "{colors.hover-wash}"
+  form-totals-label:
+    textColor: "{colors.ink-muted}"
+    typography: "{typography.meta}"
+  form-totals-overdue:
+    textColor: "{colors.state-bad}"
+  form-section-links:
+    backgroundColor: "{colors.cool-ground}"
+    padding: "6px 0"
+  form-section-links-stuck:
+    backgroundColor: "{colors.surface}"
+  form-section-link:
+    textColor: "{colors.ink-muted}"
+    typography: "{typography.body}"
+    rounded: "{rounded.md}"
+    padding: "0 10px"
+    height: "28px"
+  form-section-link-hover:
+    backgroundColor: "{colors.hover-wash}"
+    textColor: "{colors.ink}"
+  form-section-link-active:
+    backgroundColor: "{colors.isoft-blue-tint}"
+    textColor: "{colors.isoft-blue}"
+    typography: "{typography.title}"
+  form-section-link-active-dark:
+    backgroundColor: "{colors.dark-blue-tint}"
+    textColor: "{colors.dark-blue-text}"
+  form-section-card:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.md}"
+  form-section-head:
+    textColor: "{colors.ink}"
+  form-field-label:
+    textColor: "{colors.ink-muted}"
+  form-input:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+  form-input-invalid:
+    textColor: "{colors.state-bad}"
+  form-grid:
+    rounded: "{rounded.md}"
+  form-grid-header:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink-muted}"
+  form-grid-row-hover:
+    backgroundColor: "{colors.hover-wash}"
+  form-status-dark-ok:
+    textColor: "{colors.dark-state-ok}"
+  form-status-dark-warn:
+    textColor: "{colors.dark-state-warn}"
+  form-status-dark-bad:
+    textColor: "{colors.dark-state-bad}"
+  form-status-dark-neutral:
+    textColor: "{colors.dark-ink-muted}"
 ---
 
 # Design System: ISOFT Desk
@@ -411,7 +485,7 @@ ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation 
 
 The world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.
 
-The scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Since phase 2, the List and Report views of every DocType (`/app/<doctype>` and `/view/report`) are restyled: one toolbar line of search, filter chips and "+ Add filter" over a full-width table whose amounts are never cut. Everything else keeps core styling inside the shell: forms (which only get the primary-button accent and the collapsed rail with the core left column hidden), query and script reports, and the Kanban, Image, Tree and Calendar views.
+The scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Since phase 2, the List and Report views of every DocType (`/app/<doctype>` and `/view/report`) are restyled: one toolbar line of search, filter chips and "+ Add filter" over a full-width table whose amounts are never cut. Since phase 3, the form of every DocType (Isoft apps' included) is restyled too: a compact Connections row, a totals strip on transactions and links to the form's own sections over core's layout, with core's sections, fields and child tables on the desk's surfaces. The form's structure stays the DocType's and Customize Form's; the desk only reads it. Kanban, Image, Tree and Calendar views, query and script reports, and dialogs keep core styling inside the shell (the form rules are scoped to the page, so a dialog opened over a form keeps core's look too).
 
 Two surfaces sit before the shell and follow different rules. The login page is the incumbent core "vault" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) is drawn from the vault interior's own recipe, "ISOFT ERP" over "ENTERPRISE CORE · ONLINE" on the gridded core ground with its breathing glow, so after login the room the doors open onto simply stays on screen until the desk is ready: one screen, not two. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.
 
@@ -419,9 +493,10 @@ Two surfaces sit before the shell and follow different rules. The login page is 
 - Theme-following sidebar: a white panel with a 1px rule in light mode, deep slate in dark mode.
 - One accent, the ISOFT ERP logo's blue, in three strengths: a fill, a line and a text shade. Semantic colours carry state only.
 - Inter with tabular figures. Counts are large, and labels sit below them.
-- 6px radii everywhere, 8px on menus. Menus and popovers are the only things with a shadow.
+- 6px radii everywhere, 8px on menus. Menus and popovers are the only things with a shadow, apart from the stuck form section links, which carry core's own page-head shadow.
 - Every top-bar menu (Help, user, notifications, search results, the ISOFT applications launcher) sits on the desk's own surface, rule and shadow.
-- Fully scoped (`body.isd-on`). List and Report views are restyled from core's own controls; forms, query and script reports, Kanban, Image, Tree and Calendar keep core styling.
+- Fully scoped (`body.isd-on`). List and Report views and every form are restyled from core's own controls; query and script reports, Kanban, Image, Tree and Calendar views and dialogs keep core styling.
+- Forms keep the DocType's structure untouched: the desk adds a Connections row, a totals strip and section links on top, and dresses core's sections, fields and tables.
 - The login vault opens in the browser's last desk theme; the light vault is a recolour, never a relayout.
 - Every load shows the vault interior, light or dark, in the desk theme the server rendered.
 
@@ -433,20 +508,20 @@ A cool slate-and-white neutral field with one saturated blue, and semantic hues 
 The accent is tuned to the ISOFT ERP logo and split by job, because one blue cannot be both a white-ink fill and a 3:1 hairline on white.
 - **Logo Blue** (isoft-blue / dark-blue): the solid fill of the primary button, with white ink (on-accent) in both themes. In light mode the same shade is the text accent: links, quick-link hover text, the active sidebar item and core's `--primary`.
 - **Logo Blue Deep** (isoft-blue-deep / dark-blue-hover): the primary button on hover and press. In dark mode it lightens instead of darkening.
-- **Logo Blue Bright** (isoft-blue-strong / dark-blue-strong): lines, never text. Tile and quick-link hover borders, the 2px tile focus outline, the top-bar and sidebar search focus borders, the first chart series and its legend dot. It is also the brand blue of the sidebar's own highlights.
+- **Logo Blue Bright** (isoft-blue-strong / dark-blue-strong): lines, never text. Tile and quick-link hover borders, the 2px tile focus outline, the top-bar and sidebar search focus borders, the first chart series and its legend dot, the focus border of editable form inputs, the hover border of form Connections chips and the 2px keyboard ring on the form's added controls. It is also the brand blue of the sidebar's own highlights.
 - **Sky Link Blue** (dark-blue-text): the dark-mode text accent for links and core's `--primary`. The dark active sidebar item uses the paler **Sky Active** (dark-side-active).
-- **Blue Tint** (isoft-blue-tint / dark-blue-tint): the active sidebar item background, the current option in a menu, the 3px focus halo on top-bar search and on the list search and filter inputs, the sidebar scrollbar thumb, list filter chips and the current page size in the list pager.
+- **Blue Tint** (isoft-blue-tint / dark-blue-tint): the active sidebar item background, the current option in a menu, the 3px focus halo on top-bar search and on the list search and filter inputs, the sidebar scrollbar thumb, list filter chips, the current page size in the list pager, the current form section link and the 3px focus halo of editable form inputs.
 
 ### Neutral
 - **Cool Ground** (cool-ground / dark-ground): the page ground behind all work surfaces, also painted on `html` so overscroll never flashes another colour.
-- **Surface** (surface / dark-surface): the top bar, sidebar, menus, tiles, quick links and chart widget, in both modes. The sidebar and the top bar share one surface so they meet without a seam; a Rule separates them from the ground.
+- **Surface** (surface / dark-surface): the top bar, sidebar, menus, tiles, quick links and chart widget, and on forms the section cards, editable inputs, the totals strip, Connections chips and the stuck section-link band, in both modes. The sidebar and the top bar share one surface so they meet without a seam; a Rule separates them from the ground.
 - **Ink, Ink Muted, Ink Faint**: primary text; secondary text (context line, breadcrumbs, index headings, tile DocType line); and zero counts, disabled links and placeholders.
 - **Side Ink / Side Ink Muted / Side Strong**: sidebar text at rest; section labels, the version number and icons; hovered and open-group text.
-- **Rule / Rule Strong**: 1px separators. Rule sits between index rows, around tiles and around the top bar. Rule Strong goes under index headings and around quick links.
-- **Hover Wash**: the hover background in the sidebar and the top bar, and the sidebar search field.
+- **Rule / Rule Strong**: 1px separators. Rule sits between index rows, around tiles and around the top bar. Rule Strong goes under index headings and around quick links, and on forms around editable inputs and Connections chips and under child-table headers.
+- **Hover Wash**: the hover background in the sidebar and the top bar, and the sidebar search field; on forms, the hover of totals cells, section links and child-table rows.
 
 ### State
-- **OK / Warn / Bad** (state-ok, state-warn, state-bad and their dark counterparts): only for counts and states that need action. Shipped counts use `bad` (overdue invoices, rejected by AGT). The stylesheet also supports `warn`.
+- **OK / Warn / Bad** (state-ok, state-warn, state-bad and their dark counterparts): only for counts and states that need action. Shipped counts use `bad` (overdue invoices, rejected by AGT). The stylesheet also supports `warn`. On forms, State Bad marks an overdue outstanding amount and its days late, and a missing mandatory or invalid field (border and label).
 
 ### Login Surface (light vault)
 Cool and pale, so the vault reads as the same room with the lights on. Defined in `isd_login.css` under `html[data-isd-login="light"]`; the dark vault's colours stay in core's `login.scss`.
@@ -468,13 +543,13 @@ Defined in `isd_loader.css` as seven `--isd-core-*` properties on `html` (ground
 - **Base** (the page behind the cover and splash): Core Dark Ground in dark mode and Login Ground in light mode, so nothing flashes between the vault and the cover.
 
 ### Named Rules
-**The One Accent Rule.** Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens. In List and Report views, blue workflow states (core's blue, light-blue, cyan and purple indicators: Submitted, Enabled, To Bill and the like) read as neutral Ink Muted, so blue never stands for a state.
+**The One Accent Rule.** Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens. In List and Report views, blue workflow states (core's blue, light-blue, cyan and purple indicators: Submitted, Enabled, To Bill and the like) read as neutral Ink Muted, so blue never stands for a state. The same holds for a form's status in the page head in dark mode.
 
 **The Fill, Line, Text Rule.** Each accent job has its own shade. Fills carry white ink (Logo Blue, about 4.8:1). Lines, borders, focus outlines and chart series use Logo Blue Bright, which holds 3:1 against the surface but is too light for text. Text uses the text shade (Logo Blue in light mode, Sky Link Blue in dark mode). Never set text in the line shade, and never use the fill shade for hairlines.
 
 **The Vault Is Core's Rule.** The dark vault (core `login.scss` and `www/login.html`) is the incumbent design and stays where it is. This app only recolours it, under `html[data-isd-login="light"]`. Doors, chips, traces, core and card keep core's geometry, motion and gradients, and the light variant swaps their colours one for one. The single change that reaches both themes is a repair: core's breathing keyframes drop the glow's centring translate, so the app re-runs the same breath (`isd-vi-breathe`, 3.6s, opacity 0.55 to 0.9, scale 1 to 1.12) with the translate kept, and the glow sits centred on the title as core intended.
 
-**The Colour Is State Rule.** A tile count turns red or amber only when its definition carries a tone and the count is above zero. A zero count goes faint, never green. Charts draw series 1 in Logo Blue Bright and further series in Ink Faint and Rule Strong, with no area fill.
+**The Colour Is State Rule.** A tile count turns red or amber only when its definition carries a tone and the count is above zero. A zero count goes faint, never green. Charts draw series 1 in Logo Blue Bright and further series in Ink Faint and Rule Strong, with no area fill. On a form, the outstanding amount turns State Bad only on a submitted document with money still owed past its due date, and the due date then names the days late in State Bad; an outstanding that is not late stays Ink.
 
 ## Typography
 
@@ -489,15 +564,16 @@ Defined in `isd_loader.css` as seven `--isd-core-*` properties on `html` (ground
 - **Meta** (400, 12px): the tile DocType line, the sidebar version and tooltips.
 - **Label** (600, 12px, 0.06em, uppercase): link-index card headings.
 - **Label Small** (600, 11px, 0.06em, uppercase): menu titles (the company menu and rail flyouts). The sidebar lists its groups with no section label.
+- **Form sizes:** totals-strip values 600 at 17px (15px on phones), tabular; form section heads 600 at 13px; field labels and child-table headers 500 at 12px. They live in the forms stylesheet only, not as tokens.
 
-Page titles, form headings and every other text size come from core.
+Page titles and every other text size come from core. On phones the form title wraps at 17px.
 
 ### Loading Screen Type
 - **Core Title** (800, 48px, 6px tracking): "ISOFT ERP", as the vault interior's title, in the system font stack the vault uses (`--isd-core-font`), not Inter.
 - **Core Sub** (400, 12px, 4px tracking, monospace): "ENTERPRISE CORE · ONLINE", 12px below the title. It is the only monospace in the app, copied from the vault interior.
 
 ### Named Rules
-**The Names Read As Names Rule.** Some core translations start in lowercase ("cotação"). Tile labels, DocType lines, quick links, index links and index headings capitalise their first letter, through CSS `::first-letter` or, for New buttons, in JS.
+**The Names Read As Names Rule.** Some core translations start in lowercase ("cotação"). Tile labels, DocType lines, quick links, index links, index headings, form totals labels and section links capitalise their first letter, through CSS `::first-letter` or, for New buttons, in JS.
 
 **The Own Context Rule.** Every interface string the app adds is translated with context "ISOFT Desk" (`__(text, replace, "ISOFT Desk")`), so it never overrides another app's translation of the same English word. Labels that belong to core (DocType names, workspace labels) use plain `__()`.
 
@@ -505,14 +581,18 @@ Page titles, form headings and every other text size come from core.
 
 ## Layout
 
-- **Shell:** a fixed left sidebar 232px wide, and `.main-section` offset by the same width. On forms (the `Form` route) the sidebar collapses to a 60px rail, the core left column (attachments, tags, shares) starts hidden, and the form takes the full remaining width. Core's own sidebar toggle can still reopen that column. Users can also collapse to the rail by choice, and the preference persists.
+- **Shell:** a fixed left sidebar 232px wide, and `.main-section` offset by the same width. On forms (the `Form` route) the sidebar collapses to a 60px rail, the core left column (attachments, tags, shares) starts hidden, and the form takes the full remaining width. Core's own sidebar toggle can still reopen that column. Inside the form, the layout (field order, sections, columns, widths) is the DocType's; see The Structure Is The DocType's Rule. Users can also collapse to the rail by choice, and the preference persists.
 - **Hidden routes:** the full-screen POS (`posapp`) and Isoft pages that draw their own fixed sidebar (Invenza, SAF-T Center, Insights, Angola HR dashboard, Location Manager, Command Center, Intelize, FE Angola dashboard) hide the desk sidebar completely. Those pages look exactly as they do without the app. Isoft app pages are not listed in the sidebar, and Isoft app workspaces (Business AI, Itec Integrations, HP, HP Partnership) are left out at the source; users reach them from the ISOFT applications launcher. There is no Isoft Apps group.
 - **Below 992px:** the sidebar becomes a 272px off-canvas drawer with a 45% slate backdrop, opened from a 36px button in the top bar. The rail is desktop-only.
 - **Module page:** the header has the title, a context line (company · month) and up to 3 New buttons on the right. The most-created DocType is the primary button. The body is a column with 28px gaps: the waiting tiles (auto-fit, min 176px, 12px gap, at most 5), a wrapping row of quick links (8px gap), at most one chart, and a 4-column link index (28px row gap, 32px column gap). The index drops to 3 columns below 1280px, 2 below 992px and 1 below 576px, where the tiles go to 2 columns. A 96px bottom pad and a 64px right pad keep the floating assistant button off the last links.
 - **List and Report views:** the core page header is unchanged. The card holds one toolbar line (10/14px padding) over the table and a paging footer; the Filter By column starts hidden. Below 768px the search takes the full width, chips and "+ Add filter" wrap under it, sort drops to its own line, and the filter panel is fixed to the bottom of the screen in one column.
+- **Forms:** core's sticky page head, then the Connections row and the totals strip (12px apart, 12px above the links), the section links sticky right under the head, then core's sections as cards 12px apart. Below 768px the head grows with a wrapped title and the totals cells go two per row.
 - **Rhythm:** 4, 8, 12, 16, 28 and 32px. Sidebar rows are 30px (items) and 34px (groups). The sidebar head is 52px.
 - **Login:** the vault layout is core's (doors full height, six chips per side, the card centred on the seam). The light variant changes no dimension.
 - **Loading screen:** one fixed full-screen surface for both the splash and the boot cover. The title block is centred at 45% of the height, where the vault centres its core. The 520px glow is centred on the same point, and the 46px square grid is masked by a radial fade from that point to 70%, matching the vault.
+
+### Named Rules
+**The Structure Is The DocType's Rule.** The DocType and Customize Form own a form's structure: field order, sections, column breaks, collapsible sections, hidden and depends_on, read-only and mandatory, permissions and child-table column widths. Nothing in the desk moves, hides, folds, regroups or resizes a field. It only reads the form (its fields, its sections and their visibility, the dashboard's link counts) and calls core's own methods: `scroll_to_field` from a totals cell, `Section.collapse(false)` from a section link, and the dashboard's own badge links from a Connections chip. Read-only values keep core's own look, muted text on core's disabled fill, because the user asked for it after a restyle made them look editable. Editable inputs are white (Surface) with a Rule Strong border, and on focus a Logo Blue Bright border with a 3px Blue Tint halo. A missing mandatory or invalid value shows a State Bad border and a State Bad label.
 
 ## Elevation & Depth
 
@@ -520,14 +600,15 @@ The shell is flat. Depth comes from tone (cool ground under white surfaces, or s
 
 ### Shadow Vocabulary
 - **Menu** (`0 8px 24px rgba(15,34,54,0.18), 0 2px 6px rgba(15,34,54,0.12)`; dark: `0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4)`): the company menu, rail flyouts, the top-bar menus (Help, user, notifications), the search results list, the applications launcher, the list filter panel and disabled-link tooltips only.
-- **Focus halo** (`0 0 0 3px` Blue Tint): top-bar search, list search and list filter-panel inputs on focus.
+- **Focus halo** (`0 0 0 3px` Blue Tint): top-bar search, list search, list filter-panel inputs and editable form inputs on focus.
+- **Head band** (`0 6px 12px -8px rgba(15,34,54,0.18)` under a 1px Rule line): the stuck form section links, carrying over the shadow of core's sticky page head, which is removed while they are stuck.
 
 - **Login card** (`0 12px 40px rgba(15,34,54,0.12), 0 0 60px rgba(0,140,210,0.08)`), **login chip** (`inset 0 1px 0 #fff, 0 6px 16px rgba(15,34,54,0.08)`), **login button** (`0 6px 18px rgba(0,121,194,0.25)`) and **core disc** (`0 0 22px rgba(0,140,210,0.35), inset 0 0 14px rgba(255,255,255,0.4)`): the light vault's versions of core's dark-vault glows, on the login page only.
 - **Core title glow** (`text-shadow: 0 0 32px`, Core Dark Glow at 60% or Login Glow at 25%): the loading-screen title only. It holds still.
 - **Core glow** (a 520px radial disc, `filter: blur(10px)`, breathing over 3.6s between opacity 0.55 and 0.9 and scale 1 and 1.12): the light behind the loading-screen title, as in the vault interior.
 
 ### Named Rules
-**The Only Menus Float Rule.** In the desk shell, a surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar and the sidebar stay shadowless. The login vault is outside the shell and keeps the glow and lift that core's vault is built from, recoloured.
+**The Only Menus Float Rule.** In the desk shell, a surface gets a shadow only if it floats over other content and closes again. Tiles, the top bar, the sidebar and form section cards stay shadowless. The one carried shadow is core's own: core's sticky form head casts a shadow once the page scrolls, and when the section links stick under it they take that shadow over (the head's is removed), so the head and the links cast one shadow as one band. The login vault is outside the shell and keeps the glow and lift that core's vault is built from, recoloured.
 
 ## Shapes
 
@@ -597,6 +678,19 @@ Every DocType's List view and Report view, rebuilt as one toolbar line over a fu
 - **Filter By column:** hidden by default in List and Report views. Core's sidebar toggle still opens it, and the choice is remembered in `localStorage["isd_list_sidebar"]`, apart from core's key, which the other views keep using.
 - **Phones (below 768px):** search on its own full-width line with 16px input text (iOS does not zoom on focus), chips and "+ Add filter" wrapping beneath it, the panel fixed 12px from the bottom and sides of the screen in one column.
 
+### Forms (signature)
+Every DocType's form (`Form` route, body class `isd-form`), Isoft apps' included. Above core's layout the desk adds three things built from what the form already holds: a Connections row, a totals strip and the section links, in that order, 12px apart, under core's sticky page head. Below them core's sections, fields and child tables keep their places (The Structure Is The DocType's Rule) and take the desk's surfaces. Body figures are tabular.
+- **Connections row:** one wrapping row (8px by 16px gaps) of 28px chips, one for each link of core's Connections block that has records, in core's order. A chip is Surface with a 1px Rule Strong border, a 6px radius, 0/10px padding, the name in 13px Ink and the count at 600 with tabular figures; on hover the border turns Logo Blue Bright. A link back to the form's own DocType, or a DocType listed in two groups, is named by its group heading in core's block ("Returns 1"), with the DocType as its tooltip. A click fires core's own badge link. After the chips, "Show all connections" (13px/500 text accent, transparent, underlined on hover) opens core's full block and becomes "Hide connections". The activity heatmap folds with the block and is drawn again when it opens, because a heatmap drawn while folded has no width. Other dashboard parts (progress, Stock Levels, indicators, custom sections) stay where core puts them; when none of them shows, the folded dashboard card disappears. The row is absent on new documents and wherever core shows neither a Connections block nor a heatmap.
+- **Totals strip:** only on DocTypes with a visible Grand Total field. One Surface band with a 1px Rule border and a 6px radius, split into cells by 1px Rule lines. Cells, in order: net total; taxes (only when non-zero); grand total; outstanding (submitted documents only); the first visible and filled of due date, valid till, schedule date and delivery date; and "Lines", the item count. Each label comes from the DocType (12px Ink Muted, first letter capitalised) without ERPNext's trailing currency code ("Grand Total (AKZ)" reads "Grand Total", since the value carries it); each value is 17px/600 tabular Ink. Money is formatted by core in the document's currency, dates in the user's format. Outstanding turns State Bad only when the due date has passed with money owed, and the due-date cell then adds "N days late" (12px/500, State Bad) beside the date. A cell is a button (10/18/11px padding, Hover Wash on hover) that scrolls to its own field through core. On drafts the strip follows every change to the document. A hidden field never gets a cell.
+- **Section links:** the form's own labelled, visible sections, in the DocType's order and under its own labels; unlabelled sections get no link, and a form with fewer than two gets no row. Scripts that show or hide sections after load (toggle_display, depends_on) are followed by watching the sections' own class and style. Each link is a 28px text button (0/10px, 6px radius, 13px Ink Muted, first letter capitalised), Hover Wash with Ink on hover; the current link is Blue Tint with the text accent at 500. The row sits on Cool Ground with 6px vertical padding and sticks under core's page head. Once stuck it joins the head as one white band: Surface reaching over the 16px page gutter on both sides, a 1px Rule under it, the head's shadow taken over, and a strip of Surface covering the 2px seam core's head leaves under itself. No link is current until the page scrolls past the first labelled section; after that the current link is the last section whose head has passed the line under the band, and it is kept in view along the row. When more links run past the right edge, the row fades out over its last 48px. A click opens a collapsed section through core and lands its head just under the band, with a smooth scroll, or an instant jump under reduced motion. Link colours change over 150ms on the shared ease (none under reduced motion).
+- **Sections:** core's card sections and dashboard sections become flat cards: Surface, a 1px Rule border, a 6px radius, no shadow, 12px apart. Section heads are 13px/600 Ink; a collapsed head turns to the text accent on hover, and its chevron is Ink Faint. Field labels are 12px/500 Ink Muted; help text and section descriptions are Ink Faint.
+- **Fields:** editable inputs are Surface with a 1px Rule Strong border, Ink text and Ink Faint placeholders; focus gives a Logo Blue Bright border and the 3px Blue Tint halo. A missing mandatory or invalid value shows a State Bad border and label. Read-only values stay exactly as core draws them.
+- **Child tables:** a 1px Rule border with a 6px radius; the header is Surface, 12px/500 Ink Muted over a 1px Rule Strong line; rows are separated by 1px Rule and get Hover Wash on hover; right-aligned figures are tabular and row numbers Ink Faint. Cell editors stay core's borderless ones, and column widths stay the DocType's.
+- **Head status:** in light mode the status in the page head stays core's tinted pill. In dark mode, where core fills it solid and louder than the strip, it becomes a 7px dot and its word in the state colour (green OK, red and pink Bad, orange and yellow Warn, every other colour Ink Muted), as in lists.
+- **Comments and timeline:** the comment box is a flat card (Surface, 1px Rule, 6px radius, no shadow); timeline text is Ink Muted.
+- **Keyboard focus:** chips, the toggle, totals cells and section links show a 2px inset Logo Blue Bright ring on `:focus-visible` and no ring on click.
+- **Phones (below 768px):** the page head grows with its title, which wraps at 17px; the status wraps beside it and the actions take their own line, right-aligned. Totals cells go two per row with wrapping labels and 15px values. Inputs use 16px text, so iOS does not zoom on focus.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -609,13 +703,15 @@ Every DocType's List view and Report view, rebuilt as one toolbar line over a fu
 - **Do** translate added strings with context "ISOFT Desk".
 - **Do** hide the desk sidebar on any page that draws its own fixed sidebar, and add the route to the hidden list instead of restyling the page.
 - **Do** build list UI from core's own controls, moved into place and never copied (the search is the title filter control, the panel holds core's standard filters, chips remove and edit core's filters), so filtering, saving, sorting, paging and permissions behave as core.
-- **Do** honour `prefers-reduced-motion` for the chevron, drawer and skeleton. The shared ease is `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Do** leave a form's structure to the DocType and Customize Form: read the form and call core's own methods (`scroll_to_field`, `Section.collapse`, the dashboard's badge links), never move, hide, fold, regroup or resize a field, and leave read-only values in core's look.
+- **Do** honour `prefers-reduced-motion` for the chevron, drawer, skeleton and form section-link scrolling. The shared ease is `cubic-bezier(0.16, 1, 0.3, 1)`.
 
 ### Don't:
-- **Don't** restyle Kanban, Image, Tree or Calendar views, query or script reports, or forms in this phase. Only the primary-button accent and the form full-width rule reach forms.
+- **Don't** restyle Kanban, Image, Tree or Calendar views, query or script reports, or dialogs in this phase.
+- **Don't** change a form's layout from the desk (order, sections, columns, visibility, widths, collapsing), or dress read-only values as inputs. Forms get the Connections row, totals strip and section links on top and the desk's surfaces on core's own parts.
 - **Don't** list Isoft app pages in the sidebar. They live in the applications launcher.
 - **Don't** bring back the v13 cyan-topped card grid, the star watermark or a flat module list.
-- **Don't** add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.
+- **Don't** add shadows to tiles, cards, form sections, the top bar or the sidebar. Only floating menus and tooltips cast one, plus the stuck section links, which carry core's own page-head shadow.
 - **Don't** give other apps' navbar buttons or menus their own colours inside the shell. The launcher's app icon tones are the only hues kept, because each names an app.
 - **Don't** fill chart areas or use more than one accent-coloured series.
 - **Don't** restyle the dark vault from this app, or move, resize or re-animate any part of the vault in the light variant. Change colours only. The glow-centring repair (same breath, translate kept) is the one change that reaches both vaults.

@@ -1,0 +1,429 @@
+/* ISOFT Desk forms: the Connections row, the totals strip and the section links
+   that isd_form.js adds, and the desk's look on core's sections, fields, child
+   tables and timeline. Layout (field order, sections, columns, widths) stays the
+   DocType's and Customize Form's: nothing here sizes or places a field. */
+
+/* ---- the head isd_form.js adds: Connections row and totals strip ---- */
+body.isd-on .isd-fhead {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+
+body.isd-on .isd-fhead [hidden],
+body.isd-on .isd-secnav[hidden] {
+	display: none !important;
+}
+
+body.isd-on .isd-conn {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 16px;
+}
+
+body.isd-on .isd-conn-links {
+	display: contents;
+}
+
+body.isd-on .isd-conn-link {
+	height: 28px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 10px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	font-size: 13px;
+	cursor: pointer;
+}
+
+body.isd-on .isd-conn-link b {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+body.isd-on .isd-conn-link:hover {
+	border-color: var(--isd-accent-strong);
+}
+
+body.isd-on .isd-conn-toggle {
+	height: 28px;
+	padding: 0 4px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: transparent;
+	color: var(--isd-accent-text);
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+body.isd-on .isd-conn-toggle:hover {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+body.isd-on :is(.isd-conn-link, .isd-conn-toggle, .isd-sum-cell, .isd-secnav-link):focus {
+	outline: none;
+}
+
+body.isd-on :is(.isd-conn-link, .isd-conn-toggle, .isd-sum-cell, .isd-secnav-link):focus-visible {
+	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
+}
+
+/* folded dashboard: Connections and the activity heatmap wait behind the toggle;
+   progress, indicators and custom sections of the dashboard stay */
+body.isd-on .form-dashboard.isd-dash-folded > .form-links,
+body.isd-on .form-dashboard.isd-dash-folded > .form-heatmap,
+body.isd-on .form-dashboard.isd-dash-empty {
+	display: none !important;
+}
+
+/* totals strip */
+body.isd-on .isd-sum {
+	display: flex;
+	flex-wrap: wrap;
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	overflow: hidden;
+}
+
+body.isd-on .isd-sum-cell {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+	min-width: 0;
+	padding: 10px 18px 11px;
+	border: 0;
+	border-right: 1px solid var(--isd-rule);
+	background: transparent;
+	color: var(--isd-ink);
+	text-align: left;
+	cursor: pointer;
+}
+
+body.isd-on .isd-sum-cell:last-child {
+	border-right: 0;
+}
+
+body.isd-on .isd-sum-cell:hover {
+	background: var(--isd-hover);
+}
+
+body.isd-on .isd-sum-label {
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+body.isd-on .isd-sum-label::first-letter {
+	text-transform: uppercase;
+}
+
+body.isd-on .isd-sum-value {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 8px;
+	font-size: 17px;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+body.isd-on .isd-sum-cell.is-bad .isd-sum-value,
+body.isd-on .isd-sum-late {
+	color: var(--isd-bad);
+}
+
+body.isd-on .isd-sum-late {
+	font-size: 12px;
+	font-weight: 500;
+}
+
+/* ---- section links: the form's own sections, sticky under the page head ---- */
+body.isd-on .isd-secnav {
+	position: sticky;
+	z-index: 3;
+	margin: 0 0 12px;
+	padding: 6px 0;
+	background: var(--isd-ground);
+}
+
+body.isd-on .isd-secnav-track {
+	display: flex;
+	gap: 4px;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+body.isd-on .isd-secnav-track::-webkit-scrollbar {
+	display: none;
+}
+
+/* more links past the right edge: the row fades out there */
+body.isd-on .isd-secnav.has-more .isd-secnav-track {
+	-webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+	mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent);
+}
+
+/* stuck under core's page head (white once the page scrolls), the links share
+   its surface and take over its shadow as one 1px rule */
+body.isd-on .isd-secnav.is-stuck {
+	background: var(--isd-surface);
+	/* the white reaches over the page gutter on both sides, like the head above */
+	box-shadow: -16px 0 0 var(--isd-surface), 16px 0 0 var(--isd-surface),
+		0 1px 0 var(--isd-rule), 0 6px 12px -8px rgba(15, 34, 54, 0.18);
+}
+
+body.isd-on .isd-secnav-stuck .page-head.drop-shadow {
+	box-shadow: none;
+}
+
+/* core's head paints about 2px short of its box; content scrolling under would
+   peek through that seam, so the stuck links close it */
+body.isd-on .isd-secnav.is-stuck::before {
+	content: "";
+	position: absolute;
+	left: -16px;
+	right: -16px;
+	bottom: 100%;
+	height: 4px;
+	background: var(--isd-surface);
+}
+
+body.isd-on .isd-secnav-link {
+	flex: none;
+	height: 28px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: transparent;
+	color: var(--isd-ink-2);
+	font-size: 13px;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background-color 150ms var(--isd-ease), color 150ms var(--isd-ease);
+}
+
+body.isd-on .isd-secnav-link::first-letter {
+	text-transform: uppercase;
+}
+
+body.isd-on .isd-secnav-link:hover {
+	background: var(--isd-hover);
+	color: var(--isd-ink);
+}
+
+body.isd-on .isd-secnav-link.is-active {
+	background: var(--isd-accent-soft);
+	color: var(--isd-accent-text);
+	font-weight: 500;
+}
+
+/* ---- the head's status: in dark mode core fills it solid, louder than the strip;
+   there it becomes a dot and its word, as in lists ---- */
+[data-theme="dark"] body.isd-on.isd-form .page-head .indicator-pill {
+	padding: 0;
+	background: transparent;
+	color: var(--isd-ink-2);
+}
+
+[data-theme="dark"] body.isd-on.isd-form .page-head .indicator-pill::before {
+	width: 7px;
+	height: 7px;
+	margin-right: 7px;
+	background: currentColor;
+}
+
+[data-theme="dark"] body.isd-on.isd-form .page-head .indicator-pill.green {
+	color: var(--isd-ok);
+}
+
+[data-theme="dark"] body.isd-on.isd-form .page-head .indicator-pill:is(.red, .pink) {
+	color: var(--isd-bad);
+}
+
+[data-theme="dark"] body.isd-on.isd-form .page-head .indicator-pill:is(.orange, .yellow) {
+	color: var(--isd-warn);
+}
+
+/* ---- core's sections, fields and tables on the desk's surfaces ---- */
+body.isd-on.isd-form .page-container .form-layout {
+	font-variant-numeric: tabular-nums;
+}
+
+body.isd-on.isd-form .page-container .form-layout :is(.form-section.card-section, .form-dashboard-section) {
+	margin-bottom: 12px;
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	box-shadow: none;
+}
+
+body.isd-on.isd-form .page-container .form-layout .section-head {
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+body.isd-on.isd-form .page-container .form-layout .section-head .collapse-indicator {
+	--icon-stroke: var(--isd-ink-3);
+}
+
+body.isd-on.isd-form .page-container .form-layout .section-head.collapsed:hover {
+	color: var(--isd-accent-text);
+}
+
+body.isd-on.isd-form .page-container .form-layout .control-label {
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	font-weight: 500;
+}
+
+body.isd-on.isd-form .page-container .form-layout .help-box,
+body.isd-on.isd-form .page-container .form-layout .form-section-description {
+	color: var(--isd-ink-3);
+}
+
+/* editable fields: a white box with a rule. Read-only values are left exactly as
+   core draws them (muted text on core's disabled fill), so they read as read-only
+   in both themes */
+body.isd-on.isd-form .page-container .form-layout .frappe-control .form-control {
+	border: 1px solid var(--isd-rule-strong);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	box-shadow: none;
+}
+
+body.isd-on.isd-form .page-container .form-layout .frappe-control .form-control:focus {
+	border-color: var(--isd-accent-strong);
+	box-shadow: 0 0 0 3px var(--isd-accent-soft);
+}
+
+body.isd-on.isd-form .page-container .form-layout .frappe-control .form-control::placeholder {
+	color: var(--isd-ink-3);
+}
+
+/* a missing mandatory or invalid value: red at the field itself */
+body.isd-on.isd-form .page-container .form-layout .has-error .form-control {
+	border-color: var(--isd-bad);
+}
+
+body.isd-on.isd-form .page-container .form-layout .has-error .control-label {
+	color: var(--isd-bad);
+}
+
+/* child tables keep core's borderless cell editors and the DocType's column widths */
+body.isd-on.isd-form .page-container .form-layout .form-grid {
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	overflow: hidden;
+}
+
+body.isd-on.isd-form .page-container .form-layout .form-grid .form-control {
+	border: 0;
+	box-shadow: none;
+}
+
+body.isd-on.isd-form .page-container .form-layout .form-grid .grid-heading-row {
+	background: var(--isd-surface);
+	border-bottom: 1px solid var(--isd-rule-strong);
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	font-weight: 500;
+}
+
+body.isd-on.isd-form .page-container .form-layout .form-grid .rows .grid-row {
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on.isd-form .page-container .form-layout .form-grid .rows .grid-row:hover {
+	background: var(--isd-hover);
+}
+
+body.isd-on.isd-form .page-container .form-layout .form-grid .grid-static-col.text-right {
+	font-variant-numeric: tabular-nums;
+}
+
+body.isd-on.isd-form .page-container .form-layout .form-grid .row-index {
+	color: var(--isd-ink-3);
+}
+
+/* ---- comments and timeline ---- */
+body.isd-on.isd-form .comment-box {
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	box-shadow: none;
+}
+
+body.isd-on.isd-form .new-timeline .timeline-content,
+body.isd-on.isd-form .new-timeline .timeline-message-box {
+	color: var(--isd-ink-2);
+}
+
+/* ---- phones: the title, its status and the buttons share the head without overlap ---- */
+@media (max-width: 767.98px) {
+	/* core fixes the head's height; a wrapped title and its buttons need more */
+	body.isd-on.isd-form .page-head .page-head-content {
+		height: auto;
+		min-height: var(--page-head-height);
+		padding-block: 8px;
+		flex-wrap: wrap;
+		row-gap: 6px;
+	}
+
+	body.isd-on.isd-form .page-head .page-title {
+		flex: 1 1 100%;
+		max-width: 100%;
+		min-width: 0;
+	}
+
+	body.isd-on.isd-form .page-head .page-title .title-area .flex {
+		flex-wrap: wrap;
+		gap: 4px 8px;
+	}
+
+	body.isd-on.isd-form .page-head .page-title .title-text {
+		white-space: normal;
+		font-size: 17px;
+		line-height: 1.3;
+	}
+
+	body.isd-on.isd-form .page-head .page-actions {
+		flex: 1 1 100%;
+		justify-content: flex-end;
+	}
+
+	body.isd-on .isd-sum-cell {
+		flex: 1 1 50%;
+		border-bottom: 1px solid var(--isd-rule);
+	}
+
+	body.isd-on .isd-sum-label {
+		white-space: normal;
+	}
+
+	body.isd-on .isd-sum-value {
+		flex-wrap: wrap;
+		row-gap: 0;
+		font-size: 15px;
+	}
+
+	body.isd-on.isd-form .page-container .form-layout .frappe-control .form-control {
+		/* 16px keeps iOS Safari from zooming the page on focus */
+		font-size: 16px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body.isd-on .isd-secnav-link {
+		transition: none;
+	}
+}
