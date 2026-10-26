@@ -1,0 +1,655 @@
+/* ISOFT Desk List and Report views: one toolbar line (search, filter chips,
+   "+ Add filter", sort), a full-width table with 36px rows, amounts that are
+   never cut and status as a coloured dot plus its word. isd_list.js adds
+   .isd-list to the page and builds the toolbar from core's own controls. */
+
+/* ---- toolbar ---- */
+body.isd-on .isd-list .page-form {
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 10px 14px;
+	background: var(--isd-surface);
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-list .isd-lbar {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px 8px;
+}
+
+body.isd-on .isd-list .isd-lbar-search {
+	position: relative;
+	flex: 0 1 280px;
+	min-width: 180px;
+}
+
+/* with chips beside it the search gives up width, so search, the usual three
+   chips and "+ Add filter" share one line at 1366px */
+body.isd-on .isd-list .isd-lbar.has-chips .isd-lbar-search {
+	flex: 1 1 160px;
+	min-width: 160px;
+	max-width: 280px;
+}
+
+body.isd-on .isd-list .isd-lbar-search > .icon {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1;
+	--icon-stroke: var(--isd-ink-3);
+	pointer-events: none;
+}
+
+body.isd-on .isd-list .isd-lbar-search .frappe-control {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	max-width: none;
+	flex: none;
+}
+
+body.isd-on .isd-list .isd-lbar-search input,
+body.isd-on .isd-list .isd-lpanel .form-control {
+	height: 30px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	font-size: 13px;
+	box-shadow: none;
+}
+
+body.isd-on .isd-list .isd-lbar-search input {
+	padding: 0 10px 0 32px;
+}
+
+body.isd-on .isd-list .isd-lbar-search input:focus,
+body.isd-on .isd-list .isd-lpanel .form-control:focus {
+	border-color: var(--isd-accent-strong);
+	box-shadow: 0 0 0 3px var(--isd-accent-soft);
+	outline: none;
+}
+
+body.isd-on .isd-list .isd-lbar input::placeholder,
+body.isd-on .isd-list .isd-lpanel .form-control::placeholder {
+	color: var(--isd-ink-3);
+}
+
+/* chips */
+body.isd-on .isd-list .isd-chips {
+	display: contents;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+body.isd-on .isd-list .isd-chip {
+	display: inline-flex;
+	align-items: center;
+	height: 28px;
+	max-width: 220px;
+	border-radius: var(--isd-radius);
+	background: var(--isd-accent-soft);
+	color: var(--isd-accent-text);
+}
+
+body.isd-on .isd-list .isd-chip button {
+	height: 100%;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+}
+
+body.isd-on .isd-list .isd-chip-text {
+	min-width: 0;
+	padding: 0 4px 0 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+body.isd-on .isd-list .isd-chip-text::first-letter {
+	text-transform: uppercase;
+}
+
+body.isd-on .isd-list .isd-chip-x {
+	flex: none;
+	width: 26px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0 var(--isd-radius) var(--isd-radius) 0;
+	--icon-stroke: currentColor;
+}
+
+body.isd-on .isd-list .isd-chip-x:hover,
+body.isd-on .isd-list .isd-chip-text:hover {
+	text-decoration: none;
+	background: color-mix(in srgb, var(--isd-accent-strong) 14%, transparent);
+}
+
+body.isd-on .isd-list .isd-chip button:focus {
+	outline: none;
+}
+
+body.isd-on .isd-list .isd-chip button:focus-visible {
+	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
+}
+
+/* "+ Add filter", with core's filter button laid invisibly under it so the
+   advanced popover opens in the same place */
+body.isd-on .isd-list .isd-add-wrap {
+	position: relative;
+	display: inline-flex;
+}
+
+body.isd-on .isd-list .isd-add {
+	height: 28px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 0 8px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: transparent;
+	color: var(--isd-accent-text);
+	font-size: 13px;
+	font-weight: 500;
+	white-space: nowrap;
+	cursor: pointer;
+	--icon-stroke: currentColor;
+}
+
+body.isd-on .isd-list .isd-add:hover,
+body.isd-on .isd-list .isd-lbar.is-open .isd-add {
+	background: var(--isd-hover);
+}
+
+body.isd-on .isd-list .isd-add:focus {
+	outline: none;
+}
+
+body.isd-on .isd-list .isd-add:focus-visible {
+	background: var(--isd-hover);
+	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
+}
+
+body.isd-on .isd-list .isd-add-wrap .filter-selector {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+body.isd-on .isd-list .isd-add-wrap .filter-button {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+/* the panel of standard filters */
+body.isd-on .isd-list .isd-lpanel {
+	position: absolute;
+	top: calc(100% + 6px);
+	left: 0;
+	z-index: 1040;
+	width: min(560px, calc(100vw - 32px));
+	padding: 12px;
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: 8px;
+	box-shadow: var(--isd-shadow-menu);
+}
+
+body.isd-on .isd-list .isd-lpanel[hidden] {
+	display: none;
+}
+
+body.isd-on .isd-list .isd-lpanel .standard-filter-section {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px 12px;
+	max-height: 60vh;
+	overflow-y: auto;
+}
+
+body.isd-on .isd-list .isd-lpanel .standard-filter-section .form-group {
+	min-width: 0;
+	max-width: none;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	flex: none;
+}
+
+body.isd-on .isd-list .isd-lpanel-item {
+	min-width: 0;
+}
+
+body.isd-on .isd-list .isd-lpanel-label {
+	display: block;
+	margin: 0 0 4px;
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	font-weight: 500;
+}
+
+body.isd-on .isd-list .isd-lpanel .standard-filter-section {
+	align-items: end;
+}
+
+body.isd-on .isd-list .isd-lpanel .checkbox {
+	min-height: 30px;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	color: var(--isd-ink);
+}
+
+body.isd-on .isd-list .isd-lpanel-foot {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 12px;
+	padding-top: 10px;
+	border-top: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-list .isd-advanced {
+	height: 28px;
+	padding: 0 8px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: transparent;
+	color: var(--isd-accent-text);
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+body.isd-on .isd-list .isd-advanced:hover,
+body.isd-on .isd-list .isd-advanced:focus-visible {
+	background: var(--isd-hover);
+	outline: none;
+}
+
+/* sort and (Report view) group-by stay core's, on the desk's button style */
+body.isd-on .isd-list .page-form > .filter-section {
+	flex: none;
+	align-self: flex-start;
+	align-items: center;
+	gap: 8px;
+	padding: 0;
+}
+
+body.isd-on .isd-list .page-form > .filter-section .btn,
+body.isd-on .isd-list .page-form > .filter-section .btn-group {
+	margin: 0;
+}
+
+body.isd-on .isd-list .page-form .sort-selector .btn-group {
+	margin: 0;
+}
+
+body.isd-on .isd-list .page-form .filter-section .btn {
+	height: 30px;
+	border: 1px solid var(--isd-rule-strong);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	box-shadow: none;
+	--icon-stroke: var(--isd-ink-2);
+}
+
+body.isd-on .isd-list .page-form .filter-section .btn:hover {
+	background: var(--isd-hover);
+}
+
+body.isd-on .isd-list :is(.page-form .filter-section .btn, .list-paging-area .btn):focus {
+	outline: none;
+	box-shadow: none;
+}
+
+body.isd-on .isd-list :is(.page-form .filter-section .btn, .list-paging-area .btn):focus-visible,
+body.isd-on .isd-list .list-subject a:focus-visible {
+	outline: none;
+	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
+	border-radius: var(--isd-radius);
+}
+
+/* ---- table ---- */
+body.isd-on .isd-list .frappe-list {
+	font-variant-numeric: tabular-nums;
+}
+
+body.isd-on .isd-list .list-row,
+body.isd-on .isd-list .compact-density .list-row {
+	height: 36px;
+	padding: 0 14px 0 0;
+	font-size: 13px;
+}
+
+body.isd-on .isd-list .list-row .select-like,
+body.isd-on .isd-list .list-row .file-select {
+	padding: 0 0 0 14px;
+}
+
+body.isd-on .isd-list .list-row-container {
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-list .list-row:hover:not(.list-row-head) {
+	background: var(--isd-hover);
+}
+
+body.isd-on .isd-list .list-row-head,
+body.isd-on .isd-list .compact-density .list-row-head {
+	height: 34px;
+	background: var(--isd-surface);
+	border-bottom: 1px solid var(--isd-rule-strong);
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	font-weight: 500;
+}
+
+body.isd-on .isd-list .list-row-head .list-row-col a,
+body.isd-on .isd-list .list-row-head .list-subject a {
+	color: var(--isd-ink-2);
+}
+
+/* the title reads in Ink, above the Ink Muted links of the other columns */
+body.isd-on .isd-list .list-row .list-subject a {
+	color: var(--isd-ink);
+	font-weight: 500;
+}
+
+body.isd-on .isd-list .list-row-col {
+	min-width: 0;
+	margin-right: 14px;
+}
+
+/* the title is how people recognise a record: it gets the largest share,
+   and a long one ends in an ellipsis instead of a cut glyph */
+body.isd-on .isd-list .list-row-col.list-subject {
+	flex: 3;
+}
+
+body.isd-on .isd-list .list-subject .level-item.ellipsis {
+	min-width: 0;
+	flex-shrink: 1;
+	overflow: hidden;
+}
+
+body.isd-on .isd-list .list-subject a.ellipsis {
+	display: block;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+body.isd-on .isd-list .list-row-col a {
+	color: var(--isd-ink-2);
+}
+
+/* amounts and other right-aligned figures: a fixed column wide enough for a
+   nine-digit amount, never cut; text columns give way first */
+body.isd-on .isd-list .list-row-col.text-right {
+	flex: 0 0 8.75rem;
+	overflow: visible;
+}
+
+body.isd-on .isd-list .list-row-col.text-right .ellipsis {
+	overflow: visible;
+	text-overflow: clip;
+}
+
+body.isd-on .isd-list .list-row-col.text-right a {
+	color: var(--isd-ink);
+}
+
+/* the row's data take the width the like heart, comment count and their
+   column used to hold */
+body.isd-on .isd-list :is(.list-row, .list-row-head) > .level-left {
+	flex: 1;
+	min-width: 0;
+}
+
+/* one width for the header's count and the rows' activity, so the columns
+   on their left line up (the header is .list-row-head, not .list-row) */
+body.isd-on .isd-list :is(.list-row, .list-row-head) > .level-right {
+	flex: 0 0 104px;
+	min-width: 0;
+	justify-content: flex-end;
+}
+
+@media (max-width: 767.98px) {
+	body.isd-on .isd-list :is(.list-row, .list-row-head) > .level-right {
+		flex: none;
+	}
+}
+
+body.isd-on .isd-list .list-row-like,
+body.isd-on .isd-list .list-liked-by-me,
+body.isd-on .isd-list .list-row-activity .comment-count,
+body.isd-on .isd-list .list-row-activity .list-assignments:has(.avatar-empty) {
+	display: none !important;
+}
+
+body.isd-on .isd-list .list-row-activity .frappe-timestamp {
+	color: var(--isd-ink-3);
+	font-size: 12px;
+}
+
+body.isd-on .isd-list .list-count {
+	color: var(--isd-ink-2);
+	font-size: 12px;
+}
+
+/* status: the colour moves from a filled pill to its dot and word */
+body.isd-on .isd-list .frappe-list .indicator-pill {
+	height: auto;
+	padding: 0;
+	background: transparent;
+	color: var(--isd-ink-2);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+body.isd-on .isd-list .frappe-list .indicator-pill::before {
+	width: 7px;
+	height: 7px;
+	margin-right: 7px;
+	flex: none;
+	background: currentColor;
+}
+
+body.isd-on .isd-list .frappe-list .indicator-pill:is(.green) {
+	color: var(--isd-ok);
+}
+
+body.isd-on .isd-list .frappe-list .indicator-pill:is(.red, .pink) {
+	color: var(--isd-bad);
+}
+
+body.isd-on .isd-list .frappe-list .indicator-pill:is(.orange, .yellow) {
+	color: var(--isd-warn);
+}
+
+/* blue means where you are, the action, focus and links: blue states
+   (Enabled, Submitted, To Bill...) read as neutral */
+body.isd-on .isd-list .frappe-list .indicator-pill:is(.blue, .light-blue, .cyan, .purple) {
+	color: var(--isd-ink-2);
+}
+
+/* phones: the status cell is core's dot, given its word by isd_list.js */
+body.isd-on .isd-list .isd-status-xs {
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--isd-ink-2);
+	white-space: nowrap;
+}
+
+body.isd-on .isd-list .isd-status-xs::before {
+	background: currentColor;
+	margin-right: 6px;
+}
+
+body.isd-on .isd-list .isd-status-xs.green {
+	color: var(--isd-ok);
+}
+
+body.isd-on .isd-list .isd-status-xs:is(.red, .pink) {
+	color: var(--isd-bad);
+}
+
+body.isd-on .isd-list .isd-status-xs:is(.orange, .yellow) {
+	color: var(--isd-warn);
+}
+
+/* ---- paging ---- */
+body.isd-on .isd-list .list-paging-area {
+	padding: 10px 14px;
+	border-top: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-list .list-paging-area .btn-group {
+	box-shadow: none;
+}
+
+body.isd-on .isd-list .list-paging-area .btn {
+	height: 30px;
+	border: 1px solid var(--isd-rule-strong);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	box-shadow: none;
+}
+
+body.isd-on .isd-list .list-paging-area .btn-paging.btn-info {
+	background: var(--isd-accent-soft);
+	color: var(--isd-accent-text);
+	font-weight: 600;
+}
+
+body.isd-on .isd-list .list-paging-area .btn:hover {
+	background: var(--isd-hover);
+}
+
+body.isd-on .isd-list .no-result {
+	color: var(--isd-ink-2);
+}
+
+/* ---- Report view grid ---- */
+body.isd-on .isd-list .datatable {
+	--dt-border-color: var(--isd-rule);
+	--dt-cell-bg: var(--isd-surface);
+	--dt-header-cell-bg: var(--isd-surface);
+	--dt-text-color: var(--isd-ink);
+	--dt-light-bg: var(--isd-hover);
+	--dt-selection-highlight-color: var(--isd-accent-soft);
+	--dt-primary-color: var(--isd-accent-strong);
+	background: var(--isd-surface);
+	font-variant-numeric: tabular-nums;
+	font-size: 13px;
+}
+
+body.isd-on .isd-list .datatable .dt-row {
+	height: 36px;
+}
+
+body.isd-on .isd-list .datatable .dt-cell--header .dt-cell__content {
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	font-weight: 500;
+}
+
+body.isd-on .isd-list .datatable .dt-header .dt-row:not([data-is-filter]) .dt-cell {
+	border-bottom-color: var(--isd-rule-strong);
+}
+
+body.isd-on .isd-list .datatable .dt-cell__content a {
+	color: var(--isd-ink);
+}
+
+/* the grid's per-column filter row: real inputs, not grey bars */
+body.isd-on .isd-list .datatable .dt-row[data-is-filter] .dt-cell__content {
+	padding: 4px 6px;
+}
+
+body.isd-on .isd-list .datatable .dt-filter {
+	height: 26px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	font-size: 12px;
+}
+
+body.isd-on .isd-list .datatable .dt-filter:focus {
+	border-color: var(--isd-accent-strong);
+	outline: none;
+}
+
+/* the filter row's syntax hint stays, quieter and on one line */
+body.isd-on .isd-list .list-paging-area .comparison-message {
+	min-width: 0;
+	margin-left: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: var(--isd-ink-3);
+	font-size: 12px;
+}
+
+body.isd-on .isd-list .list-paging-area .level-left {
+	min-width: 0;
+	flex-wrap: nowrap;
+}
+
+/* ---- phones: search on its own line, chips and "+ Add filter" wrap under it ---- */
+@media (max-width: 767.98px) {
+	body.isd-on .isd-list .page-form {
+		flex-wrap: wrap;
+		padding: 10px 12px;
+	}
+
+	body.isd-on .isd-list .isd-lbar {
+		flex: 1 1 100%;
+	}
+
+	body.isd-on .isd-list .isd-lbar-search {
+		flex: 1 0 100%;
+	}
+
+	body.isd-on .isd-list .isd-lbar-search input {
+		/* 16px keeps iOS Safari from zooming the page on focus */
+		font-size: 16px;
+	}
+
+	body.isd-on .isd-list .isd-lpanel {
+		position: fixed;
+		top: auto;
+		left: 12px;
+		right: 12px;
+		bottom: 12px;
+		width: auto;
+	}
+
+	body.isd-on .isd-list .isd-lpanel .standard-filter-section {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body.isd-on .isd-list .list-row {
+		transition: none;
+	}
+}

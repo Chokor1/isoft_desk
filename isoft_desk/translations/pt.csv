@@ -56,3 +56,11 @@ Pilot Roles,Funções piloto
 Search or type a command (Ctrl + G),Pesquisar ou escrever um comando (Ctrl + G)
 Full screen,Ecrã inteiro,ISOFT Desk
 Exit full screen,Sair do ecrã inteiro,ISOFT Desk
+"Active filters","Filtros ativos","ISOFT Desk"
+"Add filter","Adicionar filtro","ISOFT Desk"
+"Advanced filters","Filtros avançados","ISOFT Desk"
+"Remove filter","Remover filtro","ISOFT Desk"
+"Search {0}","Pesquisar {0}","ISOFT Desk"
+"set","preenchido","ISOFT Desk"
+"not set","vazio","ISOFT Desk"
+"not","não","ISOFT Desk"

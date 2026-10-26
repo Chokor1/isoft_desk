@@ -90,8 +90,46 @@
 		return r;
 	}
 
+	// the list search box filters on the title field when the list offers it, else on ID
+	function list_search_field(title_field, standard_fields) {
+		return title_field && standard_fields.includes(title_field) ? title_field : "name";
+	}
+
+	function as_list(value) {
+		return Array.isArray(value) ? value : String(value).split(",").map(v => v.trim()).filter(Boolean);
+	}
+
+	// one chip per active list filter ([doctype, field, condition, value, hidden]);
+	// labels, value names and the few words are passed in so they arrive translated
+	function filter_chips(filters, opts) {
+		const words = opts.words;
+		return (filters || [])
+			.filter(f => !f[4])
+			.filter(f => !(f[1] === opts.search_field && (f[2] === "like" || f[2] === "=")))
+			.map(([doctype, fieldname, condition, value]) => {
+				const label = opts.label_of(fieldname, doctype);
+				const name = v => String(opts.value_of(fieldname, v, doctype));
+				let text;
+				if (condition === "is") {
+					text = `${label}: ${value === "set" ? words.set : words.not_set}`;
+				} else if (condition === "in" || condition === "not in") {
+					const values = as_list(value).map(name).join(", ");
+					text = `${label}: ${condition === "in" ? "" : words.not + " "}${values}`;
+				} else if (condition === "Between" && Array.isArray(value)) {
+					text = `${label}: ${name(value[0])} – ${name(value[1])}`;
+				} else if (condition === "!=") {
+					text = `${label}: ${words.not} ${name(value)}`;
+				} else if (condition === "=" || condition === "like" || condition === "Timespan") {
+					text = `${label}: ${name(String(value).replace(/^%|%$/g, ""))}`;
+				} else {
+					text = `${label} ${condition} ${name(value)}`;
+				}
+				return { doctype, fieldname, condition, value, text };
+			});
+	}
+
 	return {
 		route_mode, find_active, filter_groups, landing_workspace, theme_to_remember, direct_item,
-		fullscreen_toggle, effective_route,
+		fullscreen_toggle, effective_route, list_search_field, filter_chips,
 	};
 });

@@ -198,12 +198,14 @@ app_include_js = [
 	"/assets/isoft_desk/js/isd_theme_memory.js",
 	"/assets/isoft_desk/js/isd_shell.js",
 	"/assets/isoft_desk/js/isd_workspace.js",
+	"/assets/isoft_desk/js/isd_list.js",
 ]
 app_include_css = [
 	"/assets/isoft_desk/css/isd_tokens.css",
 	"/assets/isoft_desk/css/isd_shell.css",
 	"/assets/isoft_desk/css/isd_workspace.css",
 	"/assets/isoft_desk/css/isd_menus.css",
+	"/assets/isoft_desk/css/isd_list.css",
 	# the loading screen is styled for every user: it paints before boot
 	"/assets/isoft_desk/css/isd_loader.css",
 ]

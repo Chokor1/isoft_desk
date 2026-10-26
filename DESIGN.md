@@ -317,6 +317,88 @@ components:
     textColor: "{colors.core-dark-title}"
   loading-screen-sub:
     typography: "{typography.core-sub}"
+  list-toolbar:
+    backgroundColor: "{colors.surface}"
+    padding: "10px 14px"
+  list-search:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    rounded: "{rounded.md}"
+    padding: "0 10px 0 32px"
+    height: "30px"
+  list-chip:
+    backgroundColor: "{colors.isoft-blue-tint}"
+    textColor: "{colors.isoft-blue}"
+    typography: "{typography.title}"
+    rounded: "{rounded.md}"
+    padding: "0 0 0 10px"
+    height: "28px"
+  list-chip-dark:
+    backgroundColor: "{colors.dark-blue-tint}"
+    textColor: "{colors.dark-blue-text}"
+  list-add-filter:
+    textColor: "{colors.isoft-blue}"
+    typography: "{typography.title}"
+    rounded: "{rounded.md}"
+    padding: "0 8px"
+    height: "28px"
+  list-add-filter-hover:
+    backgroundColor: "{colors.hover-wash}"
+  list-filter-panel:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.menu}"
+    padding: "12px"
+    width: "560px"
+  list-filter-label:
+    textColor: "{colors.ink-muted}"
+  list-header:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink-muted}"
+    height: "34px"
+  list-row:
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    padding: "0 14px 0 0"
+    height: "36px"
+  list-row-hover:
+    backgroundColor: "{colors.hover-wash}"
+  list-figure-column:
+    textColor: "{colors.ink}"
+    width: "8.75rem"
+  list-activity:
+    textColor: "{colors.ink-faint}"
+    typography: "{typography.meta}"
+    width: "104px"
+  list-status-ok:
+    textColor: "{colors.state-ok}"
+    typography: "{typography.title}"
+  list-status-warn:
+    textColor: "{colors.state-warn}"
+    typography: "{typography.title}"
+  list-status-bad:
+    textColor: "{colors.state-bad}"
+    typography: "{typography.title}"
+  list-status-neutral:
+    textColor: "{colors.ink-muted}"
+    typography: "{typography.title}"
+  list-paging-button:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    height: "30px"
+  list-paging-current:
+    backgroundColor: "{colors.isoft-blue-tint}"
+    textColor: "{colors.isoft-blue}"
+  report-row:
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    height: "36px"
+  report-filter-input:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    typography: "{typography.meta}"
+    rounded: "{rounded.md}"
+    height: "26px"
 ---
 
 # Design System: ISOFT Desk
@@ -329,7 +411,7 @@ ISOFT Desk is a shell, not a skin. It replaces the Frappe v13 desk's navigation 
 
 The world is quiet so that state can be loud. ISOFT cyan-blue is the only accent. It marks where you are, the primary action, focus and links. Green, amber and red appear only when a count means something needs attention. The v13 desk's cyan-topped card grid, star watermark and flat 20-item module list are removed on purpose.
 
-The scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Lists, forms and reports keep core styling inside the shell. The only changes there are the accent on the primary button and, on forms, the collapsed rail with the core left column hidden.
+The scope is deliberately narrow. Everything lives under `body.isd-on`, so a user outside the pilot, or a site with the app switched off, sees the standard desk unchanged. Since phase 2, the List and Report views of every DocType (`/app/<doctype>` and `/view/report`) are restyled: one toolbar line of search, filter chips and "+ Add filter" over a full-width table whose amounts are never cut. Everything else keeps core styling inside the shell: forms (which only get the primary-button accent and the collapsed rail with the core left column hidden), query and script reports, and the Kanban, Image, Tree and Calendar views.
 
 Two surfaces sit before the shell and follow different rules. The login page is the incumbent core "vault" (two doors, module chips wired into an authentication core, the card at the seam), and core's dark vault is its design, not this app's. The app only adds a light recolouring of it, picked from the theme this browser last used on the desk. The loading screen (core's splash and the post-login boot cover) is drawn from the vault interior's own recipe, "ISOFT ERP" over "ENTERPRISE CORE · ONLINE" on the gridded core ground with its breathing glow, so after login the room the doors open onto simply stays on screen until the desk is ready: one screen, not two. Both paint before the shell exists, so they carry literal colours from this palette instead of the `--isd-*` tokens.
 
@@ -339,7 +421,7 @@ Two surfaces sit before the shell and follow different rules. The login page is 
 - Inter with tabular figures. Counts are large, and labels sit below them.
 - 6px radii everywhere, 8px on menus. Menus and popovers are the only things with a shadow.
 - Every top-bar menu (Help, user, notifications, search results, the ISOFT applications launcher) sits on the desk's own surface, rule and shadow.
-- Fully scoped (`body.isd-on`). Core lists, forms and reports are not restyled.
+- Fully scoped (`body.isd-on`). List and Report views are restyled from core's own controls; forms, query and script reports, Kanban, Image, Tree and Calendar keep core styling.
 - The login vault opens in the browser's last desk theme; the light vault is a recolour, never a relayout.
 - Every load shows the vault interior, light or dark, in the desk theme the server rendered.
 
@@ -353,7 +435,7 @@ The accent is tuned to the ISOFT ERP logo and split by job, because one blue can
 - **Logo Blue Deep** (isoft-blue-deep / dark-blue-hover): the primary button on hover and press. In dark mode it lightens instead of darkening.
 - **Logo Blue Bright** (isoft-blue-strong / dark-blue-strong): lines, never text. Tile and quick-link hover borders, the 2px tile focus outline, the top-bar and sidebar search focus borders, the first chart series and its legend dot. It is also the brand blue of the sidebar's own highlights.
 - **Sky Link Blue** (dark-blue-text): the dark-mode text accent for links and core's `--primary`. The dark active sidebar item uses the paler **Sky Active** (dark-side-active).
-- **Blue Tint** (isoft-blue-tint / dark-blue-tint): the active sidebar item background, the current option in a menu, the 3px focus halo on top-bar search, and the sidebar scrollbar thumb.
+- **Blue Tint** (isoft-blue-tint / dark-blue-tint): the active sidebar item background, the current option in a menu, the 3px focus halo on top-bar search and on the list search and filter inputs, the sidebar scrollbar thumb, list filter chips and the current page size in the list pager.
 
 ### Neutral
 - **Cool Ground** (cool-ground / dark-ground): the page ground behind all work surfaces, also painted on `html` so overscroll never flashes another colour.
@@ -386,7 +468,7 @@ Defined in `isd_loader.css` as seven `--isd-core-*` properties on `html` (ground
 - **Base** (the page behind the cover and splash): Core Dark Ground in dark mode and Login Ground in light mode, so nothing flashes between the vault and the cover.
 
 ### Named Rules
-**The One Accent Rule.** Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens.
+**The One Accent Rule.** Inside the desk shell, ISOFT blue is the only hue that is not about state. A second brand colour, a gradient or a coloured section header does not belong there. The login vault and the loading screen are blue worlds too: their glow hues are blues from the same family, never a second hue. The one exception is the applications launcher's app icon tones: each tone names an app, so they keep their own hue while everything around them takes the desk tokens. In List and Report views, blue workflow states (core's blue, light-blue, cyan and purple indicators: Submitted, Enabled, To Bill and the like) read as neutral Ink Muted, so blue never stands for a state.
 
 **The Fill, Line, Text Rule.** Each accent job has its own shade. Fills carry white ink (Logo Blue, about 4.8:1). Lines, borders, focus outlines and chart series use Logo Blue Bright, which holds 3:1 against the surface but is too light for text. Text uses the text shade (Logo Blue in light mode, Sky Link Blue in dark mode). Never set text in the line shade, and never use the fill shade for hairlines.
 
@@ -427,6 +509,7 @@ Page titles, form headings and every other text size come from core.
 - **Hidden routes:** the full-screen POS (`posapp`) and Isoft pages that draw their own fixed sidebar (Invenza, SAF-T Center, Insights, Angola HR dashboard, Location Manager, Command Center, Intelize, FE Angola dashboard) hide the desk sidebar completely. Those pages look exactly as they do without the app. Isoft app pages are not listed in the sidebar, and Isoft app workspaces (Business AI, Itec Integrations, HP, HP Partnership) are left out at the source; users reach them from the ISOFT applications launcher. There is no Isoft Apps group.
 - **Below 992px:** the sidebar becomes a 272px off-canvas drawer with a 45% slate backdrop, opened from a 36px button in the top bar. The rail is desktop-only.
 - **Module page:** the header has the title, a context line (company · month) and up to 3 New buttons on the right. The most-created DocType is the primary button. The body is a column with 28px gaps: the waiting tiles (auto-fit, min 176px, 12px gap, at most 5), a wrapping row of quick links (8px gap), at most one chart, and a 4-column link index (28px row gap, 32px column gap). The index drops to 3 columns below 1280px, 2 below 992px and 1 below 576px, where the tiles go to 2 columns. A 96px bottom pad and a 64px right pad keep the floating assistant button off the last links.
+- **List and Report views:** the core page header is unchanged. The card holds one toolbar line (10/14px padding) over the table and a paging footer; the Filter By column starts hidden. Below 768px the search takes the full width, chips and "+ Add filter" wrap under it, sort drops to its own line, and the filter panel is fixed to the bottom of the screen in one column.
 - **Rhythm:** 4, 8, 12, 16, 28 and 32px. Sidebar rows are 30px (items) and 34px (groups). The sidebar head is 52px.
 - **Login:** the vault layout is core's (doors full height, six chips per side, the card centred on the seam). The light variant changes no dimension.
 - **Loading screen:** one fixed full-screen surface for both the splash and the boot cover. The title block is centred at 45% of the height, where the vault centres its core. The 520px glow is centred on the same point, and the 46px square grid is masked by a radial fade from that point to 70%, matching the vault.
@@ -436,8 +519,8 @@ Page titles, form headings and every other text size come from core.
 The shell is flat. Depth comes from tone (cool ground under white surfaces, or slate under slate-blue in dark mode) and from 1px rules. The core chart and onboarding widgets lose their card shadow and pseudo-element chrome.
 
 ### Shadow Vocabulary
-- **Menu** (`0 8px 24px rgba(15,34,54,0.18), 0 2px 6px rgba(15,34,54,0.12)`; dark: `0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4)`): the company menu, rail flyouts, the top-bar menus (Help, user, notifications), the search results list, the applications launcher and disabled-link tooltips only.
-- **Focus halo** (`0 0 0 3px` Blue Tint): top-bar search on focus.
+- **Menu** (`0 8px 24px rgba(15,34,54,0.18), 0 2px 6px rgba(15,34,54,0.12)`; dark: `0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4)`): the company menu, rail flyouts, the top-bar menus (Help, user, notifications), the search results list, the applications launcher, the list filter panel and disabled-link tooltips only.
+- **Focus halo** (`0 0 0 3px` Blue Tint): top-bar search, list search and list filter-panel inputs on focus.
 
 - **Login card** (`0 12px 40px rgba(15,34,54,0.12), 0 0 60px rgba(0,140,210,0.08)`), **login chip** (`inset 0 1px 0 #fff, 0 6px 16px rgba(15,34,54,0.08)`), **login button** (`0 6px 18px rgba(0,121,194,0.25)`) and **core disc** (`0 0 22px rgba(0,140,210,0.35), inset 0 0 14px rgba(255,255,255,0.4)`): the light vault's versions of core's dark-vault glows, on the login page only.
 - **Core title glow** (`text-shadow: 0 0 32px`, Core Dark Glow at 60% or Login Glow at 25%): the loading-screen title only. It holds still.
@@ -501,6 +584,18 @@ The vault's interior, held on screen, built from the vault's own recipe. Core's 
 ### Link Index
 Four columns of cards. A heading is Label type in Ink Muted over a 1px Rule Strong line. Links are 13px rows with 7px vertical padding, each over a 1px Rule. Hover turns the text to the text accent. A disabled link is Ink Faint with a help cursor and shows a dark tooltip (Ink background, Surface text, 12px, Menu shadow) on hover or focus.
 
+### List and Report views (signature)
+Every DocType's List view and Report view, rebuilt as one toolbar line over a full-height table. The toolbar is made from core's own filter controls, moved into place and never copied, so filtering, saved filters, bulk actions, sorting, paging and permissions behave exactly as core.
+- **Toolbar:** a Surface band with a 1px Rule underneath. On the left, a 30px search (6px radius, Rule Strong border, 32px left inset for the search icon, Logo Blue Bright border and Blue Tint halo on focus) that is the list's own title-field filter, or the ID filter when the title field is not a standard filter; its placeholder reads "Search {label}". Then one chip per active filter, then "+ Add filter". Sort and, in Report view, group-by stay core's controls on the right as 30px Surface buttons with a Rule Strong border and Hover Wash hover. Search is 280px wide on its own and gives up width (160 to 280px) once chips appear, so search, the usual three chips and "+ Add filter" share one line at 1366px.
+- **"+ Add filter":** a 28px text button in the text accent (13px/500) with a plus icon and Hover Wash on hover or while open. It opens a panel holding every other standard filter of the list: core's own controls, each with its label above it (12px/500, Ink Muted; checkboxes keep their inline label), in two columns, scrolling past 60vh. The panel is Surface with a 1px Rule border, an 8px radius, 12px padding and the Menu shadow, up to 560px wide, 6px under the bar. Its footer, over a 1px Rule, has "Advanced filters", which opens core's filter popover anchored at the button's left edge (core's own filter button lies invisibly under "+ Add filter"). A click outside, Escape (focus returns to the button) or a route change closes the panel; date pickers count as inside.
+- **Chips:** Blue Tint with text-accent ink (Logo Blue; Sky Link Blue in dark mode), 28px, a 6px radius, 13px/500 text, capped at 220px with an ellipsis and the full text as the tooltip. Text reads "Label: value", "Label: not value", "Label: set" / "Label: not set", "Label: a, b" for lists, "Label: from – to" for ranges, and the first letter is capitalised. Values are named as the list column names them, through the list's formatters (an AGT status "I" reads "Invalid"); Document Status reads Draft / Submitted / Cancelled, dates use the user's format and checks read Yes / No. A field from a child table carries its DocType in brackets. The search filter and hidden filters get no chip. The × (26px) removes exactly that one filter. Clicking the text edits it: a standard filter opens the panel focused on its field, any other opens the advanced popover. Hover on either part is a 14% Logo Blue Bright wash; keyboard focus is a 2px inset Logo Blue Bright ring.
+- **Table:** 36px rows (also in compact density) at 13px with tabular figures, a 1px Rule between rows and Hover Wash on hover. The header is 34px, Surface, 12px/500 Ink Muted, sticky, over a 1px Rule Strong underline. The title column takes the largest share (flex 3) in Ink at 500 weight, above the Ink Muted links of the other columns, and ends in an ellipsis. Right-aligned figures sit in fixed 8.75rem columns in Ink, wide enough for a nine-digit amount and never cut; text columns give way first. A 104px activity column on the right is shared by the header (the "20 of 30" count, 12px Ink Muted) and the rows, so the columns to its left line up. The like heart, the comment count and an empty assignment avatar are hidden; the modified time stays, Ink Faint at 12px.
+- **Status:** core's filled pill becomes a 7px dot plus its word at 13px/500, both in the state colour: green is OK, red and pink are Bad, orange and yellow are Warn, and blue, light-blue, cyan and purple are neutral Ink Muted (the One Accent Rule). On phones, where core shows a bare dot, the dot carries its word too (12px/500), because colour alone does not name a state.
+- **Paging:** a footer over a 1px Rule with 10/14px padding. Page sizes are a segmented group of 30px Surface buttons with Rule Strong borders; the current size is Blue Tint with text-accent ink at 600. "Load More" uses the same button.
+- **Report view grid:** core's datatable takes the desk through its `--dt-*` properties (Rule borders, Surface cells and header, Ink text, Hover Wash as its light background, Blue Tint selection, Logo Blue Bright as its primary), with 36px rows, 13px tabular figures, a 12px/500 Ink Muted header over a Rule Strong line and Ink cell links. The per-column filter row is real inputs: 26px, 1px Rule Strong border, 6px radius, 12px text, a Logo Blue Bright border on focus. The comparison hint in the footer stays, quiet: one line, Ink Faint, 12px, ending in an ellipsis.
+- **Filter By column:** hidden by default in List and Report views. Core's sidebar toggle still opens it, and the choice is remembered in `localStorage["isd_list_sidebar"]`, apart from core's key, which the other views keep using.
+- **Phones (below 768px):** search on its own full-width line with 16px input text (iOS does not zoom on focus), chips and "+ Add filter" wrapping beneath it, the panel fixed 12px from the bottom and sides of the screen in one column.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -512,10 +607,11 @@ Four columns of cards. A heading is Label type in Ink Muted over a 1px Rule Stro
 - **Do** colour a count only through a definition's tone, and only when it is above zero.
 - **Do** translate added strings with context "ISOFT Desk".
 - **Do** hide the desk sidebar on any page that draws its own fixed sidebar, and add the route to the hidden list instead of restyling the page.
+- **Do** build list UI from core's own controls, moved into place and never copied (the search is the title filter control, the panel holds core's standard filters, chips remove and edit core's filters), so filtering, saving, sorting, paging and permissions behave as core.
 - **Do** honour `prefers-reduced-motion` for the chevron, drawer and skeleton. The shared ease is `cubic-bezier(0.16, 1, 0.3, 1)`.
 
 ### Don't:
-- **Don't** restyle core lists, forms or reports inside the shell. Only the primary-button accent and the form full-width rule reach them.
+- **Don't** restyle Kanban, Image, Tree or Calendar views, query or script reports, or forms in this phase. Only the primary-button accent and the form full-width rule reach forms.
 - **Don't** list Isoft app pages in the sidebar. They live in the applications launcher.
 - **Don't** bring back the v13 cyan-topped card grid, the star watermark or a flat module list.
 - **Don't** add shadows to tiles, cards, the top bar or the sidebar. Only floating menus and tooltips cast one.

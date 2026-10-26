@@ -83,3 +83,70 @@ test('effective_route: bare /app means the workspace it shows', () => {
 	assert.deepStrictEqual(core.effective_route(['Workspaces', 'Selling'], 'Home'), ['Workspaces', 'Selling']);
 	assert.deepStrictEqual(core.effective_route(['List', 'Item'], 'Home'), ['List', 'Item']);
 });
+
+const LABELS = { company: 'Company', status: 'Status', grand_total: 'Grand Total', posting_date: 'Date', docstatus: 'Document Status', title: 'Title' };
+const opts = {
+	search_field: 'title',
+	label_of: f => LABELS[f] || f,
+	value_of: (f, v) => (f === 'docstatus' ? ({ 0: 'Draft', 1: 'Submitted', 2: 'Cancelled' })[v] : v),
+	words: { set: 'set', not_set: 'not set', not: 'not' },
+};
+const texts = filters => core.filter_chips(filters, opts).map(c => c.text);
+
+test('filter_chips: equals and like read as Label: value', () => {
+	assert.deepStrictEqual(texts([
+		['Sales Invoice', 'company', '=', 'ITEC LDA'],
+		['Sales Invoice', 'status', 'like', '%Overdue%'],
+	]), ['Company: ITEC LDA', 'Status: Overdue']);
+});
+
+test('filter_chips: the search field and hidden filters get no chip', () => {
+	assert.deepStrictEqual(texts([
+		['Sales Invoice', 'title', 'like', '%mango%'],
+		['Sales Invoice', 'company', '=', 'ITEC LDA', true],
+		['Sales Invoice', 'status', '=', 'Paid', false],
+	]), ['Status: Paid']);
+});
+
+test('filter_chips: comparisons, lists, ranges and set/not set', () => {
+	assert.deepStrictEqual(texts([
+		['Sales Invoice', 'grand_total', '>', 1000],
+		['Sales Invoice', 'status', 'in', ['Overdue', 'Unpaid']],
+		['Sales Invoice', 'status', 'not in', 'Paid,Return'],
+		['Sales Invoice', 'posting_date', 'Between', ['2026-01-01', '2026-03-31']],
+		['Sales Invoice', 'company', 'is', 'set'],
+		['Sales Invoice', 'company', 'is', 'not set'],
+		['Sales Invoice', 'status', '!=', 'Paid'],
+	]), [
+		'Grand Total > 1000',
+		'Status: Overdue, Unpaid',
+		'Status: not Paid, Return',
+		'Date: 2026-01-01 – 2026-03-31',
+		'Company: set',
+		'Company: not set',
+		'Status: not Paid',
+	]);
+});
+
+test('filter_chips: docstatus values read as names; each chip keeps its filter', () => {
+	const chips = core.filter_chips([['Sales Invoice', 'docstatus', '=', '1', false]], opts);
+	assert.strictEqual(chips[0].text, 'Document Status: Submitted');
+	assert.strictEqual(chips[0].fieldname, 'docstatus');
+	assert.strictEqual(chips[0].condition, '=');
+});
+
+test('list_search_field: the title field when it is a standard filter, else ID', () => {
+	assert.strictEqual(core.list_search_field('title', ['name', 'title', 'company']), 'title');
+	assert.strictEqual(core.list_search_field('item_name', ['name', 'item_code']), 'name');
+	assert.strictEqual(core.list_search_field(null, ['name']), 'name');
+});
+
+test('filter_chips: labels and values are looked up on the filter\'s own DocType', () => {
+	const seen = [];
+	const chips = core.filter_chips([['Sales Invoice Item', 'item_code', '=', 'KIT-1']], Object.assign({}, opts, {
+		label_of: (f, dt) => { seen.push(dt); return `${f}@${dt}`; },
+		value_of: (f, v, dt) => `${v}@${dt}`,
+	}));
+	assert.strictEqual(chips[0].text, 'item_code@Sales Invoice Item: KIT-1@Sales Invoice Item');
+	assert.strictEqual(chips[0].doctype, 'Sales Invoice Item');
+});

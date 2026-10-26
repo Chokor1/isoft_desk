@@ -1,0 +1,20 @@
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{font:13px/1.35 Inter,-apple-system,sans-serif;font-feature-settings:"tnum";color:#14202b;background:#f4f6f8;display:grid;grid-template-columns:232px 1fr}
+.side{background:#fff;border-right:1px solid #e1e6eb;padding:14px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:flex-end;gap:8px;height:24px;margin:0 6px 12px}.logo b{font:800 17px/1 Inter;color:#0a93e0;letter-spacing:.02em}.logo span{font-size:12px;color:#5f6f7e}
+.sq{height:32px;border-radius:6px;background:#eef2f5;color:#5f6f7e;padding:8px 10px 0 32px;margin-bottom:8px}
+.g{height:34px;padding:8px 10px;border-radius:6px;color:#33424f;font-weight:500;display:flex;justify-content:space-between}
+.g.on{color:#0b1b2a}.it{height:30px;margin-left:19px;padding:6px 10px;border-left:1px solid #e1e6eb;color:#33424f}
+.it.on{color:#0079c2;font-weight:600;border-left:2px solid #0a93e0;background:#e2f5ff;border-radius:0 6px 6px 0}
+.main{display:flex;flex-direction:column;min-width:0}
+.top{height:52px;background:#fff;border-bottom:1px solid #e1e6eb;display:flex;align-items:center;padding:0 24px;gap:16px;color:#4f5f6f}
+.top .s{width:360px;height:32px;border-radius:6px;background:#f4f6f8;margin-left:auto;margin-right:auto;padding:8px 12px;color:#6b7b8a}
+.ph{display:flex;align-items:center;gap:8px;padding:20px 28px 14px}
+.ph h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-right:auto}
+.btn{height:30px;padding:0 12px;border:1px solid #c9d2db;border-radius:6px;background:#fff;display:inline-flex;align-items:center;gap:6px;font-weight:500;color:#14202b;white-space:nowrap}
+.btn.p{background:#0079c2;border-color:#0079c2;color:#fff}
+.num{text-align:right;white-space:nowrap}.neg{color:#4f5f6f}
+.st{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-weight:500}.st:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.ok{color:#1f7a4d}.bad{color:#b42318}.warn{color:#a15c07}.mute{color:#6b7b8a}.info{color:#0079c2}
+.faint{color:#6b7b8a}
