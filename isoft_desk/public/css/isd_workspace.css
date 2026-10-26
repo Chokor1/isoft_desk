@@ -159,39 +159,41 @@ body.isd-on .isd-ws-chart .widget::after {
 	display: none !important;
 }
 
-/* one series in the accent, further series in neutral tints, no gradient area:
-   colour is for state, not decoration */
-body.isd-on .isd-ws-chart .dataset-0 .line-graph-path,
-body.isd-on .isd-ws-chart .dataset-0 path {
+/* one series in the accent, a second and third in neutral tints, no gradient
+   area: colour is for state, not decoration. Charts comparing four or more
+   series (branches, warehouses) keep core's categorical palette, since shades
+   of one blue cannot be told apart */
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-0 .line-graph-path,
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-0 path {
 	stroke: var(--isd-accent-strong) !important;
 }
 
-body.isd-on .isd-ws-chart .dataset-1 .line-graph-path,
-body.isd-on .isd-ws-chart .dataset-1 path {
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-1 .line-graph-path,
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-1 path {
 	stroke: var(--isd-ink-3) !important;
 }
 
-body.isd-on .isd-ws-chart .dataset-2 .line-graph-path,
-body.isd-on .isd-ws-chart .dataset-2 path {
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-2 .line-graph-path,
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-2 path {
 	stroke: var(--isd-rule-strong) !important;
 }
 
-body.isd-on .isd-ws-chart .region-fill {
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .region-fill {
 	display: none;
 }
 
-body.isd-on .isd-ws-chart .dataset-0 rect.bar,
-body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(1) .legend-dot {
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-0 rect.bar,
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .chart-legend > g:nth-of-type(1) .legend-dot {
 	fill: var(--isd-accent-strong) !important;
 }
 
-body.isd-on .isd-ws-chart .dataset-1 rect.bar,
-body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(2) .legend-dot {
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-1 rect.bar,
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .chart-legend > g:nth-of-type(2) .legend-dot {
 	fill: var(--isd-ink-3) !important;
 }
 
-body.isd-on .isd-ws-chart .dataset-2 rect.bar,
-body.isd-on .isd-ws-chart .chart-legend > g:nth-of-type(3) .legend-dot {
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .dataset-2 rect.bar,
+body.isd-on :is(.isd-ws-chart, .isd-ws-custom-charts) .widget:not(:has(.dataset-3)) .chart-legend > g:nth-of-type(3) .legend-dot {
 	fill: var(--isd-rule-strong) !important;
 }
 
@@ -294,4 +296,177 @@ body.isd-on .isd-link.is-disabled:focus .isd-pop {
 	body.isd-on .isd-skel {
 		animation: none;
 	}
+}
+
+/* ---- Customize mode: core's widget editor, on the desk's surfaces ----
+   the editor itself is core's (drag, edit, hide, add); only its look changes
+   so it does not drop back to the old desk (cyan top bars, 10px cards) */
+body.isd-on .isd-ws-customizing {
+	gap: 24px;
+}
+
+body.isd-on .isd-ws-custom-note {
+	color: var(--isd-ink-2);
+	font-size: 13px;
+}
+
+body.isd-on .isd-ws-customizing .widget-group {
+	margin: 0;
+}
+
+body.isd-on .isd-ws-customizing .widget-group-head,
+body.isd-on .isd-ws-customizing .widget-group-title {
+	margin-bottom: 10px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--isd-rule-strong);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--isd-ink-2);
+}
+
+body.isd-on .isd-ws-customizing .widget-group-head .widget-group-title {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body.isd-on .isd-ws-customizing .widget-group-body {
+	gap: 12px;
+}
+
+body.isd-on .isd-ws-customizing .widget {
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule) !important;
+	border-radius: var(--isd-radius) !important;
+	box-shadow: none !important;
+	color: var(--isd-ink);
+}
+
+body.isd-on .isd-ws-customizing .widget::before,
+body.isd-on .isd-ws-customizing .widget::after {
+	display: none !important;
+}
+
+body.isd-on .isd-ws-customizing .widget:hover {
+	border-color: var(--isd-rule-strong) !important;
+}
+
+body.isd-on .isd-ws-customizing .widget-title {
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+body.isd-on .isd-ws-customizing .widget-subtitle {
+	color: var(--isd-ink-3);
+}
+
+/* drag, edit, delete, hide: quiet icon buttons */
+body.isd-on .isd-ws-customizing .widget-control .btn,
+body.isd-on .isd-ws-customizing .filter-chart,
+body.isd-on .isd-ws-customizing .show-or-hide-button {
+	width: 26px;
+	height: 26px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	background: transparent;
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	box-shadow: none;
+	color: var(--isd-ink-2);
+	--icon-stroke: var(--isd-ink-2);
+}
+
+body.isd-on .isd-ws-customizing .widget-control .btn:hover,
+body.isd-on .isd-ws-customizing .filter-chart:hover,
+body.isd-on .isd-ws-customizing .show-or-hide-button:hover {
+	background: var(--isd-hover);
+	border-color: var(--isd-rule-strong);
+	color: var(--isd-ink);
+	--icon-stroke: var(--isd-ink);
+}
+
+/* shortcut counts */
+body.isd-on .isd-ws-customizing .indicator-pill {
+	background: var(--isd-hover);
+	color: var(--isd-ink-2);
+	font-weight: 500;
+}
+
+body.isd-on .isd-ws-customizing .indicator-pill::before {
+	background: var(--isd-ink-3);
+}
+
+body.isd-on .isd-ws-customizing .indicator-pill.yellow,
+body.isd-on .isd-ws-customizing .indicator-pill.orange {
+	color: var(--isd-warn);
+}
+
+body.isd-on .isd-ws-customizing .indicator-pill.yellow::before,
+body.isd-on .isd-ws-customizing .indicator-pill.orange::before {
+	background: var(--isd-warn);
+}
+
+body.isd-on .isd-ws-customizing .indicator-pill.red {
+	color: var(--isd-bad);
+}
+
+body.isd-on .isd-ws-customizing .indicator-pill.red::before {
+	background: var(--isd-bad);
+}
+
+/* "+ New Chart", "+ New Shortcut" */
+body.isd-on .isd-ws-customizing .widget.new-widget {
+	background: transparent;
+	border: 1px dashed var(--isd-rule-strong) !important;
+	color: var(--isd-ink-3);
+	font-weight: 500;
+}
+
+body.isd-on .isd-ws-customizing .widget.new-widget:hover {
+	border-color: var(--isd-accent-strong) !important;
+	color: var(--isd-accent-text);
+	background: var(--isd-accent-soft);
+}
+
+/* link cards, matching the module page's index */
+body.isd-on .isd-ws-customizing .links-widget-box .link-group-title {
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--isd-ink-2);
+}
+
+body.isd-on .isd-ws-customizing .links-widget-box .link-item {
+	color: var(--isd-ink);
+	border-radius: var(--isd-radius);
+}
+
+body.isd-on .isd-ws-customizing .links-widget-box .link-item:hover {
+	background: var(--isd-hover);
+	color: var(--isd-accent-text);
+	text-decoration: none;
+}
+
+body.isd-on .isd-ws-customizing .links-widget-box .link-icon {
+	--icon-stroke: var(--isd-ink-3);
+}
+
+/* the slot a dragged block will drop into */
+body.isd-on .isd-ws-customizing .sortable-ghost {
+	opacity: 0.6;
+	border: 1px dashed var(--isd-accent-strong) !important;
+	background: var(--isd-accent-soft) !important;
+}
+
+/* the charts group has no title: no heading rule above the charts */
+body.isd-on .isd-ws-customizing .widget-charts > .widget-group-head {
+	margin: 0;
+	padding: 0;
+	border: 0;
 }
