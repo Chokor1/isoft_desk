@@ -146,13 +146,7 @@ body.isd-on .isd-list .isd-chip button:focus-visible {
 	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
 }
 
-/* "+ Add filter", with core's filter button laid invisibly under it so the
-   advanced popover opens in the same place */
-body.isd-on .isd-list .isd-add-wrap {
-	position: relative;
-	display: inline-flex;
-}
-
+/* "+ Add filter" opens the panel of the list's standard filters */
 body.isd-on .isd-list .isd-add {
 	height: 28px;
 	display: inline-flex;
@@ -182,19 +176,6 @@ body.isd-on .isd-list .isd-add:focus {
 body.isd-on .isd-list .isd-add:focus-visible {
 	background: var(--isd-hover);
 	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
-}
-
-body.isd-on .isd-list .isd-add-wrap .filter-selector {
-	position: absolute;
-	inset: 0;
-	opacity: 0;
-	pointer-events: none;
-}
-
-body.isd-on .isd-list .isd-add-wrap .filter-button {
-	width: 100%;
-	height: 100%;
-	margin: 0;
 }
 
 /* the panel of standard filters */
@@ -256,33 +237,8 @@ body.isd-on .isd-list .isd-lpanel .checkbox {
 	color: var(--isd-ink);
 }
 
-body.isd-on .isd-list .isd-lpanel-foot {
-	display: flex;
-	justify-content: flex-end;
-	margin-top: 12px;
-	padding-top: 10px;
-	border-top: 1px solid var(--isd-rule);
-}
-
-body.isd-on .isd-list .isd-advanced {
-	height: 28px;
-	padding: 0 8px;
-	border: 0;
-	border-radius: var(--isd-radius);
-	background: transparent;
-	color: var(--isd-accent-text);
-	font-size: 13px;
-	font-weight: 500;
-	cursor: pointer;
-}
-
-body.isd-on .isd-list .isd-advanced:hover,
-body.isd-on .isd-list .isd-advanced:focus-visible {
-	background: var(--isd-hover);
-	outline: none;
-}
-
-/* sort and (Report view) group-by stay core's, on the desk's button style */
+/* core's filter button (any field, any condition), (Report view) group-by and
+   sort stay core's, on the desk's button style */
 body.isd-on .isd-list .page-form > .filter-section {
 	flex: none;
 	align-self: flex-start;
@@ -313,6 +269,15 @@ body.isd-on .isd-list .page-form .filter-section .btn:hover {
 	background: var(--isd-hover);
 }
 
+/* with advanced filters applied, core's button names their count on Blue Tint */
+body.isd-on .isd-list .page-form .filter-section .filter-button.btn-primary-light {
+	border-color: transparent;
+	background: var(--isd-accent-soft);
+	color: var(--isd-accent-text);
+	font-weight: 500;
+	--icon-stroke: currentColor;
+}
+
 body.isd-on .isd-list :is(.page-form .filter-section .btn, .list-paging-area .btn):focus {
 	outline: none;
 	box-shadow: none;
@@ -326,6 +291,12 @@ body.isd-on .isd-list .list-subject a:focus-visible {
 }
 
 /* ---- table ---- */
+/* core keeps 60px under the card; the rows area (sized by core to fill the
+   window) takes it instead, leaving the same 16px gutter as the sides */
+body.isd-on .isd-list .layout-main-section-wrapper {
+	margin-bottom: 16px;
+}
+
 body.isd-on .isd-list .frappe-list {
 	font-variant-numeric: tabular-nums;
 }

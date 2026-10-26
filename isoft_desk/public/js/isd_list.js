@@ -88,16 +88,11 @@
 				<div class="isd-lbar">
 					<div class="isd-lbar-search">${frappe.utils.icon("search", "sm")}</div>
 					<ul class="isd-chips" aria-label="${t("Active filters")}"></ul>
-					<div class="isd-add-wrap">
-						<button type="button" class="isd-add" aria-expanded="false">
-							${frappe.utils.icon("add", "xs")}<span>${t("Add filter")}</span>
-						</button>
-					</div>
+					<button type="button" class="isd-add" aria-expanded="false">
+						${frappe.utils.icon("add", "xs")}<span>${t("Add filter")}</span>
+					</button>
 					<div class="isd-lpanel" role="dialog" aria-label="${t("Add filter")}" hidden>
 						<div class="isd-lpanel-fields"></div>
-						<div class="isd-lpanel-foot">
-							<button type="button" class="isd-advanced">${t("Advanced filters")}</button>
-						</div>
 					</div>
 				</div>
 			`).prependTo($form);
@@ -110,8 +105,8 @@
 				search.$input.attr("placeholder", t("Search {0}", [label]));
 			}
 
-			// every other standard filter lives in the panel; core's filter button sits
-			// invisibly under "+ Add filter" so its popover opens in the same place
+			// every other standard filter lives in the panel; core's filter button stays
+			// on the right beside sort and opens its own popover for any field and condition
 			this.$panel = this.$bar.find(".isd-lpanel");
 			this.$panel.find(".isd-lpanel-fields").append($standard);
 			// core draws these controls without labels (the placeholder is the label),
@@ -124,14 +119,12 @@
 					.before($(`<label class="isd-lpanel-label"></label>`).text(__(field.df.label)));
 			});
 			this.$add = this.$bar.find(".isd-add");
-			this.$add.parent().append($form.find(".filter-selector"));
 			this.$chips = this.$bar.find(".isd-chips");
 			this.bind();
 		}
 
 		bind() {
 			this.$add.on("click", () => this.toggle_panel(this.$panel.prop("hidden")));
-			this.$panel.find(".isd-advanced").on("click", () => this.open_advanced());
 
 			this.$chips.on("click", ".isd-chip-x", e => {
 				this.remove($(e.currentTarget).closest(".isd-chip").data("chip"));
@@ -163,14 +156,10 @@
 			this.$bar.toggleClass("is-open", open);
 		}
 
-		// core's popover closes on any click outside it, so it opens after this click is done;
-		// core centres it 100px left of the button, under the desk sidebar, so it opens
-		// from the button's left edge instead
+		// core's popover closes on any click outside it, so it opens after this click is done
 		open_advanced() {
 			this.toggle_panel(false);
 			const $button = this.list.filter_area.filter_button;
-			const popover = $button.data("bs.popover");
-			if (popover && popover.config) popover.config.offset = "50%p - 50%r, 6";
 			setTimeout(() => $button.popover("show"), 0);
 		}
 

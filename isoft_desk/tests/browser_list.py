@@ -29,6 +29,8 @@ STATE = """(() => {
 		standard_in_panel: !!document.querySelector('.isd-lpanel .standard-filter-section'),
 		cut_amounts: cut,
 		row_h: (document.querySelector('.isd-list .result .list-row') || {}).offsetHeight || null,
+		gap_below: (() => { const c = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .layout-main-section, .isd-list .layout-main-section');
+			return c ? Math.round(innerHeight - c.getBoundingClientRect().bottom) : null; })(),
 		bar_h: [...document.querySelectorAll('.isd-lbar')].filter(e => e.offsetParent).map(e => e.offsetHeight)[0] || null,
 		misaligned: (() => {
 			const pos = el => el ? [...el.querySelectorAll(':scope > .level-left > .list-row-col:not(.hide)')]
@@ -98,6 +100,7 @@ def run(site, sid, shots):
 					check(s["cut_amounts"] == 0, f"{tag} {route}: {s['cut_amounts']} amounts cut")
 					check(s["row_h"] == 36, f"{tag} {route}: rows are {s['row_h']}px")
 					check(s["bar_h"] and s["bar_h"] <= 32, f"{tag} {route}: toolbar wraps ({s['bar_h']}px)")
+					check(s["gap_below"] is not None and s["gap_below"] <= 24, f"{tag} {route}: {s['gap_below']}px empty under the list")
 					check(s["misaligned"] <= 2, f"{tag} {route}: header and row columns {s['misaligned']}px apart")
 				if shots:
 					name = route.strip("/").replace("/", "_")
@@ -131,9 +134,9 @@ def run(site, sid, shots):
 				page.wait_for_timeout(200)
 				check(not page.is_visible(".isd-lpanel"), "panel did not close on Escape")
 
-				# Advanced filters opens core's popover
-				page.click(".isd-add")
-				page.click(".isd-advanced")
+				# core's filter button sits in the toolbar and opens its popover directly
+				check(page.is_visible(".page-form .filter-button"), "filter button not visible")
+				page.click(".page-form .filter-button")
 				page.wait_for_timeout(800)
 				check(page.is_visible(".filter-popover"), "advanced popover did not open")
 				if shots:
