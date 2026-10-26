@@ -1,7 +1,8 @@
 /* ISOFT Desk tokens. Everything is scoped to body.isd-on so a user outside the
    pilot (or a site with the app switched off) keeps the standard desk. */
 body.isd-on {
-	/* the sidebar follows the desk theme: a white panel in light, deep slate in dark */
+	/* the sidebar follows the desk theme and shares the Surface with the top bar:
+	   white in light, the same dark surface as the top bar and cards in dark */
 	--isd-side: #ffffff;
 	--isd-side-2: #eef2f5;
 	--isd-side-3: #e2f5ff;
@@ -56,7 +57,7 @@ html.isd-on[data-theme="dark"] {
 }
 
 [data-theme="dark"] body.isd-on {
-	--isd-side: #121c26;
+	--isd-side: #151f29;
 	--isd-side-2: #1b2733;
 	--isd-side-3: #0c3350;
 	--isd-side-rule: #243240;

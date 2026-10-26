@@ -29,7 +29,6 @@ colors:
   dark-blue-tint: "#0c3350"
   dark-ground: "#0e151c"
   dark-surface: "#151f29"
-  dark-slate-side: "#121c26"
   dark-hover-wash: "#1b2733"
   dark-rule: "#243240"
   dark-rule-strong: "#34475a"
@@ -129,7 +128,7 @@ components:
     typography: "{typography.body}"
     width: "{spacing.sidebar}"
   sidebar-dark:
-    backgroundColor: "{colors.dark-slate-side}"
+    backgroundColor: "{colors.dark-surface}"
     textColor: "{colors.dark-side-ink}"
   sidebar-rail:
     width: "{spacing.rail}"
@@ -358,8 +357,7 @@ The accent is tuned to the ISOFT ERP logo and split by job, because one blue can
 
 ### Neutral
 - **Cool Ground** (cool-ground / dark-ground): the page ground behind all work surfaces, also painted on `html` so overscroll never flashes another colour.
-- **Surface** (surface / dark-surface): the top bar, tiles, quick links and chart widget. In light mode it is also the sidebar and menu background.
-- **Deep Slate Side** (dark-slate-side): the sidebar and menus in dark mode.
+- **Surface** (surface / dark-surface): the top bar, sidebar, menus, tiles, quick links and chart widget, in both modes. The sidebar and the top bar share one surface so they meet without a seam; a Rule separates them from the ground.
 - **Ink, Ink Muted, Ink Faint**: primary text; secondary text (context line, breadcrumbs, index headings, tile DocType line); and zero counts, disabled links and placeholders.
 - **Side Ink / Side Ink Muted / Side Strong**: sidebar text at rest; section labels, the version number and icons; hovered and open-group text.
 - **Rule / Rule Strong**: 1px separators. Rule sits between index rows, around tiles and around the top bar. Rule Strong goes under index headings and around quick links.
@@ -456,7 +454,7 @@ Gently rounded corners at one radius (6px) for items, tiles, buttons, inputs, qu
 
 ### Navigation (Sidebar)
 Calm, theme-following and always present on desk routes.
-- **Head:** the ISOFT ERP logo lockup (22px tall) with the version (12px, Side Ink Muted, "v1.3.0") aligned to the bottom of the wordmark. The lockup links to /app/home, and its tooltip carries "ISOFT ERP v…". On the rail only the icon mark shows (28px).
+- **Head:** the ISOFT ERP logo lockup (22px tall) with the version (12px, Side Ink Muted, "v2.0.0") aligned to the bottom of the wordmark. The lockup links to /app/home, and its tooltip carries "ISOFT ERP v…". On the rail only the icon mark shows (28px).
 - **Search:** a 32px field on Hover Wash with a leading search icon and a Logo Blue Bright border on focus. It filters groups and items with accent-insensitive matching. With no match, or no modules at all, a short Side Ink Muted message stands in.
 - **Groups:** directly under the search, with no section label. Each group button has an icon, two-line text and a chevron that rotates 180° in 160ms. The group holding the active page opens automatically. Items sit indented behind the left tree rule.
 - **One-module groups:** a group that holds a single workspace is not a folder. Its row is a direct link (no chevron, no item list) that opens that workspace in one click, and it is active when that workspace is open. Group rows and direct links share one inset (7px top and bottom, 10px left and right) so the icons line up. While searching, a group the filter has narrowed to one item still expands, because it is not a one-module group.
