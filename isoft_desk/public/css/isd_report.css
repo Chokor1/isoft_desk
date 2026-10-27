@@ -1,0 +1,228 @@
+/* ISOFT Desk query and script reports: labelled filters that fold to a line of
+   value chips once the report has data, the header's tools moved to its menu,
+   and the desk's surfaces on the summary, chart and totals. The grid itself
+   shares the Report view rules in isd_list.css. Filters stay the report's own:
+   nothing here adds, removes, reorders or sizes one. */
+
+/* ---- the report card on the desk's surface (core paints it grey in dark mode) ---- */
+body.isd-on .isd-qr :is(.layout-main-section, .page-form, .isd-rfold, .chart-wrapper, .report-wrapper) {
+	background: var(--isd-surface);
+}
+
+/* ---- the filter fold row ---- */
+body.isd-on .isd-qr .isd-rfold {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 8px;
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-qr .isd-rfold[hidden],
+body.isd-on .isd-qr .isd-rf-toggle[hidden] {
+	display: none;
+}
+
+/* open: the row holds only "Hide filters", at the right under the filters */
+body.isd-on .isd-qr:not(.isd-rf-folded) .isd-rfold {
+	justify-content: flex-end;
+	padding-block: 6px;
+}
+
+body.isd-on .isd-qr .isd-rf-chips {
+	display: contents;
+}
+
+body.isd-on .isd-qr .isd-rf-chip {
+	height: 28px;
+	max-width: 220px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: var(--isd-accent-soft);
+	color: var(--isd-accent-text);
+	font-size: 13px;
+	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+body.isd-on .isd-qr .isd-rf-chip:hover {
+	background: color-mix(in srgb, var(--isd-accent-strong) 14%, var(--isd-accent-soft));
+}
+
+body.isd-on .isd-qr .isd-rf-toggle {
+	height: 28px;
+	padding: 0 8px;
+	border: 0;
+	border-radius: var(--isd-radius);
+	background: transparent;
+	color: var(--isd-accent-text);
+	font-size: 13px;
+	font-weight: 500;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+body.isd-on .isd-qr .isd-rf-toggle:hover {
+	background: var(--isd-hover);
+}
+
+body.isd-on .isd-qr :is(.isd-rf-chip, .isd-rf-toggle):focus {
+	outline: none;
+}
+
+body.isd-on .isd-qr :is(.isd-rf-chip, .isd-rf-toggle):focus-visible {
+	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
+}
+
+/* folded: the filter grid waits behind "Edit filters" */
+body.isd-on .isd-qr.isd-rf-folded .layout-main-section > .page-form {
+	display: none;
+}
+
+/* ---- the filters: core's controls with their names above them ---- */
+body.isd-on .isd-qr .layout-main-section > .page-form {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	align-items: end;
+	gap: 10px 14px;
+	padding: 14px;
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-qr .layout-main-section > .page-form > :is(.isd-rf-item, .frappe-control) {
+	min-width: 0;
+	max-width: none;
+	width: auto;
+	margin: 0;
+	padding: 0;
+}
+
+/* core indents each report filter (report.scss: padding 0 10px), which set the
+   names 10px left of their inputs */
+body.isd-on #page-query-report.isd-qr .page-form .form-group,
+body.isd-on .isd-qr .page-form .form-group {
+	margin: 0;
+	padding: 0;
+}
+
+body.isd-on .isd-qr .page-form .isd-rf-item > .frappe-control {
+	max-width: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body.isd-on .isd-qr .isd-rf-label {
+	display: block;
+	margin: 0 0 4px;
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+body.isd-on .isd-qr .page-form .form-control {
+	height: 30px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	font-size: 13px;
+	box-shadow: none;
+}
+
+body.isd-on .isd-qr .page-form .form-control:focus {
+	border-color: var(--isd-accent-strong);
+	box-shadow: 0 0 0 3px var(--isd-accent-soft);
+}
+
+body.isd-on .isd-qr .page-form .form-control::placeholder {
+	color: var(--isd-ink-3);
+}
+
+body.isd-on .isd-qr .page-form .checkbox {
+	min-height: 30px;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	color: var(--isd-ink);
+}
+
+/* a mandatory filter left empty says so at the field */
+body.isd-on .isd-qr .page-form .has-error .form-control {
+	border-color: var(--isd-bad);
+}
+
+/* ---- header: the tools live in the menu (core already lists them there) ---- */
+body.isd-on .isd-qr .page-actions .isd-in-menu {
+	display: none !important;
+}
+
+/* ---- summary, chart and totals ---- */
+body.isd-on .isd-qr .report-summary {
+	margin: 0;
+	padding: 12px 14px;
+	border-bottom: 1px solid var(--isd-rule);
+	background: var(--isd-surface);
+	font-variant-numeric: tabular-nums;
+}
+
+body.isd-on .isd-qr .report-summary .summary-label {
+	color: var(--isd-ink-2);
+	font-size: 12px;
+}
+
+body.isd-on .isd-qr .report-summary .summary-value {
+	font-size: 17px;
+	font-weight: 600;
+}
+
+body.isd-on .isd-qr .chart-wrapper {
+	padding: 8px 14px 0;
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .isd-qr .chart-wrapper .frappe-chart text {
+	fill: var(--isd-ink-2);
+}
+
+body.isd-on .isd-qr .datatable .dt-footer .dt-cell {
+	background: var(--isd-surface);
+	border-top: 1px solid var(--isd-rule-strong);
+	font-weight: 600;
+	color: var(--isd-ink);
+}
+
+body.isd-on .isd-qr .report-footer,
+body.isd-on .isd-qr .form-message {
+	color: var(--isd-ink-3);
+}
+
+/* ---- phones: one filter per row, chips wrap ---- */
+@media (max-width: 767.98px) {
+	body.isd-on .isd-qr .layout-main-section > .page-form {
+		grid-template-columns: 1fr;
+	}
+
+	body.isd-on .isd-qr .page-form .form-control {
+		/* 16px keeps iOS Safari from zooming the page on focus */
+		font-size: 16px;
+	}
+
+	body.isd-on .isd-qr .isd-rf-chip {
+		max-width: 100%;
+	}
+
+	/* datatable sizes its scroll area to 40vw, four rows on a phone */
+	body.isd-on .isd-qr .datatable .dt-scrollable {
+		height: calc(100vh - 260px) !important;
+		min-height: 320px;
+	}
+}

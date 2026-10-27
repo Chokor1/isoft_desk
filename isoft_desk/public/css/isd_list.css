@@ -523,8 +523,8 @@ body.isd-on .isd-list .no-result {
 	color: var(--isd-ink-2);
 }
 
-/* ---- Report view grid ---- */
-body.isd-on .isd-list .datatable {
+/* ---- Report view grid, and every query or script report's grid (.isd-qr) ---- */
+body.isd-on :is(.isd-list, .isd-qr) .datatable {
 	--dt-border-color: var(--isd-rule);
 	--dt-cell-bg: var(--isd-surface);
 	--dt-header-cell-bg: var(--isd-surface);
@@ -537,30 +537,30 @@ body.isd-on .isd-list .datatable {
 	font-size: 13px;
 }
 
-body.isd-on .isd-list .datatable .dt-row {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-row {
 	height: 36px;
 }
 
-body.isd-on .isd-list .datatable .dt-cell--header .dt-cell__content {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-cell--header .dt-cell__content {
 	color: var(--isd-ink-2);
 	font-size: 12px;
 	font-weight: 500;
 }
 
-body.isd-on .isd-list .datatable .dt-header .dt-row:not([data-is-filter]) .dt-cell {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-header .dt-row:not([data-is-filter]) .dt-cell {
 	border-bottom-color: var(--isd-rule-strong);
 }
 
-body.isd-on .isd-list .datatable .dt-cell__content a {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-cell__content a {
 	color: var(--isd-ink);
 }
 
 /* the grid's per-column filter row: real inputs, not grey bars */
-body.isd-on .isd-list .datatable .dt-row[data-is-filter] .dt-cell__content {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-row[data-is-filter] .dt-cell__content {
 	padding: 4px 6px;
 }
 
-body.isd-on .isd-list .datatable .dt-filter {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-filter {
 	height: 26px;
 	border: 1px solid var(--isd-rule-strong);
 	border-radius: var(--isd-radius);
@@ -569,7 +569,7 @@ body.isd-on .isd-list .datatable .dt-filter {
 	font-size: 12px;
 }
 
-body.isd-on .isd-list .datatable .dt-filter:focus {
+body.isd-on :is(.isd-list, .isd-qr) .datatable .dt-filter:focus {
 	border-color: var(--isd-accent-strong);
 	outline: none;
 }
