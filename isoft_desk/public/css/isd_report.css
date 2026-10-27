@@ -117,6 +117,19 @@ body.isd-on .isd-qr .page-form .isd-rf-item > .frappe-control {
 	padding: 0;
 }
 
+/* a filter the report hides (hidden, or by its own depends_on) takes its name
+   with it; an empty label looked like a value that failed to load */
+body.isd-on .isd-qr .page-form .isd-rf-item:has(> .frappe-control.hide-control),
+body.isd-on .isd-qr .page-form .isd-rf-item:has(> .frappe-control[style*="display: none"]) {
+	display: none;
+}
+
+/* multi-select filters (Account, Party) keep core's 26px input-xs wrapper around
+   a 30px box, which pushed them 4px below their row */
+body.isd-on .isd-qr .page-form .multiselect-list.input-xs {
+	height: auto;
+}
+
 body.isd-on .isd-qr .isd-rf-label {
 	display: block;
 	margin: 0 0 4px;

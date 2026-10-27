@@ -48,6 +48,50 @@
 		return out;
 	});
 
+	// amounts read in full: a number column the report sized too narrow
+	// ("11 282 625,2…") grows to its widest formatted value. Only the screen
+	// changes; the report's own definition and text columns are left alone
+	const NUMERIC = ["Currency", "Float", "Int", "Percent"];
+	wrap("render_datatable", function (orig, args) {
+		const out = orig.apply(this, args);
+		try {
+			fit_number_columns(this);
+		} catch (e) {
+			// a report with an unusual grid keeps core's widths
+		}
+		return out;
+	});
+
+	function fit_number_columns(report) {
+		const dt = report.datatable;
+		if (!dt || !dt.getColumns) return;
+		const sample = dt.bodyScrollable && dt.bodyScrollable.querySelector(".dt-cell__content");
+		const canvas = fit_number_columns.canvas || (fit_number_columns.canvas = document.createElement("canvas"));
+		const ctx = canvas.getContext("2d");
+		const style = sample ? getComputedStyle(sample) : null;
+		ctx.font = style ? `${style.fontWeight} ${style.fontSize} ${style.fontFamily}` : "13px Inter";
+		const pad = style ? parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + 4 : 20;
+		const rows = (report.data || []).slice(0, 1000);
+
+		dt.getColumns().forEach(col => {
+			const df = col.docfield || col;
+			if (!NUMERIC.includes(df.fieldtype) || !col.id || !rows.length) return;
+			let widest = 0;
+			rows.forEach(row => {
+				const value = row[col.id];
+				if (value === null || value === undefined || value === "") return;
+				const text = plain(frappe.format(value, df, { always_show_decimals: true }, row));
+				widest = Math.max(widest, ctx.measureText(text).width);
+			});
+			const needed = Math.ceil(widest + pad);
+			if (needed > (col.width || 0)) {
+				col.width = needed;
+				dt.columnmanager.setColumnHeaderWidth(col.colIndex);
+				dt.columnmanager.setColumnWidth(col.colIndex);
+			}
+		});
+	}
+
 	// a chart with no number format of its own shows raw floats ("793046833.46");
 	// it reads them in the user's number format, as the table does
 	wrap("get_chart_options", function (orig, args) {

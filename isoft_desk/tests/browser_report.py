@@ -36,6 +36,11 @@ STATE = """(() => {
 		set_chart_in_menu: [...qr.page.menu.find('.dropdown-item')].some(e => e.textContent.trim() === __('Set Chart')),
 		fold_rows: qr.page.wrapper.find('.isd-rfold').length,
 		rail: document.body.classList.contains('isd-rail'),
+		cut_amounts: [...document.querySelectorAll('.dt-scrollable .dt-cell__content')].filter(e => e.offsetParent
+			&& /^-?[\d\s.,]+$/.test(e.textContent.replace(/A?KZ/g, '').trim()) && /\d/.test(e.textContent)
+			&& e.scrollWidth > e.clientWidth + 1).map(e => e.textContent.trim()).slice(0, 5),
+		orphan_labels: [...form.querySelectorAll('.isd-rf-item')].filter(i => getComputedStyle(i).display !== 'none'
+			&& getComputedStyle(i.querySelector('.frappe-control')).display === 'none').map(i => i.textContent.trim()),
 	};
 })()"""
 
@@ -83,6 +88,9 @@ def main(site, user="Administrator", shots=None):
 				check(not s["unlabelled"], f"{tag} {report}: unlabelled filters {s['unlabelled']}")
 				check(not s["empty_wrappers"], f"{tag} {report}: {s['empty_wrappers']} empty label wrappers left behind")
 				check(s["fold_rows"] == 1, f"{tag} {report}: {s['fold_rows']} fold rows")
+				check(not s["orphan_labels"], f"{tag} {report}: labels without their field {s['orphan_labels']}")
+				if w > 991:
+					check(not s["cut_amounts"], f"{tag} {report}: amounts cut {s['cut_amounts']}")
 				if w > 991:
 					check(s["rail"], f"{tag} {report}: the sidebar did not collapse to its rail")
 				check(not s["header_tools"], f"{tag} {report}: tools still in the header {s['header_tools']}")
