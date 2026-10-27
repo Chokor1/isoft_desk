@@ -33,7 +33,9 @@ STATE = """(() => {
 		rows: (qr.data || []).length,
 		header_tools: [...qr.page.wrapper.find('.page-actions .btn')].filter(visible).map(e => e.textContent.trim()).filter(t => ['Set Chart', 'Create Card', 'Add Chart to Dashboard'].includes(t)),
 		menu: [...qr.page.menu.find('.dropdown-item')].map(e => e.textContent.trim()),
+		set_chart_in_menu: [...qr.page.menu.find('.dropdown-item')].some(e => e.textContent.trim() === __('Set Chart')),
 		fold_rows: qr.page.wrapper.find('.isd-rfold').length,
+		rail: document.body.classList.contains('isd-rail'),
 	};
 })()"""
 
@@ -81,14 +83,19 @@ def main(site, user="Administrator", shots=None):
 				check(not s["unlabelled"], f"{tag} {report}: unlabelled filters {s['unlabelled']}")
 				check(not s["empty_wrappers"], f"{tag} {report}: {s['empty_wrappers']} empty label wrappers left behind")
 				check(s["fold_rows"] == 1, f"{tag} {report}: {s['fold_rows']} fold rows")
+				if w > 991:
+					check(s["rail"], f"{tag} {report}: the sidebar did not collapse to its rail")
 				check(not s["header_tools"], f"{tag} {report}: tools still in the header {s['header_tools']}")
 				if s["rows"]:
 					check(s["folded"] and not s["form_shown"] and s["chips"], f"{tag} {report}: filters did not fold to chips")
-					check(any(m in s["menu"] for m in ("Set Chart", "Definir Gráfico")), f"{tag} {report}: Set Chart missing from the menu")
+					check(s["set_chart_in_menu"], f"{tag} {report}: Set Chart missing from the menu")
 				if shots:
 					page.screenshot(path=os.path.join(shots, f"{report.replace(' ', '_')}-{tag}.png"))
 
 			if w > 800 and theme == "light":
+				# a user without access to a report gets core's message; close it first
+				page.evaluate("$('.modal.show').modal('hide')")
+				page.wait_for_timeout(600)
 				# Edit filters opens the grid; a Link filter's suggestions show; Hide folds again
 				page.click(".isd-rf-toggle")
 				page.wait_for_timeout(400)
@@ -112,6 +119,12 @@ def main(site, user="Administrator", shots=None):
 			for e in errors:
 				if "isd_" not in e:
 					print("core/other:", e[:160])
+			if w > 991:
+				# leaving the reports gives a list the full sidebar back
+				page.evaluate("frappe.set_route('List', 'Sales Invoice')")
+				page.wait_for_timeout(2500)
+				check(not page.evaluate("document.body.classList.contains('isd-rail')"), f"{tag}: the rail stayed on a list")
+
 			check(not [e for e in errors if "isd_" in e], f"{tag}: ISOFT Desk errors {[e[:200] for e in errors if 'isd_' in e][:3]}")
 			context.close()
 		browser.close()

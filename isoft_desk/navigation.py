@@ -60,8 +60,9 @@ OWN_SIDEBAR_ROUTES = [
 # Routes where the desk sidebar is hidden: full-screen POS plus the pages above.
 HIDDEN_ROUTES = ["posapp"] + OWN_SIDEBAR_ROUTES
 
-# Routes where the sidebar collapses to its rail: forms get the full width.
-RAIL_ROUTES = ["Form"]
+# Routes where the sidebar collapses to its rail: forms and query/script reports
+# get the full width.
+RAIL_ROUTES = ["Form", "query-report"]
 
 WORKSPACE_ORDER = {name: index for index, name in enumerate(WORKSPACE_GROUP)}
 
