@@ -65,6 +65,24 @@
 		return `<span class="indicator ${indicator[1]} isd-status-xs">${frappe.utils.escape_html(__(indicator[0]))}</span>`;
 	};
 
+	// the table fills the window, so the floating bulk-action bar (core edit, fixed
+	// 24px from the bottom) would cover the paging footer; while it shows, the list
+	// makes room for it and core sizes the rows again
+	const update_bulk_bar = list_proto.update_bulk_bar;
+	if (update_bulk_bar) {
+		list_proto.update_bulk_bar = function (...args) {
+			const out = update_bulk_bar.apply(this, args);
+			if (restyled(this) && this.$bulk_bar) {
+				const open = this.$bulk_bar.css("display") !== "none";
+				if (open !== this.page.wrapper.hasClass("isd-bulk-open")) {
+					this.page.wrapper.toggleClass("isd-bulk-open", open);
+					this.set_result_height && this.set_result_height();
+				}
+			}
+			return out;
+		};
+	}
+
 	// filters are settled when a refresh starts, so the chips follow every change
 	wrap("refresh", function (orig, args) {
 		this.isd_bar && this.isd_bar.update();

@@ -6,6 +6,7 @@ the totals strip and the section links.
 Never saves: the new draft's grand total is set in the browser only. Exits 1
 when an expectation breaks.
 """
+import datetime
 import os
 import sys
 
@@ -49,6 +50,15 @@ STATE = """(() => {
 			return !!(h && f && window.scrollY === 0 && h.getBoundingClientRect().bottom > f.getBoundingClientRect().top + 1); })(),
 	};
 })()"""
+
+# a dropdown counts as open only when it is the top element at its own position
+# (a clipped or covered list is in the DOM but nobody can click it)
+ON_TOP = """(sel) => {
+	const el = [...document.querySelectorAll(sel)].find(e => !e.hidden && e.offsetParent !== null && e.getBoundingClientRect().height > 0);
+	if (!el) return false;
+	const r = el.getBoundingClientRect(), hit = document.elementFromPoint(r.left + Math.min(20, r.width / 2), r.top + Math.min(12, r.height / 2));
+	return !!hit && el.contains(hit);
+}"""
 
 
 def main(site, user="Administrator", shots=None):
@@ -100,7 +110,8 @@ def run(site, sid, forms, shots):
 					check(s["conn"] and s["folded"] and not s["links_shown"], f"{tag} si: connections not folded into a row")
 					check(any(c.endswith("1") and not c.startswith("Sales Invoice") for c in s["conn_links"]), f"{tag} si: the return is not named by its group {s['conn_links']}")
 					check(any(c.startswith("outstanding_amount!") for c in s["sum"]), f"{tag} si: outstanding not red {s['sum']}")
-					check(any(c.startswith("due_date=") and "257" in c for c in s["sum"]), f"{tag} si: due date without days late {s['sum']}")
+					late = str((datetime.date.today() - datetime.date(2026, 2, 11)).days)
+					check(any(c.startswith("due_date=") and late in c for c in s["sum"]), f"{tag} si: due date without {late} days late {s['sum']}")
 				if key in ("si", "pi"):
 					check(any(c.startswith("grand_total=") for c in s["sum"]), f"{tag} {key}: no grand total in the strip")
 				if key in ("item", "customer"):
@@ -134,6 +145,39 @@ def run(site, sid, forms, shots):
 					s = page.evaluate(STATE)
 					check(any(c.startswith("grand_total=") and "1" in c for c in s["sum"]), f"draft strip did not update {s['sum']}")
 					check(not any(c.startswith("outstanding_amount") for c in s["sum"]), "draft shows an outstanding amount")
+
+					# dropdowns and popups the desk's styles must never clip or cover
+					cust = page.locator(".page-container .form-layout input[data-fieldname=customer]").first
+					cust.click(); cust.type("CON", delay=60); page.wait_for_timeout(1800)
+					check(page.evaluate(ON_TOP, "[data-fieldname=customer] .awesomplete ul"), "customer suggestions not visible")
+					page.keyboard.press("Escape"); cust.fill(""); page.wait_for_timeout(300)
+
+					due = page.locator(".page-container .form-layout input[data-fieldname=due_date]").first
+					due.click(); page.wait_for_timeout(600)
+					check(page.evaluate(ON_TOP, ".datepicker.active"), "due date picker not visible")
+					page.keyboard.press("Escape"); page.mouse.click(700, 120); page.wait_for_timeout(300)
+
+					page.evaluate("cur_frm.scroll_to_field('items')"); page.wait_for_timeout(500)
+					page.click(".form-grid .rows .grid-row .col[data-fieldname=item_code]"); page.wait_for_timeout(500)
+					cell = page.locator(".form-grid .rows .grid-row input[data-fieldname=item_code]").first
+					cell.click(); cell.type("KIT", delay=60); page.wait_for_timeout(1800)
+					check(page.evaluate(ON_TOP, ".form-grid .awesomplete ul"), "item suggestions in the table not visible")
+					if shots:
+						page.screenshot(path=os.path.join(shots, f"grid-link-{tag}.png"))
+					page.keyboard.press("Escape"); cell.fill(""); page.wait_for_timeout(300)
+
+					page.locator(".form-grid .rows .grid-row .btn-open-row").first.click(); page.wait_for_timeout(900)
+					check(page.evaluate(ON_TOP, ".grid-row-open .form-in-grid"), "row edit form not visible")
+					page.keyboard.press("Escape"); page.wait_for_timeout(400)
+
+				if key == "customer" and w > 800 and theme == "light":
+					# core's quick entry dialog opens over the list's "+" and is not clipped
+					page.goto(f"https://{site}/app/customer", wait_until="networkidle", timeout=90000)
+					page.wait_for_timeout(1500)
+					page.click(".page-head .primary-action")
+					page.wait_for_timeout(1200)
+					check(page.evaluate(ON_TOP, ".modal.show .modal-dialog"), "quick entry dialog not visible")
+					page.keyboard.press("Escape"); page.wait_for_timeout(500)
 
 			check(not errors, f"{tag}: page errors {errors[:3]}")
 			context.close()

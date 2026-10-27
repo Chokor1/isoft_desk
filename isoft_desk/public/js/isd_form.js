@@ -60,10 +60,6 @@
 			this.$head.on("click", ".isd-conn-toggle", () => {
 				this.open = !this.open;
 				this.render_connections();
-				// a heatmap drawn while folded has no width; draw it again now it shows
-				if (this.open && this.frm.dashboard.data && this.frm.dashboard.data.heatmap) {
-					this.frm.dashboard.render_heatmap();
-				}
 			});
 			this.$head.on("click", ".isd-conn-link", e => {
 				$(e.currentTarget).data("link").find(".badge-link").trigger("click");
@@ -117,7 +113,7 @@
 
 			if (!has_links && !has_heatmap) {
 				$row.prop("hidden", true);
-				$dash.removeClass("isd-dash-folded isd-dash-empty");
+				$dash.removeClass("isd-dash-folded");
 				return;
 			}
 
@@ -147,13 +143,9 @@
 			$toggle.attr("aria-expanded", String(this.open));
 			$row.prop("hidden", false);
 
-			// the folded card disappears when nothing else of the dashboard (progress,
-			// indicators, a custom section) is showing
+			// only Connections and the heatmap fold; progress, graphs, indicators and
+			// custom sections of the dashboard stay as core shows them
 			$dash.toggleClass("isd-dash-folded", !this.open);
-			const others = $dash.children(".form-dashboard-section")
-				.not(".form-links, .form-heatmap")
-				.filter((i, el) => el.style.display !== "none" && !$(el).hasClass("hidden"));
-			$dash.toggleClass("isd-dash-empty", !this.open && !others.length);
 		}
 
 		// ---- totals strip on transactions ----

@@ -200,8 +200,7 @@ body.isd-on .isd-list .isd-lpanel .standard-filter-section {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 8px 12px;
-	max-height: 60vh;
-	overflow-y: auto;
+	/* no scroll box here: a Link filter's suggestions open inside it and would be cut */
 }
 
 body.isd-on .isd-list .isd-lpanel .standard-filter-section .form-group {
@@ -295,6 +294,12 @@ body.isd-on .isd-list .list-subject a:focus-visible {
    window) takes it instead, leaving the same 16px gutter as the sides */
 body.isd-on .isd-list .layout-main-section-wrapper {
 	margin-bottom: 16px;
+}
+
+/* rows selected: the floating bulk-action bar (fixed 24px from the bottom) gets
+   its own space under the card instead of covering the paging footer */
+body.isd-on .isd-list.isd-bulk-open .layout-main-section-wrapper {
+	margin-bottom: 84px;
 }
 
 body.isd-on .isd-list .frappe-list {

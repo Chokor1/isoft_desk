@@ -42,6 +42,15 @@ STATE = """(() => {
 	};
 })()"""
 
+# a dropdown counts as open only when it is the top element at its own position
+# (a clipped or covered list is in the DOM but nobody can click it)
+ON_TOP = """(sel) => {
+	const el = [...document.querySelectorAll(sel)].find(e => !e.hidden && e.offsetParent !== null && e.getBoundingClientRect().height > 0);
+	if (!el) return false;
+	const r = el.getBoundingClientRect(), hit = document.elementFromPoint(r.left + Math.min(20, r.width / 2), r.top + Math.min(12, r.height / 2));
+	return !!hit && el.contains(hit);
+}"""
+
 
 def main(site, user="Administrator", shots=None):
 	os.chdir(os.path.expanduser("~/frappe-bench/sites"))
@@ -130,6 +139,12 @@ def run(site, sid, shots):
 				check(page.is_visible(".isd-lpanel .standard-filter-section"), "panel did not open")
 				if shots:
 					page.screenshot(path=os.path.join(shots, f"panel-{tag}.png"))
+				# a Link filter in the panel shows its suggestions over the list
+				link = page.locator(".isd-lpanel input[data-fieldname=customer]").first
+				if link.count():
+					link.click(); link.type("CON", delay=60); page.wait_for_timeout(1800)
+					check(page.evaluate(ON_TOP, ".isd-lpanel [data-fieldname=customer] .awesomplete ul"), "customer filter suggestions not visible")
+					link.fill(""); page.wait_for_timeout(300)
 				page.keyboard.press("Escape")
 				page.wait_for_timeout(200)
 				check(not page.is_visible(".isd-lpanel"), "panel did not close on Escape")
