@@ -143,12 +143,6 @@ test('filter_chips: docstatus values read as names; each chip keeps its filter',
 	assert.strictEqual(chips[0].condition, '=');
 });
 
-test('list_search_field: the title field when it is a standard filter, else ID', () => {
-	assert.strictEqual(core.list_search_field('title', ['name', 'title', 'company']), 'title');
-	assert.strictEqual(core.list_search_field('item_name', ['name', 'item_code']), 'name');
-	assert.strictEqual(core.list_search_field(null, ['name']), 'name');
-});
-
 test('filter_chips: labels and values are looked up on the filter\'s own DocType', () => {
 	const seen = [];
 	const chips = core.filter_chips([['Sales Invoice Item', 'item_code', '=', 'KIT-1']], Object.assign({}, opts, {

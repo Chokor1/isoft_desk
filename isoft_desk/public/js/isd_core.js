@@ -91,10 +91,6 @@
 	}
 
 	// the list search box filters on the title field when the list offers it, else on ID
-	function list_search_field(title_field, standard_fields) {
-		return title_field && standard_fields.includes(title_field) ? title_field : "name";
-	}
-
 	function as_list(value) {
 		return Array.isArray(value) ? value : String(value).split(",").map(v => v.trim()).filter(Boolean);
 	}
@@ -182,7 +178,7 @@
 
 	return {
 		route_mode, find_active, filter_groups, landing_workspace, theme_to_remember, direct_item,
-		fullscreen_toggle, effective_route, list_search_field, filter_chips,
+		fullscreen_toggle, effective_route, filter_chips,
 		form_summary, section_links, active_section,
 	};
 });

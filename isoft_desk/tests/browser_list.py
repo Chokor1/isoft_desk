@@ -21,7 +21,9 @@ STATE = """(() => {
 	return {
 		view: l.view_name,
 		bar: !!document.querySelector('.isd-list:not([style*="display: none"]) .isd-lbar') && !!bar,
-		search: bar ? bar.search_field : null,
+		order: [...document.querySelectorAll('.page-container:not([style*="display: none"]) .isd-lbar .standard-filter-section > .frappe-control')]
+			.map(e => e.dataset.fieldname),
+		core_order: Object.keys(l.page.fields_dict),
 		chips: [...document.querySelectorAll('.page-container:not([style*="display: none"]) .isd-chip-text')]
 			.filter(e => e.offsetParent).map(e => e.textContent),
 		filters: l.filter_area.get().length,
@@ -106,6 +108,7 @@ def run(site, sid, shots):
 				s = page.evaluate(STATE)
 				print(tag, route, s)
 				check(s["bar"], f"{tag} {route}: no toolbar")
+				check(s["order"] == s["core_order"], f"{tag} {route}: filters out of core's order {s['order']}")
 				check(s["standard_count"] > 0, f"{tag} {route}: standard filters not in the toolbar")
 				check(not s["standard_hidden"], f"{tag} {route}: standard filters hidden {s['standard_hidden']}")
 				check(s["sidebar_hidden"], f"{tag} {route}: Filter By column is open")

@@ -1,5 +1,5 @@
-/* ISOFT Desk List and Report views: one toolbar line (search, the standard
-   filters, chips of the Filter button's filters, sort), a full-width table with 36px rows, amounts that are
+/* ISOFT Desk List and Report views: one toolbar (the standard filters in
+   core's order, chips of the Filter button's filters, sort), a full-width table with 36px rows, amounts that are
    never cut and status as a coloured dot plus its word. isd_list.js adds
    .isd-list to the page and builds the toolbar from core's own controls. */
 
@@ -21,50 +21,6 @@ body.isd-on .isd-list .isd-lbar {
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 6px 8px;
-}
-
-body.isd-on .isd-list .isd-lbar-search {
-	position: relative;
-	flex: 0 1 220px;
-	min-width: 160px;
-}
-
-body.isd-on .isd-list .isd-lbar-search > .icon {
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 1;
-	--icon-stroke: var(--isd-ink-3);
-	pointer-events: none;
-}
-
-body.isd-on .isd-list .isd-lbar-search .frappe-control {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	max-width: none;
-	flex: none;
-}
-
-body.isd-on .isd-list .isd-lbar-search input {
-	height: 30px;
-	border: 1px solid var(--isd-rule-strong);
-	border-radius: var(--isd-radius);
-	background: var(--isd-surface);
-	color: var(--isd-ink);
-	font-size: 13px;
-	box-shadow: none;
-}
-
-body.isd-on .isd-list .isd-lbar-search input {
-	padding: 0 10px 0 32px;
-}
-
-body.isd-on .isd-list .isd-lbar-search input:focus {
-	border-color: var(--isd-accent-strong);
-	box-shadow: 0 0 0 3px var(--isd-accent-soft);
-	outline: none;
 }
 
 body.isd-on .isd-list .isd-lbar input::placeholder {
@@ -581,7 +537,7 @@ body.isd-on .isd-list .list-paging-area .level-left {
 	flex-wrap: nowrap;
 }
 
-/* ---- phones: search on its own line, the filters and chips wrap under it ---- */
+/* ---- phones: the filters and chips wrap, two or so to a line ---- */
 @media (max-width: 767.98px) {
 	body.isd-on .isd-list .page-form {
 		flex-wrap: wrap;
@@ -592,15 +548,6 @@ body.isd-on .isd-list .list-paging-area .level-left {
 		flex: 1 1 100%;
 	}
 
-	body.isd-on .isd-list .isd-lbar-search {
-		flex: 1 0 100%;
-	}
-
-	body.isd-on .isd-list .isd-lbar-search input {
-		/* 16px keeps iOS Safari from zooming the page on focus */
-		font-size: 16px;
-	}
-
 	body.isd-on .isd-list .isd-lbar .standard-filter-section .form-group {
 		flex: 1 1 140px;
 		max-width: none;
@@ -608,6 +555,7 @@ body.isd-on .isd-list .list-paging-area .level-left {
 
 	body.isd-on .isd-list .isd-lbar .standard-filter-section .form-control,
 	body.isd-on .isd-list .isd-lbar .standard-filter-section select.form-control {
+		/* 16px keeps iOS Safari from zooming the page on focus */
 		font-size: 16px;
 	}
 }

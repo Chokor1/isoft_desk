@@ -1,5 +1,5 @@
-// ISOFT Desk list toolbar for the List and Report views: a search box, the list's
-// standard filters always in view, and one chip per filter set through core's
+// ISOFT Desk list toolbar for the List and Report views: the list's standard
+// filters always in view, in core's order, and one chip per filter set through core's
 // Filter button. It is built from core's own filter controls (moved, never
 // copied), so filtering behaves exactly as in core.
 (function () {
@@ -94,7 +94,6 @@
 		constructor(list) {
 			this.list = list;
 			this.fields = list.page.fields_dict;
-			this.search_field = core.list_search_field(list.meta.title_field, Object.keys(this.fields));
 			this.make();
 			this.update();
 			list.set_result_height && list.set_result_height();
@@ -105,22 +104,13 @@
 			const $standard = $form.find(".standard-filter-section");
 			this.$bar = $(`
 				<div class="isd-lbar">
-					<div class="isd-lbar-search">${frappe.utils.icon("search", "sm")}</div>
 					<ul class="isd-chips" aria-label="${t("Active filters")}"></ul>
 				</div>
 			`).prependTo($form);
 
-			// the search box is the list's own title (or ID) filter control
-			const search = this.fields[this.search_field];
-			if (search) {
-				this.$bar.find(".isd-lbar-search").append(search.$wrapper);
-				const label = this.search_field === "name" ? __("ID") : __(search.df.label);
-				search.$input.attr("placeholder", t("Search {0}", [label]));
-			}
-
-			// the list's standard filters stay in view, as core lays them out: one
-			// field each, named by its placeholder and its hover title
-			$standard.insertAfter(this.$bar.find(".isd-lbar-search"));
+			// the list's standard filters stay in view in core's order (ID, title, then
+			// the DocType's own), each named by its placeholder and hover title as in core
+			$standard.prependTo(this.$bar);
 			this.$chips = this.$bar.find(".isd-chips");
 			this.bind();
 		}
