@@ -54,6 +54,18 @@ html.isd-on {
 
 html.isd-on[data-theme="dark"] {
 	background-color: #0e151c;
+
+	/* core's dark palette is a neutral grey scale; every core surface (cards,
+	   page heads, default buttons, controls, list sidebar, dropdowns, Kanban,
+	   Image and Dashboard views, dialogs) is built from these steps. They are
+	   declared on <html> and resolved there, so the slate equivalents must be
+	   too: steps 300 and up (text and icons) stay core's */
+	--gray-900: #0e151c; /* ground */
+	--gray-800: #151f29; /* surface: cards, page heads, buttons */
+	--gray-700: #1f2d3a; /* controls, hover, borders */
+	--gray-600: #34475a; /* strong rules */
+	--gray-500: #52667a;
+	--gray-400: #8696a6; /* muted text */
 }
 
 [data-theme="dark"] body.isd-on {
