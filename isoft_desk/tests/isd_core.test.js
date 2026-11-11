@@ -86,7 +86,7 @@ test('effective_route: bare /app means the workspace it shows', () => {
 
 const LABELS = { company: 'Company', status: 'Status', grand_total: 'Grand Total', posting_date: 'Date', docstatus: 'Document Status', title: 'Title' };
 const opts = {
-	search_field: 'title',
+	standard_fields: ['name', 'title', 'customer'],
 	label_of: f => LABELS[f] || f,
 	value_of: (f, v) => (f === 'docstatus' ? ({ 0: 'Draft', 1: 'Submitted', 2: 'Cancelled' })[v] : v),
 	words: { set: 'set', not_set: 'not set', not: 'not' },
@@ -100,12 +100,20 @@ test('filter_chips: equals and like read as Label: value', () => {
 	]), ['Company: ITEC LDA', 'Status: Overdue']);
 });
 
-test('filter_chips: the search field and hidden filters get no chip', () => {
+test('filter_chips: standard filter fields and hidden filters get no chip', () => {
 	assert.deepStrictEqual(texts([
 		['Sales Invoice', 'title', 'like', '%mango%'],
+		['Sales Invoice', 'customer', '=', 'ACME'],
 		['Sales Invoice', 'company', '=', 'ITEC LDA', true],
 		['Sales Invoice', 'status', '=', 'Paid', false],
 	]), ['Status: Paid']);
+});
+
+test('filter_chips: a standard field set through the Filter button with another condition keeps its chip', () => {
+	assert.deepStrictEqual(texts([
+		['Sales Invoice', 'customer', '!=', 'ACME'],
+		['Sales Invoice', 'customer', 'in', ['A', 'B']],
+	]), ['customer: not ACME', 'customer: A, B']);
 });
 
 test('filter_chips: comparisons, lists, ranges and set/not set', () => {

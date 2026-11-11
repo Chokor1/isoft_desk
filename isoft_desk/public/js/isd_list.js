@@ -1,6 +1,7 @@
-// ISOFT Desk list toolbar for the List and Report views: a search box, one chip
-// per active filter and "+ Add filter". It is built from core's own filter
-// controls (moved, never copied), so filtering behaves exactly as in core.
+// ISOFT Desk list toolbar for the List and Report views: a search box, the list's
+// standard filters always in view, and one chip per filter set through core's
+// Filter button. It is built from core's own filter controls (moved, never
+// copied), so filtering behaves exactly as in core.
 (function () {
 	const conf = (frappe.boot && frappe.boot.isoft_desk) || {};
 	if (!conf.active || !frappe.views || !frappe.views.BaseList) return;
@@ -106,12 +107,6 @@
 				<div class="isd-lbar">
 					<div class="isd-lbar-search">${frappe.utils.icon("search", "sm")}</div>
 					<ul class="isd-chips" aria-label="${t("Active filters")}"></ul>
-					<button type="button" class="isd-add" aria-expanded="false">
-						${frappe.utils.icon("add", "xs")}<span>${t("Add filter")}</span>
-					</button>
-					<div class="isd-lpanel" role="dialog" aria-label="${t("Add filter")}" hidden>
-						<div class="isd-lpanel-fields"></div>
-					</div>
 				</div>
 			`).prependTo($form);
 
@@ -123,72 +118,39 @@
 				search.$input.attr("placeholder", t("Search {0}", [label]));
 			}
 
-			// every other standard filter lives in the panel; core's filter button stays
-			// on the right beside sort and opens its own popover for any field and condition
-			this.$panel = this.$bar.find(".isd-lpanel");
-			this.$panel.find(".isd-lpanel-fields").append($standard);
-			// core draws these controls without labels (the placeholder is the label),
-			// so a filled field would not say what it filters; the label sits outside
-			// the control, whose select arrow and placeholder are positioned inside it
-			Object.values(this.fields).forEach(field => {
-				if (field === search || field.df.fieldtype === "Check" || !field.$wrapper) return;
-				field.$wrapper
-					.wrap(`<div class="isd-lpanel-item"></div>`)
-					.before($(`<label class="isd-lpanel-label"></label>`).text(__(field.df.label)));
-			});
-			this.$add = this.$bar.find(".isd-add");
+			// the list's standard filters stay in view, as core lays them out: one
+			// field each, named by its placeholder and its hover title
+			$standard.insertAfter(this.$bar.find(".isd-lbar-search"));
 			this.$chips = this.$bar.find(".isd-chips");
 			this.bind();
 		}
 
 		bind() {
-			this.$add.on("click", () => this.toggle_panel(this.$panel.prop("hidden")));
-
 			this.$chips.on("click", ".isd-chip-x", e => {
 				this.remove($(e.currentTarget).closest(".isd-chip").data("chip"));
 			});
-			this.$chips.on("click", ".isd-chip-text", e => {
-				this.edit($(e.currentTarget).closest(".isd-chip").data("chip"));
-			});
-
-			const ns = `.isd_lbar_${frappe.scrub(this.list.doctype)}_${this.list.view_name}`;
-			$(document).on(`mousedown${ns}`, e => {
-				if (this.$panel.prop("hidden")) return;
-				const $t = $(e.target);
-				// date pickers open outside the panel, on the body
-				if ($t.closest(".isd-lpanel, .isd-add, .datepicker").length) return;
-				this.toggle_panel(false);
-			});
-			$(document).on(`keydown${ns}`, e => {
-				if (e.key === "Escape" && !this.$panel.prop("hidden")) {
-					this.toggle_panel(false);
-					this.$add.trigger("focus");
-				}
-			});
-			frappe.router.on("change", () => this.toggle_panel(false));
-		}
-
-		toggle_panel(open) {
-			this.$panel.prop("hidden", !open);
-			this.$add.attr("aria-expanded", String(open));
-			this.$bar.toggleClass("is-open", open);
+			this.$chips.on("click", ".isd-chip-text", () => this.open_advanced());
 		}
 
 		// core's popover closes on any click outside it, so it opens after this click is done
 		open_advanced() {
-			this.toggle_panel(false);
 			const $button = this.list.filter_area.filter_button;
 			setTimeout(() => $button.popover("show"), 0);
 		}
 
+		// chips name only the filters set through core's Filter button; the
+		// standard ones already show their value in their own field
 		update() {
 			const fa = this.list.filter_area;
 			if (!fa || !fa.filter_list) return;
 			const chips = core.filter_chips(fa.get(), {
-				search_field: this.search_field,
+				standard_fields: Object.keys(this.fields),
 				label_of: (fieldname, doctype) => this.label_of(fieldname, doctype),
 				value_of: (fieldname, value, doctype) => this.value_of(fieldname, value, doctype),
 				words: { set: t("set"), not_set: t("not set"), not: t("not") },
+			});
+			Object.values(this.fields).forEach(field => {
+				field.$input && field.$input.toggleClass("isd-filled", Boolean(field.get_value()));
 			});
 			this.$chips.empty();
 			chips.forEach(chip => {
@@ -231,11 +193,6 @@
 			return value;
 		}
 
-		is_standard(chip) {
-			const field = this.fields[chip.fieldname];
-			return Boolean(field && ["=", "like"].includes(chip.condition) && field.get_value());
-		}
-
 		find_filter(chip) {
 			const same = JSON.stringify([chip.fieldname, chip.condition, chip.value]);
 			return this.list.filter_area.filter_list.filters.find(f =>
@@ -243,24 +200,10 @@
 		}
 
 		remove(chip) {
-			if (this.is_standard(chip)) {
-				// clearing a standard filter fires its own onchange, which refreshes the list
-				this.fields[chip.fieldname].set_value("");
-				return;
-			}
 			const filter = this.find_filter(chip);
 			if (filter) {
 				filter.remove();
 				this.list.filter_area.filter_list.apply();
-			}
-		}
-
-		edit(chip) {
-			if (this.is_standard(chip)) {
-				this.toggle_panel(true);
-				this.fields[chip.fieldname].$input && this.fields[chip.fieldname].$input.trigger("focus");
-			} else {
-				this.open_advanced();
 			}
 		}
 	}

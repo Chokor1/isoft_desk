@@ -99,13 +99,16 @@
 		return Array.isArray(value) ? value : String(value).split(",").map(v => v.trim()).filter(Boolean);
 	}
 
-	// one chip per active list filter ([doctype, field, condition, value, hidden]);
-	// labels, value names and the few words are passed in so they arrive translated
+	// one chip per active list filter ([doctype, field, condition, value, hidden])
+	// that no standard filter field shows (core keeps "=" and "like" filters on a
+	// standard field in that field); labels, value names and the few words are
+	// passed in so they arrive translated
 	function filter_chips(filters, opts) {
 		const words = opts.words;
+		const standard = opts.standard_fields || [];
 		return (filters || [])
 			.filter(f => !f[4])
-			.filter(f => !(f[1] === opts.search_field && (f[2] === "like" || f[2] === "=")))
+			.filter(f => !(standard.includes(f[1]) && (f[2] === "like" || f[2] === "=")))
 			.map(([doctype, fieldname, condition, value]) => {
 				const label = opts.label_of(fieldname, doctype);
 				const name = v => String(opts.value_of(fieldname, v, doctype));

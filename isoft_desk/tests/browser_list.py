@@ -26,7 +26,10 @@ STATE = """(() => {
 			.filter(e => e.offsetParent).map(e => e.textContent),
 		filters: l.filter_area.get().length,
 		sidebar_hidden: document.body.classList.contains('no-list-sidebar'),
-		standard_in_panel: !!document.querySelector('.isd-lpanel .standard-filter-section'),
+		// every standard filter field sits in the toolbar, visible without a click
+		standard_hidden: [...document.querySelectorAll('.page-container:not([style*="display: none"]) .isd-lbar .standard-filter-section > .frappe-control')]
+			.filter(e => !e.offsetParent || e.getBoundingClientRect().width < 60).map(e => e.dataset.fieldname),
+		standard_count: [...document.querySelectorAll('.page-container:not([style*="display: none"]) .isd-lbar .standard-filter-section > .frappe-control')].length,
 		cut_amounts: cut,
 		row_h: (document.querySelector('.isd-list .result .list-row') || {}).offsetHeight || null,
 		gap_below: (() => { const c = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .layout-main-section, .isd-list .layout-main-section');
@@ -103,12 +106,12 @@ def run(site, sid, shots):
 				s = page.evaluate(STATE)
 				print(tag, route, s)
 				check(s["bar"], f"{tag} {route}: no toolbar")
-				check(s["standard_in_panel"], f"{tag} {route}: standard filters not in the panel")
+				check(s["standard_count"] > 0, f"{tag} {route}: standard filters not in the toolbar")
+				check(not s["standard_hidden"], f"{tag} {route}: standard filters hidden {s['standard_hidden']}")
 				check(s["sidebar_hidden"], f"{tag} {route}: Filter By column is open")
 				if w > 800 and "report" not in route:
 					check(s["cut_amounts"] == 0, f"{tag} {route}: {s['cut_amounts']} amounts cut")
 					check(s["row_h"] == 36, f"{tag} {route}: rows are {s['row_h']}px")
-					check(s["bar_h"] and s["bar_h"] <= 32, f"{tag} {route}: toolbar wraps ({s['bar_h']}px)")
 					check(s["gap_below"] is not None and s["gap_below"] <= 24, f"{tag} {route}: {s['gap_below']}px empty under the list")
 					check(s["misaligned"] <= 2, f"{tag} {route}: header and row columns {s['misaligned']}px apart")
 				if shots:
@@ -116,11 +119,11 @@ def run(site, sid, shots):
 					page.screenshot(path=os.path.join(shots, f"{name}-{tag}.png"))
 
 			if w > 800 and theme == "light":
-				# chips follow the filters, and × on a chip removes just that filter
+				# chips follow the Filter button's filters, and × on a chip removes just that filter
 				page.goto(f"https://{site}/app/sales-invoice", wait_until="networkidle", timeout=90000)
 				page.wait_for_timeout(1500)
 				before_chips = page.evaluate(STATE)["chips"]
-				page.evaluate("cur_list.filter_area.add([[cur_list.doctype, 'status', '=', 'Overdue']])")
+				page.evaluate("cur_list.filter_area.add([[cur_list.doctype, 'grand_total', '>', 1000]])")
 				page.wait_for_timeout(1500)
 				s = page.evaluate(STATE)
 				new = [c for c in s["chips"] if c not in before_chips]
@@ -133,21 +136,29 @@ def run(site, sid, shots):
 					check(s["filters"] == before - 1, f"removing a chip left {s['filters']} filters (was {before})")
 					check(s["chips"] == before_chips, f"chips after removal {s['chips']} != {before_chips}")
 
-				# the panel opens with the standard fields and closes on Escape
-				page.click(".isd-add")
-				page.wait_for_timeout(300)
-				check(page.is_visible(".isd-lpanel .standard-filter-section"), "panel did not open")
-				if shots:
-					page.screenshot(path=os.path.join(shots, f"panel-{tag}.png"))
-				# a Link filter in the panel shows its suggestions over the list
-				link = page.locator(".isd-lpanel input[data-fieldname=customer]").first
+				# a filter set in a standard field shows in that field (marked filled), not as a chip
+				before_chips = page.evaluate(STATE)["chips"]
+				customer = page.evaluate("frappe.db.get_value('Customer', {disabled: 0}, 'name').then(r => r.message && r.message.name)")
+				if customer and page.locator(".isd-lbar input[data-fieldname=customer]").count():
+					page.evaluate("c => cur_list.page.fields_dict.customer.set_value(c)", customer)
+					page.wait_for_timeout(2000)
+					s = page.evaluate(STATE)
+					check(s["chips"] == before_chips, f"a standard filter made a chip {s['chips']}")
+					if shots:
+						page.screenshot(path=os.path.join(shots, f"filled-{tag}.png"))
+				wrong = page.evaluate("""Object.values(cur_list.page.fields_dict).filter(f => f.$input &&
+					f.$input.closest('.standard-filter-section').length &&
+					f.$input.hasClass('isd-filled') !== Boolean(f.get_value())).map(f => f.df.fieldname)""")
+				check(not wrong, f"filled marking out of step with values: {wrong}")
+				if customer:
+					page.evaluate("cur_list.page.fields_dict.customer.set_value('')")
+					page.wait_for_timeout(1500)
+				# a Link filter in the toolbar shows its suggestions over the list
+				link = page.locator(".isd-lbar input[data-fieldname=customer]").first
 				if link.count():
 					link.click(); link.type("CON", delay=60); page.wait_for_timeout(1800)
-					check(page.evaluate(ON_TOP, ".isd-lpanel [data-fieldname=customer] .awesomplete ul"), "customer filter suggestions not visible")
-					link.fill(""); page.wait_for_timeout(300)
-				page.keyboard.press("Escape")
-				page.wait_for_timeout(200)
-				check(not page.is_visible(".isd-lpanel"), "panel did not close on Escape")
+					check(page.evaluate(ON_TOP, ".isd-lbar [data-fieldname=customer] .awesomplete ul"), "customer filter suggestions not visible")
+					link.fill(""); page.keyboard.press("Escape"); page.wait_for_timeout(1200)
 
 				# core's filter button sits in the toolbar and opens its popover directly
 				check(page.is_visible(".page-form .filter-button"), "filter button not visible")

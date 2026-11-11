@@ -1,5 +1,5 @@
-/* ISOFT Desk List and Report views: one toolbar line (search, filter chips,
-   "+ Add filter", sort), a full-width table with 36px rows, amounts that are
+/* ISOFT Desk List and Report views: one toolbar line (search, the standard
+   filters, chips of the Filter button's filters, sort), a full-width table with 36px rows, amounts that are
    never cut and status as a coloured dot plus its word. isd_list.js adds
    .isd-list to the page and builds the toolbar from core's own controls. */
 
@@ -25,16 +25,8 @@ body.isd-on .isd-list .isd-lbar {
 
 body.isd-on .isd-list .isd-lbar-search {
 	position: relative;
-	flex: 0 1 280px;
-	min-width: 180px;
-}
-
-/* with chips beside it the search gives up width, so search, the usual three
-   chips and "+ Add filter" share one line at 1366px */
-body.isd-on .isd-list .isd-lbar.has-chips .isd-lbar-search {
-	flex: 1 1 160px;
+	flex: 0 1 220px;
 	min-width: 160px;
-	max-width: 280px;
 }
 
 body.isd-on .isd-list .isd-lbar-search > .icon {
@@ -55,8 +47,7 @@ body.isd-on .isd-list .isd-lbar-search .frappe-control {
 	flex: none;
 }
 
-body.isd-on .isd-list .isd-lbar-search input,
-body.isd-on .isd-list .isd-lpanel .form-control {
+body.isd-on .isd-list .isd-lbar-search input {
 	height: 30px;
 	border: 1px solid var(--isd-rule-strong);
 	border-radius: var(--isd-radius);
@@ -70,15 +61,13 @@ body.isd-on .isd-list .isd-lbar-search input {
 	padding: 0 10px 0 32px;
 }
 
-body.isd-on .isd-list .isd-lbar-search input:focus,
-body.isd-on .isd-list .isd-lpanel .form-control:focus {
+body.isd-on .isd-list .isd-lbar-search input:focus {
 	border-color: var(--isd-accent-strong);
 	box-shadow: 0 0 0 3px var(--isd-accent-soft);
 	outline: none;
 }
 
-body.isd-on .isd-list .isd-lbar input::placeholder,
-body.isd-on .isd-list .isd-lpanel .form-control::placeholder {
+body.isd-on .isd-list .isd-lbar input::placeholder {
 	color: var(--isd-ink-3);
 }
 
@@ -146,94 +135,70 @@ body.isd-on .isd-list .isd-chip button:focus-visible {
 	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
 }
 
-/* "+ Add filter" opens the panel of the list's standard filters */
-body.isd-on .isd-list .isd-add {
-	height: 28px;
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	padding: 0 8px;
-	border: 0;
-	border-radius: var(--isd-radius);
-	background: transparent;
-	color: var(--isd-accent-text);
-	font-size: 13px;
-	font-weight: 500;
-	white-space: nowrap;
-	cursor: pointer;
-	--icon-stroke: currentColor;
+/* the list's standard filters, always in view in the toolbar line: core's own
+   controls, named by their placeholder (and hover title) as in core */
+body.isd-on .isd-list .isd-lbar .standard-filter-section {
+	display: contents;
+	/* no scroll box here: a Link filter's suggestions open below it and would be cut */
 }
 
-body.isd-on .isd-list .isd-add:hover,
-body.isd-on .isd-list .isd-lbar.is-open .isd-add {
-	background: var(--isd-hover);
-}
-
-body.isd-on .isd-list .isd-add:focus {
-	outline: none;
-}
-
-body.isd-on .isd-list .isd-add:focus-visible {
-	background: var(--isd-hover);
-	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
-}
-
-/* the panel of standard filters */
-body.isd-on .isd-list .isd-lpanel {
-	position: absolute;
-	top: calc(100% + 6px);
-	left: 0;
-	z-index: 1040;
-	width: min(560px, calc(100vw - 32px));
-	padding: 12px;
-	background: var(--isd-surface);
-	border: 1px solid var(--isd-rule);
-	border-radius: 8px;
-	box-shadow: var(--isd-shadow-menu);
-}
-
-body.isd-on .isd-list .isd-lpanel[hidden] {
-	display: none;
-}
-
-body.isd-on .isd-list .isd-lpanel .standard-filter-section {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 8px 12px;
-	/* no scroll box here: a Link filter's suggestions open inside it and would be cut */
-}
-
-body.isd-on .isd-list .isd-lpanel .standard-filter-section .form-group {
-	min-width: 0;
-	max-width: none;
+body.isd-on .isd-list .isd-lbar .standard-filter-section .form-group {
+	flex: 0 1 160px;
+	min-width: 120px;
+	max-width: 200px;
 	width: auto;
 	margin: 0;
 	padding: 0;
-	flex: none;
 }
 
-body.isd-on .isd-list .isd-lpanel-item {
-	min-width: 0;
+body.isd-on .isd-list .isd-lbar .standard-filter-section .form-control {
+	height: 30px;
+	padding: 0 10px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background-color: var(--isd-surface);
+	color: var(--isd-ink);
+	font-size: 13px;
+	box-shadow: none;
 }
 
-body.isd-on .isd-list .isd-lpanel-label {
-	display: block;
-	margin: 0 0 4px;
-	color: var(--isd-ink-2);
-	font-size: 12px;
+body.isd-on .isd-list .isd-lbar .standard-filter-section select.form-control {
+	padding-right: 28px;
+}
+
+body.isd-on .isd-list .isd-lbar .standard-filter-section .form-control:focus {
+	border-color: var(--isd-accent-strong);
+	box-shadow: 0 0 0 3px var(--isd-accent-soft);
+	outline: none;
+}
+
+/* a filled filter reads on Blue Tint, so the set ones stand out from the empty ones */
+body.isd-on .isd-list .isd-lbar .standard-filter-section .form-control.isd-filled {
+	border-color: color-mix(in srgb, var(--isd-accent-strong) 45%, var(--isd-rule-strong));
+	background-color: var(--isd-accent-soft);
+	color: var(--isd-accent-text);
 	font-weight: 500;
 }
 
-body.isd-on .isd-list .isd-lpanel .standard-filter-section {
-	align-items: end;
+body.isd-on .isd-list .isd-lbar .standard-filter-section .form-control::placeholder {
+	color: var(--isd-ink-3);
 }
 
-body.isd-on .isd-list .isd-lpanel .checkbox {
+/* a tick box takes only the room of its box and word */
+body.isd-on .isd-list .isd-lbar .standard-filter-section .form-group[data-fieldtype="Check"] {
+	flex: none;
+	min-width: 0;
+	max-width: none;
+	padding: 0 4px;
+}
+
+body.isd-on .isd-list .isd-lbar .standard-filter-section .checkbox {
 	min-height: 30px;
 	display: flex;
 	align-items: center;
 	margin: 0;
 	color: var(--isd-ink);
+	white-space: nowrap;
 }
 
 /* core's filter button (any field, any condition), (Report view) group-by and
@@ -616,7 +581,7 @@ body.isd-on .isd-list .list-paging-area .level-left {
 	flex-wrap: nowrap;
 }
 
-/* ---- phones: search on its own line, chips and "+ Add filter" wrap under it ---- */
+/* ---- phones: search on its own line, the filters and chips wrap under it ---- */
 @media (max-width: 767.98px) {
 	body.isd-on .isd-list .page-form {
 		flex-wrap: wrap;
@@ -636,17 +601,14 @@ body.isd-on .isd-list .list-paging-area .level-left {
 		font-size: 16px;
 	}
 
-	body.isd-on .isd-list .isd-lpanel {
-		position: fixed;
-		top: auto;
-		left: 12px;
-		right: 12px;
-		bottom: 12px;
-		width: auto;
+	body.isd-on .isd-list .isd-lbar .standard-filter-section .form-group {
+		flex: 1 1 140px;
+		max-width: none;
 	}
 
-	body.isd-on .isd-list .isd-lpanel .standard-filter-section {
-		grid-template-columns: 1fr;
+	body.isd-on .isd-list .isd-lbar .standard-filter-section .form-control,
+	body.isd-on .isd-list .isd-lbar .standard-filter-section select.form-control {
+		font-size: 16px;
 	}
 }
 
