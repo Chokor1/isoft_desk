@@ -39,6 +39,12 @@ STATE = """(() => {
 		cut_amounts: [...document.querySelectorAll('.dt-scrollable .dt-cell__content')].filter(e => e.offsetParent
 			&& /^-?[\d\s.,]+$/.test(e.textContent.replace(/A?KZ/g, '').trim()) && /\d/.test(e.textContent)
 			&& e.scrollWidth > e.clientWidth + 1).map(e => e.textContent.trim()).slice(0, 5),
+		// the card ends a small margin above the window; only the grid scrolls
+		page_scroll: document.documentElement.scrollHeight - innerHeight,
+		gap: (() => { const c = qr.page.wrapper.find('.layout-main-section')[0]; return c ? Math.round(innerHeight - c.getBoundingClientRect().bottom) : null; })(),
+		// the grid never runs past its wrapper (frappe-datatable fixes its width at draw time)
+		grid_over: (() => { const g = qr.datatable && qr.datatable.bodyScrollable, w = g && g.closest('.datatable');
+			return g && g.offsetParent ? g.offsetWidth - w.clientWidth : 0; })(),
 		orphan_labels: [...form.querySelectorAll('.isd-rf-item')].filter(i => getComputedStyle(i).display !== 'none'
 			&& getComputedStyle(i.querySelector('.frappe-control')).display === 'none').map(i => i.textContent.trim()),
 	};
@@ -93,6 +99,19 @@ def main(site, user="Administrator", shots=None):
 					check(not s["cut_amounts"], f"{tag} {report}: amounts cut {s['cut_amounts']}")
 				if w > 991:
 					check(s["rail"], f"{tag} {report}: the sidebar did not collapse to its rail")
+				check(s["grid_over"] <= 1, f"{tag} {report}: the grid is {s['grid_over']}px wider than its card")
+				if w > 991 and s["rows"]:
+					check(s["page_scroll"] <= 0, f"{tag} {report}: the page scrolls {s['page_scroll']}px")
+					check(s["gap"] is not None and 8 <= s["gap"] <= 24, f"{tag} {report}: {s['gap']}px under the card")
+				if w > 991 and s["rows"] and i == 0:
+					# the card narrows after the grid has drawn (a page scrollbar or the sidebar
+					# opening): the grid follows it instead of cutting its last columns
+					page.evaluate("document.querySelector('.isd-qr .layout-main-section-wrapper').style.paddingRight = '170px'")
+					page.wait_for_timeout(1200)
+					n = page.evaluate(STATE)
+					check(n["grid_over"] <= 1, f"{tag} {report}: after the card narrowed the grid is {n['grid_over']}px too wide")
+					page.evaluate("document.querySelector('.isd-qr .layout-main-section-wrapper').style.paddingRight = ''")
+					page.wait_for_timeout(1200)
 				check(not s["header_tools"], f"{tag} {report}: tools still in the header {s['header_tools']}")
 				if s["rows"]:
 					check(s["folded"] and not s["form_shown"] and s["chips"], f"{tag} {report}: filters did not fold to chips")

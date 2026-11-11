@@ -9,6 +9,12 @@ body.isd-on .isd-qr :is(.layout-main-section, .page-form, .isd-rfold, .chart-wra
 	background: var(--isd-surface);
 }
 
+/* core keeps 60px under the card; the grid (sized by isd_report.js to end
+   16px above the window) takes it, so the page itself never scrolls */
+body.isd-on .isd-qr .layout-main-section-wrapper {
+	margin-bottom: 16px;
+}
+
 /* ---- the filter fold row ---- */
 body.isd-on .isd-qr .isd-rfold {
 	display: flex;

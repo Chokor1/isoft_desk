@@ -59,8 +59,68 @@
 		} catch (e) {
 			// a report with an unusual grid keeps core's widths
 		}
+		this.isd_fit_setup();
+		this.isd_fit();
 		return out;
 	});
+
+	// the report card ends a small margin above the window and only the grid
+	// scrolls, never the page. The grid also follows its card's width:
+	// frappe-datatable fixes its scroll area to the width it saw when it drew and,
+	// in a report, never measures again, so a page scrollbar or the sidebar
+	// opening after the draw left the grid wider than its card, the last columns
+	// cut off until the window was resized
+	const FIT_MARGIN = 16;
+	const MIN_GRID = 120;
+
+	proto.isd_fit = function () {
+		if (this.isd_fit_frame) return;
+		this.isd_fit_frame = requestAnimationFrame(() => {
+			this.isd_fit_frame = null;
+			try {
+				fit_report(this);
+			} catch (e) {
+				// a report without a grid keeps core's sizing
+			}
+		});
+	};
+
+	proto.isd_fit_setup = function () {
+		if (this.isd_fit_ready) return;
+		this.isd_fit_ready = true;
+		$(window).on("resize.isd_report_fit", () => this.isd_fit());
+		if (window.ResizeObserver) {
+			// filters folding, the chart or summary showing, the sidebar opening
+			const watch = new ResizeObserver(() => this.isd_fit());
+			this.page.wrapper.find(".layout-main-section, .page-form").each((i, el) => watch.observe(el));
+			this.$report && this.$report[0] && watch.observe(this.$report[0]);
+		}
+	};
+
+	function fit_report(report) {
+		const dt = report.datatable;
+		const grid = dt && dt.bodyScrollable;
+		const card = report.page.wrapper.find(".layout-main-section")[0];
+		if (!grid || !grid.offsetParent || !card || !card.offsetParent) return;
+
+		// width first: the grid may be no wider than its own wrapper
+		const room_x = dt.datatableWrapper && dt.datatableWrapper.clientWidth;
+		if (room_x && grid.offsetWidth > room_x + 1 && dt.style && dt.style.setBodyStyle) {
+			dt.style.setBodyStyle();
+		} else if (room_x && dt.style && dt.style.setBodyStyle && report.isd_fit_width !== room_x && report.isd_fit_width) {
+			// the card grew (sidebar closed): let the grid take the room again
+			dt.style.setBodyStyle();
+		}
+		report.isd_fit_width = room_x;
+
+		const room_y = window.innerHeight - FIT_MARGIN - (card.getBoundingClientRect().bottom + window.scrollY);
+		const now = grid.getBoundingClientRect().height;
+		const height = Math.max(Math.round(now + room_y), MIN_GRID);
+		if (Math.abs(height - now) < 1) return;
+		grid.style.setProperty("height", `${height}px`, "important");
+		grid.style.setProperty("max-height", "none", "important");
+		grid.style.setProperty("min-height", "0", "important");
+	}
 
 	function fit_number_columns(report) {
 		const dt = report.datatable;
