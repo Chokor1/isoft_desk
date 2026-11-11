@@ -1,0 +1,329 @@
+/* ISOFT Desk: the list's Filter By column and the Dashboard, Kanban and Image
+   views, on the desk's surfaces. Look only: every control, menu and drag stays
+   core's, so these views behave exactly as before. */
+
+/* ---- Filter By column (List, Report, Image, Kanban) ---- */
+body.isd-on .list-sidebar .sidebar-section {
+	margin-bottom: 20px;
+}
+
+body.isd-on .list-sidebar .sidebar-label {
+	margin: 0 0 6px;
+	padding: 0 8px;
+	color: var(--isd-ink-3);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+/* group-by and tags: flat rows with the value menu's caret, not boxed buttons */
+body.isd-on .list-sidebar .list-sidebar-button {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px;
+	width: 100%;
+	height: 30px;
+	margin: 0;
+	padding: 0 8px;
+	background: transparent;
+	border: 0;
+	border-radius: var(--isd-radius);
+	box-shadow: none;
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 400;
+	--icon-stroke: var(--isd-ink-3);
+}
+
+body.isd-on .list-sidebar .list-sidebar-button:hover,
+body.isd-on .list-sidebar .list-sidebar-button[aria-expanded="true"] {
+	background: var(--isd-hover);
+	color: var(--isd-ink);
+}
+
+body.isd-on .list-sidebar .list-sidebar-button:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+body.isd-on .list-sidebar .list-sidebar-button:focus-visible {
+	box-shadow: inset 0 0 0 2px var(--isd-accent-strong);
+}
+
+body.isd-on .list-sidebar .list-link {
+	margin: 0;
+}
+
+/* "Edit Filters", "Show Tags", "Show Saved": quiet links under their section */
+body.isd-on .list-sidebar .sidebar-action {
+	margin: 2px 0 0;
+	padding: 0 8px;
+}
+
+body.isd-on .list-sidebar .sidebar-action a {
+	color: var(--isd-accent-text);
+	font-size: 12px;
+	font-weight: 500;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+body.isd-on .list-sidebar .sidebar-action a:hover {
+	text-decoration: underline;
+}
+
+body.isd-on .list-sidebar .save-filter-section .form-group {
+	margin: 0;
+}
+
+body.isd-on .list-sidebar .save-filter-section .form-control {
+	height: 30px;
+	padding: 0 10px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+	font-size: 13px;
+	box-shadow: none;
+}
+
+body.isd-on .list-sidebar .save-filter-section .form-control:focus {
+	border-color: var(--isd-accent-strong);
+	box-shadow: 0 0 0 3px var(--isd-accent-soft);
+}
+
+body.isd-on .list-sidebar .save-filter-section .checkbox {
+	padding: 0 8px;
+	color: var(--isd-ink-2);
+	font-size: 12px;
+}
+
+/* the value menus (Assigned To, Created By, Tags) */
+body.isd-on .list-sidebar .dropdown-menu .dropdown-search .form-control {
+	height: 28px;
+	border: 1px solid var(--isd-rule-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+}
+
+body.isd-on .list-sidebar .dropdown-menu .stat-link,
+body.isd-on .list-sidebar .dropdown-menu .group-by-item {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ---- Dashboard view: core's widgets on the desk's cards (no cyan top bar) ---- */
+body.isd-on .dashboard-view {
+	padding: 4px 0 24px;
+}
+
+body.isd-on .dashboard-view .widget-group-body {
+	gap: 12px;
+}
+
+body.isd-on .dashboard-view .widget {
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule) !important;
+	border-radius: var(--isd-radius) !important;
+	box-shadow: none !important;
+	color: var(--isd-ink);
+}
+
+body.isd-on .dashboard-view .widget::before,
+body.isd-on .dashboard-view .widget::after {
+	display: none !important;
+}
+
+body.isd-on .dashboard-view .widget:hover {
+	border-color: var(--isd-rule-strong) !important;
+}
+
+body.isd-on .dashboard-view .widget-title {
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+body.isd-on .dashboard-view .widget-subtitle {
+	color: var(--isd-ink-3);
+	font-size: 12px;
+}
+
+body.isd-on .dashboard-view .number-widget-box .widget-content .number {
+	color: var(--isd-ink);
+	font-size: 26px;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	font-variant-numeric: tabular-nums;
+}
+
+/* the widgets' own controls: quiet icon buttons */
+body.isd-on .dashboard-view .widget-control .btn,
+body.isd-on .dashboard-view .widget-control .dropdown > .btn {
+	height: 26px;
+	min-width: 26px;
+	padding: 0 6px;
+	background: transparent;
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	box-shadow: none;
+	color: var(--isd-ink-2);
+	font-size: 12px;
+	--icon-stroke: var(--isd-ink-2);
+}
+
+body.isd-on .dashboard-view .widget-control .btn:hover {
+	background: var(--isd-hover);
+}
+
+/* ---- Kanban ---- */
+body.isd-on {
+	--kanban-column-bg: var(--isd-hover);
+	--kanban-card-bg: var(--isd-surface);
+	--kanban-card-hover-bg: var(--isd-surface);
+	--kanban-new-card-bg: var(--isd-surface);
+	--kanban-new-card-hover-bg: var(--isd-surface);
+}
+
+body.isd-on .kanban {
+	gap: 12px;
+	padding: 4px 0 16px;
+}
+
+body.isd-on .kanban .kanban-column {
+	margin: 0;
+	border-radius: 8px;
+	background: var(--kanban-column-bg);
+	border: 1px solid var(--isd-rule);
+}
+
+body.isd-on .kanban .kanban-column-header {
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--isd-rule);
+}
+
+body.isd-on .kanban .kanban-column-title {
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+/* "+ Add <Doc>": a ghost row, the action reads in the accent */
+body.isd-on .kanban .add-card {
+	background: transparent !important;
+	border: 1px dashed var(--isd-rule-strong) !important;
+	border-radius: var(--isd-radius) !important;
+	box-shadow: none !important;
+	color: var(--isd-accent-text) !important;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+body.isd-on .kanban .add-card:hover {
+	border-color: var(--isd-accent-strong) !important;
+	background: var(--isd-surface) !important;
+}
+
+body.isd-on .kanban .kanban-card:not(.add-card):not(.new-card-area) {
+	background: var(--kanban-card-bg);
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	box-shadow: none;
+	color: var(--isd-ink);
+	transition: border-color 120ms var(--isd-ease);
+}
+
+body.isd-on .kanban .kanban-card:not(.add-card):not(.new-card-area):hover {
+	border-color: var(--isd-accent-strong);
+}
+
+body.isd-on .kanban .kanban-card .kanban-title-area,
+body.isd-on .kanban .kanban-card .kanban-card-title {
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+body.isd-on .kanban .kanban-card-meta,
+body.isd-on .kanban .kanban-card-doc {
+	color: var(--isd-ink-3);
+	font-size: 12px;
+}
+
+body.isd-on .kanban .new-card-area textarea {
+	border: 1px solid var(--isd-accent-strong);
+	border-radius: var(--isd-radius);
+	background: var(--isd-surface);
+	color: var(--isd-ink);
+}
+
+/* "+ Add Column" */
+body.isd-on .kanban .add-new-column {
+	background: transparent;
+	border: 1px dashed var(--isd-rule-strong);
+}
+
+body.isd-on .kanban .add-new-column .compose-column a {
+	color: var(--isd-accent-text);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+body.isd-on .kanban .add-new-column:hover {
+	border-color: var(--isd-accent-strong);
+}
+
+/* ---- Image view ---- */
+body.isd-on .image-view-container {
+	gap: 12px;
+}
+
+body.isd-on .image-view-container .image-view-item {
+	margin: 0;
+	background: var(--isd-surface);
+	border: 1px solid var(--isd-rule);
+	border-radius: var(--isd-radius);
+	overflow: hidden;
+	transition: border-color 120ms var(--isd-ease);
+}
+
+body.isd-on .image-view-container .image-view-item:hover {
+	border-color: var(--isd-accent-strong);
+}
+
+/* no picture: a quiet tile with the initials, not a heavy grey block */
+body.isd-on .image-view-container .image-view-body.no-image {
+	background: var(--isd-hover);
+}
+
+body.isd-on .image-view-container .image-view-body.no-image .image-field {
+	background: transparent;
+}
+
+body.isd-on .image-view-container .placeholder-text {
+	background: transparent;
+	color: var(--isd-ink-3);
+	font-weight: 600;
+}
+
+body.isd-on .image-view-container .image-view-footer {
+	padding: 8px 10px 10px;
+}
+
+body.isd-on .image-view-container .image-title a {
+	color: var(--isd-ink);
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+body.isd-on .image-view-container .image-view-info {
+	color: var(--isd-ink-3);
+	font-size: 12px;
+}
