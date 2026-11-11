@@ -324,6 +324,14 @@ body.isd-on.isd-form .page-container .form-layout .has-error .form-control {
 	border-color: var(--isd-bad);
 }
 
+/* it stays red while being filled: the blue focus ring would read as "fixed" */
+body.isd-on.isd-form .page-container .form-layout .has-error .frappe-control .form-control:focus,
+body.isd-on.isd-form .page-container .form-layout .frappe-control.has-error .form-control:focus,
+body.isd-on.isd-form .page-container .form-layout .has-error .form-control:focus {
+	border-color: var(--isd-bad);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--isd-bad) 22%, transparent);
+}
+
 body.isd-on.isd-form .page-container .form-layout .has-error .control-label {
 	color: var(--isd-bad);
 }

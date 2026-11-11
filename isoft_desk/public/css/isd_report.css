@@ -169,8 +169,13 @@ body.isd-on .isd-qr .page-form .checkbox {
 }
 
 /* a mandatory filter left empty says so at the field */
-body.isd-on .isd-qr .page-form .has-error .form-control {
+body.isd-on .isd-qr .page-form .has-error .form-control,
+body.isd-on .isd-qr .page-form .has-error .form-control:focus {
 	border-color: var(--isd-bad);
+}
+
+body.isd-on .isd-qr .page-form .has-error .form-control:focus {
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--isd-bad) 22%, transparent);
 }
 
 /* ---- header: the tools live in the menu (core already lists them there) ---- */
