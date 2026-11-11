@@ -1,4 +1,4 @@
-// ISOFT Desk list toolbar for the List and Report views: the list's standard
+// ISOFT Desk list toolbar for the List, Report and Image views: the list's standard
 // filters always in view, in core's order, and one chip per filter set through core's
 // Filter button. It is built from core's own filter controls (moved, never
 // copied), so filtering behaves exactly as in core.
@@ -8,7 +8,7 @@
 
 	const core = window.isd_core;
 	const t = (text, replace) => __(text, replace, "ISOFT Desk");
-	const VIEWS = ["List", "Report"];
+	const VIEWS = ["List", "Report", "Image"];
 	const SIDEBAR_KEY = "isd_list_sidebar";
 	const DOCSTATUS = { 0: "Draft", 1: "Submitted", 2: "Cancelled" };
 

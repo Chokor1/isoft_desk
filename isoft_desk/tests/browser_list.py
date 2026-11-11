@@ -106,7 +106,7 @@ def run(site, sid, shots):
 			errors = []
 			page.on("pageerror", lambda e: errors.append(str(e)))
 			tag = f"{theme}-{w}"
-			for route in ["/app/sales-invoice", "/app/item", "/app/sales-invoice/view/report"]:
+			for route in ["/app/sales-invoice", "/app/item", "/app/sales-invoice/view/report", "/app/item/view/image"]:
 				page.goto(f"https://{site}{route}", wait_until="networkidle", timeout=90000)
 				page.evaluate(f"document.documentElement.setAttribute('data-theme','{theme}')")
 				page.wait_for_timeout(2000)
@@ -122,7 +122,7 @@ def run(site, sid, shots):
 					# the card ends a small margin above the window, and the page itself never scrolls
 					check(s["gap_below"] is not None and 8 <= s["gap_below"] <= 24, f"{tag} {route}: {s['gap_below']}px under the card")
 					check(s["page_scroll"] <= 0, f"{tag} {route}: the page scrolls {s['page_scroll']}px")
-				if w > 800 and "report" not in route:
+				if w > 800 and "/view/" not in route:
 					check(s["cut_amounts"] == 0, f"{tag} {route}: {s['cut_amounts']} amounts cut")
 					check(s["row_h"] == 36, f"{tag} {route}: rows are {s['row_h']}px")
 					check(s["misaligned"] <= 2, f"{tag} {route}: header and row columns {s['misaligned']}px apart")

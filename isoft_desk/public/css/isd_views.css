@@ -282,6 +282,9 @@ body.isd-on .kanban .add-new-column:hover {
 /* ---- Image view ---- */
 body.isd-on .image-view-container {
 	gap: 12px;
+	/* the tiles scroll inside the card (isd_list.js sizes it to the window),
+	   with the card's own gutter around them */
+	padding: 12px 14px;
 }
 
 body.isd-on .image-view-container .image-view-item {
