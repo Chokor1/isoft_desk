@@ -51,6 +51,7 @@
 		if (restyled(this) && this.filter_area && !this.hide_page_form) {
 			this.page.wrapper.addClass("isd-list");
 			this.isd_bar = new ListBar(this);
+			setup_fit(this);
 		}
 		return out;
 	});
@@ -80,6 +81,70 @@
 					this.set_result_height && this.set_result_height();
 				}
 			}
+			return out;
+		};
+	}
+
+	// the card ends a small margin above the window's bottom edge whatever the
+	// rows: the part that shows (rows, the "nothing found" message or the Report
+	// view grid's scroll area) stretches or shrinks to fill the room left. Core's
+	// sizing measures scrollHeight, which is never below the window, so a short
+	// list stopped at 240px; and the Report view grid used a fixed calc(100vh - 250px)
+	// that ignored the toolbar, so its card ran past the window
+	const FIT_MARGIN = 16;
+
+	function fit_to_window(list) {
+		if (!restyled(list) || !list.$frappe_list) return;
+		const card = list.$frappe_list.closest(".layout-main-section")[0];
+		if (!card || !card.offsetParent) return;
+		const $grid = list.view_name === "Report" && list.$result.is(":visible")
+			? list.$result.find(".dt-scrollable").first() : $();
+		const $box = $grid.length ? $grid : [list.$result, list.$no_result].find($el => $el && $el.is(":visible"));
+		if (!$box || !$box.length) return;
+		const box = $box[0];
+		if ($grid.length) {
+			// the result wraps the grid: it takes the grid's height, the grid scrolls
+			list.$result.css({ height: "", "min-height": "0", "overflow-y": "", "overflow-x": "" });
+		}
+		const room = window.innerHeight - FIT_MARGIN - (card.getBoundingClientRect().bottom + window.scrollY);
+		const height = Math.max(Math.round(box.getBoundingClientRect().height + room), $grid.length ? 160 : 240);
+		if (Math.abs(height - box.getBoundingClientRect().height) < 1) return;
+		box.style.setProperty("height", `${height}px`, "important");
+		box.style.setProperty("min-height", "0", "important");
+		box.style.setProperty("max-height", "none", "important");
+		if (!$grid.length) {
+			box.style.overflowY = "auto";
+			box.style.overflowX = "hidden";
+		}
+	}
+
+	function setup_fit(list) {
+		if (!restyled(list) || list.isd_fit) return;
+		let frame = null;
+		list.isd_fit = () => {
+			if (frame) return;
+			frame = requestAnimationFrame(() => {
+				frame = null;
+				fit_to_window(list);
+			});
+		};
+		// core's resize handler, after_render and the bulk bar call this name
+		list.set_result_height = list.isd_fit;
+		$(window).on(`resize.isd_fit_${frappe.scrub(list.doctype)}_${list.view_name}`, list.isd_fit);
+		if (window.ResizeObserver) {
+			// rows arriving, a rebuilt Report grid, its chart, filters wrapping
+			const watch = new ResizeObserver(list.isd_fit);
+			list.page.wrapper.find(".page-form, .layout-main-section").each((i, el) => watch.observe(el));
+		}
+		list.isd_fit();
+	}
+
+	// the List view sets up core's own sizing after the filter area: take the name back
+	const setup_scrollable_result = list_proto.setup_scrollable_result;
+	if (setup_scrollable_result) {
+		list_proto.setup_scrollable_result = function (...args) {
+			const out = setup_scrollable_result.apply(this, args);
+			if (this.isd_fit) this.set_result_height = this.isd_fit;
 			return out;
 		};
 	}

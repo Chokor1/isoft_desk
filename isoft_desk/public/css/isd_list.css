@@ -572,3 +572,11 @@ body.isd-on .isd-list .list-paging-area .level-left {
 		transition: none;
 	}
 }
+
+/* frappe-datatable measures text with hidden divs it appends to <body> and never
+   removes (dom.js measureTextWidth); after the page content they made a window
+   that fits exactly scroll by ~20px. Pinned to the corner, they take no room */
+body.isd-on > div[style*="visibility: hidden"][style*="white-space: nowrap"][style*="position: absolute"] {
+	top: 0;
+	left: 0;
+}

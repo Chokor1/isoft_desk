@@ -38,8 +38,9 @@ STATE = """(() => {
 			const f = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .page-form, .isd-list .page-form');
 			return c && f ? [getComputedStyle(c).backgroundColor, getComputedStyle(f).backgroundColor] : null; })(),
 		row_h: (document.querySelector('.isd-list .result .list-row') || {}).offsetHeight || null,
-		gap_below: (() => { const c = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .layout-main-section, .isd-list .layout-main-section');
+		gap_below: (() => { const c = [...document.querySelectorAll('.isd-list .layout-main-section')].find(e => e.offsetParent);
 			return c ? Math.round(innerHeight - c.getBoundingClientRect().bottom) : null; })(),
+		page_scroll: document.documentElement.scrollHeight - innerHeight,
 		bar_h: [...document.querySelectorAll('.isd-lbar')].filter(e => e.offsetParent).map(e => e.offsetHeight)[0] || null,
 		misaligned: (() => {
 			const pos = el => el ? [...el.querySelectorAll(':scope > .level-left > .list-row-col:not(.hide)')]
@@ -117,10 +118,13 @@ def run(site, sid, shots):
 				check(not s["standard_hidden"], f"{tag} {route}: standard filters hidden {s['standard_hidden']}")
 				check(s["card_bg"] and s["card_bg"][0] == s["card_bg"][1], f"{tag} {route}: rows on {s['card_bg']} (card vs toolbar)")
 				check(s["sidebar_hidden"], f"{tag} {route}: Filter By column is open")
+				if w > 800:
+					# the card ends a small margin above the window, and the page itself never scrolls
+					check(s["gap_below"] is not None and 8 <= s["gap_below"] <= 24, f"{tag} {route}: {s['gap_below']}px under the card")
+					check(s["page_scroll"] <= 0, f"{tag} {route}: the page scrolls {s['page_scroll']}px")
 				if w > 800 and "report" not in route:
 					check(s["cut_amounts"] == 0, f"{tag} {route}: {s['cut_amounts']} amounts cut")
 					check(s["row_h"] == 36, f"{tag} {route}: rows are {s['row_h']}px")
-					check(s["gap_below"] is not None and s["gap_below"] <= 24, f"{tag} {route}: {s['gap_below']}px empty under the list")
 					check(s["misaligned"] <= 2, f"{tag} {route}: header and row columns {s['misaligned']}px apart")
 				if shots:
 					name = route.strip("/").replace("/", "_")
@@ -143,6 +147,24 @@ def run(site, sid, shots):
 					s = page.evaluate(STATE)
 					check(s["filters"] == before - 1, f"removing a chip left {s['filters']} filters (was {before})")
 					check(s["chips"] == before_chips, f"chips after removal {s['chips']} != {before_chips}")
+
+				# a short list still fills the window, also after the window grows (full screen)
+				for route in ["/app/sales-invoice", "/app/sales-invoice/view/report"]:
+					page.goto(f"https://{site}{route}", wait_until="networkidle", timeout=90000)
+					page.wait_for_timeout(1500)
+					page.evaluate("cur_list.filter_area.add([[cur_list.doctype, 'name', 'in', cur_list.data.slice(0, 3).map(d => d.name)]])")
+					page.wait_for_timeout(2000)
+					for vh in [h, h + 256]:
+						page.set_viewport_size({"width": w, "height": vh})
+						page.wait_for_timeout(1200)
+						s = page.evaluate(STATE)
+						check(s["gap_below"] is not None and 8 <= s["gap_below"] <= 24, f"{tag} {route} 3 rows at {vh}px: {s['gap_below']}px under the card")
+						check(s["page_scroll"] <= 0, f"{tag} {route} 3 rows at {vh}px: the page scrolls {s['page_scroll']}px")
+					page.set_viewport_size({"width": w, "height": h})
+					page.evaluate("cur_list.filter_area.clear()")
+					page.wait_for_timeout(1500)
+				page.goto(f"https://{site}/app/sales-invoice", wait_until="networkidle", timeout=90000)
+				page.wait_for_timeout(1500)
 
 				# a filter set in a standard field shows in that field (marked filled), not as a chip
 				before_chips = page.evaluate(STATE)["chips"]
