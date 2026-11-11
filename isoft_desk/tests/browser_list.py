@@ -33,6 +33,10 @@ STATE = """(() => {
 			.filter(e => !e.offsetParent || e.getBoundingClientRect().width < 60).map(e => e.dataset.fieldname),
 		standard_count: [...document.querySelectorAll('.page-container:not([style*="display: none"]) .isd-lbar .standard-filter-section > .frappe-control')].length,
 		cut_amounts: cut,
+		// the rows sit on the desk surface, the colour of the toolbar above them
+		card_bg: (() => { const c = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .layout-main-section.frappe-card, .isd-list .layout-main-section.frappe-card');
+			const f = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .page-form, .isd-list .page-form');
+			return c && f ? [getComputedStyle(c).backgroundColor, getComputedStyle(f).backgroundColor] : null; })(),
 		row_h: (document.querySelector('.isd-list .result .list-row') || {}).offsetHeight || null,
 		gap_below: (() => { const c = document.querySelector('.page-container:not([style*="display: none"]) .isd-list .layout-main-section, .isd-list .layout-main-section');
 			return c ? Math.round(innerHeight - c.getBoundingClientRect().bottom) : null; })(),
@@ -111,6 +115,7 @@ def run(site, sid, shots):
 				check(s["order"] == s["core_order"], f"{tag} {route}: filters out of core's order {s['order']}")
 				check(s["standard_count"] > 0, f"{tag} {route}: standard filters not in the toolbar")
 				check(not s["standard_hidden"], f"{tag} {route}: standard filters hidden {s['standard_hidden']}")
+				check(s["card_bg"] and s["card_bg"][0] == s["card_bg"][1], f"{tag} {route}: rows on {s['card_bg']} (card vs toolbar)")
 				check(s["sidebar_hidden"], f"{tag} {route}: Filter By column is open")
 				if w > 800 and "report" not in route:
 					check(s["cut_amounts"] == 0, f"{tag} {route}: {s['cut_amounts']} amounts cut")

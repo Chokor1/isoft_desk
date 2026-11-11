@@ -239,6 +239,13 @@ body.isd-on .isd-list .list-row .file-select {
 	padding: 0 0 0 14px;
 }
 
+/* the card the rows sit on takes the desk surface: core's card is a neutral
+   grey in dark mode (#1c2126) that clashed with the slate header and toolbar */
+body.isd-on .isd-list .layout-main-section.frappe-card {
+	background: var(--isd-surface);
+	border-color: var(--isd-rule);
+}
+
 body.isd-on .isd-list .list-row-container {
 	border-bottom: 1px solid var(--isd-rule);
 }

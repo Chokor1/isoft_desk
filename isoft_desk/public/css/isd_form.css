@@ -349,6 +349,17 @@ body.isd-on.isd-form .page-container .form-layout .form-grid .grid-heading-row {
 	font-weight: 500;
 }
 
+/* body and footer on the desk surface, like the heading: core paints them
+   --fg-color, a neutral grey in dark mode (#1c2126) under a slate heading */
+body.isd-on.isd-form .page-container .form-layout .form-grid .grid-body,
+body.isd-on.isd-form .page-container .form-layout .grid-footer {
+	background-color: var(--isd-surface);
+}
+
+body.isd-on.isd-form .page-container .form-layout .grid-footer {
+	border-radius: 0 0 var(--isd-radius) var(--isd-radius);
+}
+
 body.isd-on.isd-form .page-container .form-layout .form-grid .rows .grid-row {
 	border-bottom: 1px solid var(--isd-rule);
 }
