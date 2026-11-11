@@ -16,9 +16,35 @@ body.isd-on .isd-ws {
 	font-variant-numeric: tabular-nums;
 }
 
-body.isd-on .isd-ws-loading {
-	padding: 24px 0;
-	color: var(--isd-ink-2);
+/* loading: the page's own layout in shimmering bars, never core's old cards */
+body.isd-on .isd-ws-skeleton {
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+}
+
+body.isd-on .isd-tile-skel {
+	gap: 8px;
+	pointer-events: none;
+}
+
+body.isd-on .isd-skel.isd-skel-line {
+	height: 10px;
+	margin: 0;
+}
+
+body.isd-on .isd-card .isd-skel.isd-skel-line {
+	margin: 0 0 14px;
+}
+
+body.isd-on .isd-card .isd-skel.isd-skel-line:first-child {
+	height: 11px;
+	margin-bottom: 20px;
+}
+
+body.isd-on .isd-skel.isd-skel-chip {
+	height: 30px;
+	margin: 0;
 }
 
 body.isd-on .isd-ws-onboarding:empty {

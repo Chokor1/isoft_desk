@@ -50,6 +50,24 @@
 		}
 	}
 
+	// the module page's shape while its data loads: waiting tiles, shortcut
+	// chips and link columns, on the page's own grids
+	function loading_skeleton() {
+		const bar = (w) => `<span class="isd-skel isd-skel-line" style="width:${w}%"></span>`;
+		const tile = `<div class="isd-tile isd-tile-skel" aria-hidden="true">
+			<span class="isd-skel"></span>${bar(70)}${bar(45)}
+		</div>`;
+		const column = `<div class="isd-card" aria-hidden="true">
+			${bar(55)}${[80, 65, 75, 60, 70].map(bar).join("")}
+		</div>`;
+		return `<div class="isd-ws-skeleton" role="status" aria-label="${esc(t("Loading..."))}">
+			<section class="isd-waiting">${tile.repeat(4)}</section>
+			<nav class="isd-quick" aria-hidden="true">${[90, 120, 140, 100, 110].map(
+				(w) => `<span class="isd-skel isd-skel-chip" style="width:${w}px"></span>`).join("")}</nav>
+			<section class="isd-index">${column.repeat(4)}</section>
+		</div>`;
+	}
+
 	frappe.standard_pages["Workspaces"] = function () {
 		const wrapper = frappe.container.add_page("Workspaces");
 		frappe.ui.make_app_page({ parent: wrapper, name: "Workspaces", title: t("Workspace") });
@@ -142,10 +160,9 @@
 		}
 
 		reload() {
-			// core's workspace skeleton keeps the page from blanking between modules
-			this.$el.html(frappe.templates.workspace_loading_skeleton
-				? frappe.render_template("workspace_loading_skeleton")
-				: `<div class="isd-ws-loading">${esc(t("Loading..."))}</div>`);
+			// a skeleton of this page's own layout keeps the page from blanking between
+			// modules (core's skeleton would flash the old v13 cards)
+			this.$el.html(loading_skeleton());
 			frappe.xcall("frappe.desk.desktop.get_desktop_page", { page: this.name }).then((data) => {
 				if (!data || !Object.keys(data).length) {
 					// no access or no such workspace: same fallback as core
